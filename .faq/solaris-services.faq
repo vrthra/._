@@ -1,0 +1,2 @@
+svcadm disable webconsole (stupid java process)
+svcadm enable telnet

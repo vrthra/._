@@ -1,0 +1,1 @@
+run /etc/rc.d/ypupdated to refresh the cache

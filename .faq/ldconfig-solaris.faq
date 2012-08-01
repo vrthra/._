@@ -1,0 +1,9 @@
+*** WARNING Use with care ***
+
+#crle
+Default configuration file (/var/ld/ld.config) not found
+  Default Library Path (ELF):   /lib:/usr/lib  (system default)
+  Trusted Directories (ELF):    /lib/secure:/usr/lib/secure  (system default)
+
+*** -l needs all library paths not just the one you are trying to add ***
+#crle -l /lib:/usr/lib:/usr/local/lib

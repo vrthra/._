@@ -1,0 +1,30 @@
+-p loops over the input and print every thing by default
+-n the opposite
+-a enables autosplit of @F array
+-O input record spearator
+-F Field sep
+-M load any module
+-----------------------------------------
+$ echo a b c | perl -lane 'print "@F[-2,-1]"'
+b c
+perl -F: -lane 'print $F[0] if !/^#/' /etc/passwd
+-----------------------------------------
+inplace edit
+perl -pi -e 's/xxx/yyy/gi' file.txt
+perl -pi.bak -e 's/xxx/yyy/gi' *.txt
+-----------------------------------------
+# delete all but lines beween START and END
+perl -i.old -ne 'print unless /^START$/ .. /^END$/' foo.txt
+perl -i.old -ne 'print unless 10 .. 20' foo.txt
+perl -i.old -ne 'print if 10 .. 20' foo.txt
+-----------------------------------------
+
+checkout ~/.perldb for customizing perldebugger
+
+$DB::alias{'len'}  = 's/^len(.*)/p length($1)/';
+$DB::alias{'stop'} = 's/^stop (at|in)/b/';
+$DB::alias{'ps'}   = 's/^ps\b/p scalar /';
+$DB::alias{'quit'} = 's/^quit(\s*)/exit/';
+#parse_options("AutoTrace=1");
+#sub afterinit { b main }
+==================================

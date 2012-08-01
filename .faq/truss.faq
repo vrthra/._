@@ -1,0 +1,17 @@
+truss -p pid
+-f include children systemcalls
+-c count system calls
+-a arg strings for exec calls
+-d timestamp
+-D delta time
+
+-t [!] syscall - syscall to trace
+-T - suspend when called.
+-v[!]syscall - verbose
+-r[!]fd - show contents of IO buffer for each read
+-w -same for each write
+-u[!]<lib.so>,funct - trace user level function calls
+-U
+
+----
+truss -t open,close,read,write find . -print >find.out 

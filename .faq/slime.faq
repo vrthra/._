@@ -1,0 +1,16 @@
+http://technotales.wordpress.com/2007/10/03/like-slime-for-vim/
+with slime.vim http://s3.amazonaws.com/mps/slime.vim
+
+start a screen
+screen -S s0
+
+C-X A w01
+start shell
+
+on vim,
+yy
+^c ^c
+(tab completes window name)
+
+reprompt session name
+^c v

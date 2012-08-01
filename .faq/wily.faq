@@ -1,0 +1,39 @@
+use [wily -fn fixed]
+
+Cut/Paste
+======================
+
+B1+B2 -> Cut
+B1+B3 -> Paste
+
+Exec with args
+======================
+Commands window
+-------
+|sort
+|wc -c
+
+select the text,
+B2+B1 on the above.
+
+Use a commands window
+====================
+<ls -alt   # replace with, (use text as argument)
+>wc -l     # feed into it, but give a new window
+| gvim     # pipe through and replace
+date        # create new window
+
+on the text window, select using B1
+on the commands window select command using [B2...]B1
+
+Open a file
+===========
+#[ ]() is sweep
+
+config.h.in
+
+B3 will open config.h.in
+
+[B3....](config.h) will open config.h
+
+

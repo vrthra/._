@@ -1,0 +1,3 @@
+csplit file 100 {10} #would split the file every 100 lines.
+csplit pmlog '/^[-]\{1,\}$/' {10} #split the file according to regexp
+{xx} is the number of parts

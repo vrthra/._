@@ -1,0 +1,10 @@
+zc close
+zo open
+za toggle
+
+zC
+zO
+zA
+
+zR - open all folds
+zM - close all folds

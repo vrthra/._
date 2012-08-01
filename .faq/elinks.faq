@@ -1,0 +1,11 @@
+# searches the links
+/ searches the document with n as next
+typing a number before an action repeats it
+ie 3 ] moves 3 history.
+
+L gives you link context menu.
+
+# searches incrementaly for text in links.
+ and up and down arrow remembers the history of incremental search.
+
+() and {} , f, b for link navigation.

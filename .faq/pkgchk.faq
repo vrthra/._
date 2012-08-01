@@ -1,0 +1,1 @@
+pkgchk -p /usr/apache2/2.2/bin/apachectl -l

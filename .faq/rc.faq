@@ -1,0 +1,10 @@
+contrib/install ... >[2=1] | cat > log
+
+wget http://www.tar.gz => hget http://www.tar.gz > www.tar.gz
+
+problems:
+1) No way to set individual array values
+2) Set env values are not reflected in rc $val
+3) cat /env/$arr is not same as echo $arr for arrays
+  -actually it is.
+4) No nesting of values permitted.

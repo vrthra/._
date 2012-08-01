@@ -1,0 +1,2 @@
+dropbear -s -g -F
+ssh -i id_rsa_openssh <ip>

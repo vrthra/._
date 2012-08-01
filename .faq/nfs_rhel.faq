@@ -1,0 +1,13 @@
+disable v4
+/etc/sysconfig/nfs
+RPCNFSDARGS="--no-nfs-version 4"
+/etc/exports
+/opt/ns *(rw,insecure,root_squash)
+service nfs restart
+exportfs -va
+
+
+nfs mount: mount: /vm: Not owner
+zsh: exit 33    sudo mount formula1.india.sun.com:/vm /vm
+|sudo mount -F nfs -o vers=3 formula1.india.sun.com:/vm /vm
+

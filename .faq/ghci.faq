@@ -1,0 +1,14 @@
+:!clear
+
+:set -fbreak-on-exception
+:trace mymain myargs
+:history
+
+ghc-pkg hide monads-fd
+
+{-# LANGUAGE PackageImports #-} 
+import "mtl" Control.Monad.State
+
+stack trace 
+ghc  --make -prof -auto-all
+ +RTS -xc -RTS

@@ -1,0 +1,10 @@
+#show all diffs between a repo
+hg outgoing -p 'ssh://anon@hg.opensolaris.org/hg/webstack/wsbuild'
+
+mq
+hg qseries -v
+hg qpush, qpop
+
+hg qrefresh -e
+
+hg qdelete -r qbase:qtip

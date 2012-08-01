@@ -1,0 +1,22 @@
+rubber
+
+#! /bin/bash
+path=("/home/homo_sapiens/programming/cing/");
+file=(${path}${1}.cpp);
+([[ -f "$file" ]] || cp "${path}deflittlec.cpp" "${file}");
+(while true; do
+    inotifywait -qqe modify "${file}";
+    g++ "$file" -o"${path}e$1" && "${path}e$1";
+done;)&
+geany -i "${file}"; killall littlec.sh
+
+bibtex comments
+- anything that does not start with @
+- variables @string(x = "xx")
+
+latex highlight
+soul package \hl{}
+
+\usepackage{soul}
+To highlight text in the body of your document, use
+\hl{this is some highlighted text}

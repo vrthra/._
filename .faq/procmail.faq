@@ -1,0 +1,34 @@
+The .forward  file should contain:
+"|IFS=' ' && exec /usr/bin/procmail -f- || exit 75 #user"
+
+cd ~
+chmod 644 .forward
+chmod go-w,a+x .
+
+====
+debug
+formail -s procmail experiments.rc < test.mbox
+
+procmail: Suspicious rcfile
+chmod 0640 ~/.procmailrc
+
+c - Carbon Copy (continue)
+:0c
+backup
+
+a (A) - If the preceding recipe matched then do this one
+:0c
+* TO ?? zombie
+!zombie@undead
+
+# notice that we don't have to specify a condition for the next rule
+
+:0a
+alsome
+
+! - invert the condition
+:0
+* TO ?? zombie
+* !^Subject: .*death.*
+god
+

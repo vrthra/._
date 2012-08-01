@@ -1,0 +1,28 @@
+-b file = True if the file exists and is block special file. 
+-c file = True if the file exists and is character special file. 
+-d file = True if the file exists and is a directory. 
+-e file = True if the file exists. 
+-f file = True if the file exists and is a regular file 
+-g file = True if the file exists and the set-group-id bit is set. 
+-k file = True if the files' "sticky" bit is set. 
+-L file = True if the file exists and is a symbolic link. 
+-p file = True if the file exists and is a named pipe. 
+-r file = True if the file exists and is readable. 
+-s file = True if the file exists and its size is greater than zero. 
+-s file = True if the file exists and is a socket. 
+-t fd = True if the file descriptor is opened on a terminal. 
+-u file = True if the file exists and its set-user-id bit is set. 
+-w file = True if the file exists and is writable. 
+-x file = True if the file exists and is executable. 
+-O file = True if the file exists and is owned by the effective user id. 
+-G file = True if the file exists and is owned by the effective group id. 
+file1 ?nt file2 = True if file1 is newer, by modification date, than file2. 
+file1 ot file2 = True if file1 is older than file2. 
+file1 ef file2 = True if file1 and file2 have the same device and inode numbers. 
+-z string = True if the length of the string is 0. 
+-n string = True if the length of the string is non-zero. 
+string1 = string2 = True if the strings are equal. 
+string1 != string2 = True if the strings are not equal. 
+!expr = True if the expr evaluates to false. 
+expr1 ?a expr2 = True if both expr1 and expr2 are true. 
+expr1 ?o expr2 = True is either expr1 or expr2 is true.

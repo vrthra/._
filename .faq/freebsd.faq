@@ -1,0 +1,45 @@
+To find out from which package the binary comes try: pkg_info -W _binary_
+
+upgrade procedure:
+First upgrade the portupgrade
+==============================
+
+cd /usr/ports/<*>/portupgrade
+make ; make install
+portupgrade portupgrade
+
+now, update your ports tree
+===========================
+mv /usr/ports /usr/ports.old
+portsnap fetch;portsnap extract
+
+verify and rebuild
+==================
+pkgdb -F ; pkgdb -Ff ; pkgdb -fu
+
+check the versions
+=================
+pkg_version -v
+
+prune if necessary
+=================
+cd /usr/ports/<*>/pkg_cutleaves; make ; make install
+pkg_cutleaves -V
+
+upgrade the ports
+====================
+fetch:
+portupgrade -Fa
+doit:
+portupgrade -a --batch
+
+
+make showconfig
+make config
+make rmconfig
+
+
+increase shm | shared memory
+sysctl -A | grep shm
+sysctl kern.ipc.shmmax=536870912
+

@@ -1,0 +1,51 @@
+EHLO www190.india.sun.com
+250-www190.India.Sun.COM Hello localhost.localdomain [127.0.0.1], pleased to meet you
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-8BITMIME
+250-SIZE
+250-DSN
+250-ETRN
+250-AUTH GSSAPI
+250-DELIVERBY
+250 HELP
+MAIL FROM: proxybld@www190.india.sun.com
+250 2.1.0 proxybld@www190.india.sun.com... Sender ok
+RCPT TO: rn151090@agneyam.india.sun.com
+250 2.1.5 rn151090@agneyam.india.sun.com... Recipient ok
+DATA
+354 Enter mail, end with "." on a line by itself
+abcd
+efgh
+.
+250 2.0.0 k7CHwDl7026638 Message accepted for delivery
+QUIT
+---------------------------------
+S: 220 www.example.com ESMTP Postfix
+C: HELO mydomain.com
+S: 250 Hello mydomain.com
+C: MAIL FROM:<sender@mydomain.com>
+S: 250 Ok
+C: RCPT TO:<friend@example.com>
+S: 250 Ok
+C: DATA
+S: 354 End data with <CR><LF>.<CR><LF>
+C: Subject: test message
+C: From: sender@mydomain.com
+C: To: friend@example.com
+C:
+C: Hello,
+C: This is a test.
+C: Goodbye.
+C: .
+S: 250 Ok: queued as 12345
+C: QUIT
+S: 221 Bye
+----------------------------------
+S: 220-serverdomain.com ESMTP {postfix version and date}
+S: 220 NO UCE. {etc., terms of service}
+C: EHLO mydomain.com
+S: 250-serverdomain.com Hello mydomain.com [127.0.0.1]
+S: 250-SIZE 14680064
+S: 250-PIPELINING
+S: 250 HELP

@@ -1,0 +1,54 @@
+#AS
+gdb) disassemble _start
+/usr/src/sys/kern/syscalls.master
+
+movzx => movzSD (=> movzbw)
+
+section:[immediate32 + baseptr + index*scale] =>
+section:disp(%base, %index, scale)  <scale == 1 by default>
+
+AT&T: `-4(%ebp)', Intel: `[ebp - 4]'
+    base is `%ebp'; disp is `-4'. section is missing, and the
+    default section is used
+    (`%ss' for addressing with `%ebp' as the base register).
+    index, scale are both missing. 
+
+AT&T: `foo(,%eax,4)', Intel: `[foo + eax*4]'
+    index is `%eax' (scaled by a scale 4); disp is `foo'. All other
+    fields are missing. The section register here defaults to `%ds'. 
+
+AT&T: `foo(,1)'; Intel `[foo]'
+    This uses the value pointed to by `foo' as a memory operand. Note
+    that base and index are both missing, but there is only one `,'.
+    This is a syntactic exception. 
+
+AT&T: `%gs:foo'; Intel `gs:foo'
+    This selects the contents of the variable `foo' with section
+    register section being `%gs'.
+
+===================
+AT&T => intel
+# a c variable _booga
+_booga => [_booga]
+(%eax) => [eax]
+_var(%eax) => [eax + _var]
+
+# addressing a value in array of int (scal factor 4)
+_array(,%eax,4) => [eax*4 + array]
+
+# *(p+1) where p is char* and eax has p
+1(%eax) => [eax + 1]
+
+_struct_ptr + 8 => ?
+
+#address a particular char in an array of 8 char record
+#eax holds record number ebx has wanted chars offset within record.
+_array(%ebx,%eax,8) => [ebx + eax*8 + _array]
+# you can also put esp into address as base register.
+
+(gdb) break start        # stop execution at address "start"
+(gdb) display /i $pc     # print the current assembly instruction
+(gdb) display $o0        # print contents of register %o0
+(gdb) display $l1        # print contents of register %l1
+(gdb) run < file         # start execution
+(gbd) nexti    

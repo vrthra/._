@@ -1,0 +1,168 @@
+history
+------------------
+current line
+!#:0    command
+!#^     first parameter
+!#:1    first parameter
+!#:1-4  first 4 parameters
+!#$     last parameter
+!#*     all parameters
+!#$:s/bash/zsh perform substitution on previous parameter
+
+history
+!-1     repeat whole command
+!!      repeat (shortcut)
+!:0     command
+!^      first parameter
+!:1     first parameter
+!:1-4   first 4 parameters
+!$      last parameter
+!*      all parameters
+!!:s/bash/zsh (or ^bash^zsh)
+!^:t    just file name of first parameter
+!$:h    just path of last parameter
+!-2$:r  just file name without extension of first parameter
+
+------------------
+vared PATH
+#exclusion
+ls *~*.* #~ is exclusion, so get all * where * != *.*
+#directoris & files & not files & symlinks
+ls *(/) ls *(.) ls *(^.) ls -l *(@)
+#all files modified today
+ls -ld *(m0) #notice m0
+#yesterday
+ls -ld *(m1)
+#and so on
+ls -ld *(m-2) #last 2 days
+#empty dirs
+ls -ld *(/^F)
+#more numbers
+ls fred{09-13}.pl
+ls fred{joe,sid}.pl
+
+#numerical
+ls notes<1-5>.txt
+#brace expansion The <> expansion is used only for matching
+touch logfile.9908{01..31}.tmp
+print zle_{tricky,vi,word}.c
+print {now,th{en,ere{,abouts}}}
+
+#using last argument of previous command
+ls /tmp
+cd !*<TAB>
+
+#save current working dir
+-------.zshrc----------
++ () {
+    export "$1"=$(pwd)
+}
+-----------------------
+#save current dir under the name var
++ var
+#move to a different dir
+cd ../xxx./yy/xx
+#come back to the saved
+~var
+or
+$var
+#calculator
+print $((2 * 3))
+#put text into execution line
+print -z $HOME/me
+#find
+ls **/*.gz
+#all suid
+ls -l /**/*(su0x)
+#autocomplete
+compctl -g 'a b c' cmd
+cmd <TAB>
+#directory substitution. note the way lib is chaned to include
+pwd = netsite/lib/libproxy
+cd lib include
+pwd = netsite/include/libproxy
+#~1 is first entry in pushd stack
+cp file ~1 
+
+#magic
+ls =file #file any where in $PATH
+
+# zmv "programmable rename"
+# Replace spaces in filenames with a underline
+zmv '* *' '$f:gs/ /_'
+# Change the suffix from *.sh to *.pl
+zmv -W '*.sh' '*.pl'
+# lowercase/uppercase all files/directories
+$ zmv '(*)' '${(L)1}' # lowercase
+$ zmv '(*)' '${(U)1}' # uppercase
+for i in **/*.gif ; do convert $i ${i:r}.png ; done
+for i in **/*.gif; convert $i $i:r.png
+
+chmod 755 **/*(/)
+chmod 644 **/*(.)
+dirs -v
+cd +1
+
+!:0 is the previous command name
+!^, !:2, !:3, ?, !$ are the arguments
+!* is all the arguments
+!-2, !-3, ? are earlier commands
+!-2^, !-2:2, !-2$, !-2*
+
+ls -a -l -t
+!!:s/ls/pwd/
+-> ls with pwd
+!?echo => last echo
+
+cd !?ls\t
+cd !?ls?:*\t
+
+
+
+#subprocess
+diff -u =(ls ~) =(ls /tmp)
+cat < <(echo This is output)
+
+# Don't do this, do the other.
+process_cmd `cat file_arguments`
+# Do do this, don't do the other
+process_cmd $(<file_arguments)
+
+#vimode
+bindkey -v 
+esc, 
+/search
+ma
+'a
+
+#'
+#bang history
+!:0 #last command
+!! #last full command
+!* #arguments
+!# #commandname
+!exp command matching exp
+
+print !!:t #ltrunc upto last slash
+print !!:h #rtrunc upto last slash
+:r removes suffix 
+:l :u upper and lower
+:s/foo/bar
+:& repeats
+whence -vf +jars
+
+ctrl + r -> save in cur buffer
+
+|& is short hand for 2>&1 {like | is for 1>}
+
+if a pipeline is preceded by coproc then shell can read or write 
+    from it by means of print -p or read -p or >&p and <&p
+
+|coproc bc
+|print -p 4 + 5
+|read -p a
+|echo $a
+9
+
+#easy cd path
+echo =trans(:h)

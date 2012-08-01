@@ -1,0 +1,5 @@
+gs -q -sPAPERSIZE=a4 -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=output.pdf pdf1.pdf pdf2.pdf
+
+extract:
+gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dFirstPage=1 -dLastPage=1 -sOutputFile=out.pdf infile.pdf
+

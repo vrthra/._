@@ -1,0 +1,5 @@
+disper -c : clone displays
+disper -s : single primary display
+disper -S : Secondary only display
+
+

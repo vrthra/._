@@ -1,0 +1,2 @@
+kill the gpm daemon, then
+gpm -t imps2 -m /dev/psaux

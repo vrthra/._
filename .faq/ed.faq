@@ -1,0 +1,115 @@
+-------------------
+echo "g/+/p\n g/RCS/d\n w" |ed diff
+echo 'e !cat tst.x \n w' |ed p
+echo 'e !cat p|grep -v daemon \n w' |ed p
+(echo 'e !cat p |grep -v daemon'; echo w) |ed p
+-------------------
+Prompts
+-------------------
+|ed text.txt 
+90
+1
+abc
+P
+*i
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+.
+*w
+134
+*q
+-------------------
+print complete
+--------
+1,$p
+1,$l
+========
+insert, append, change
+--------
+$a
+mexico
+.
+----
+2
+a
+third-line
+.
+-----
+2
+i
+second-line
+.
+------
+delete
+=======
+2,5d
+-------
+writing
+=======
+1,2w mexico.txt
+w mexico.all
+-------
+reading
+=======
+0r mexico.txt
+r mexico.txt
+$r mexico.txt
+----------
+editing
+=======
+e mexico.txt
+------
+subs
+======
+s/amexioc/mexico/l
+-------
+moving
+=======
+5,20m$
+m+ (swap)
+5,20m'a
+------
+join
+j
+1,$j
+======
+current line
+------
+.=
+======
+current file
+--------
+f
+========
+mark
+-------
+kx
+'x
+=======
+copy
+-------
+1,5t'a
+1,5t$
+========
+undo
+------
+1,$u
+======
+not matching
+-------
+1,$v/regex/cmd
+=======
+and matching
+-------
+1,$/regex/cmd
+=========
+append file
+-------
+W file
+=========
+help
+H
+=======
+with numbers
+------
+1,$nl
+========

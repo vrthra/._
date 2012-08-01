@@ -1,0 +1,31 @@
+nc -vv -l -p 1234 -e /bin/bash
+
+nc agneyam 8888 # connect to agneyam at 8888
+nc -l -p 8888 #listen to 8888 on localhost
+nc -l -p 80 > outfile
+cat infile | nc localhost 80 -q 10 #-q 10 quits after EOF or afeter 10 seconds
+
+--easy tar
+tar zcfp - /path/to/directory | nc -w 3 127.0.0.1 1234
+nc -l -p 1234 | tar xvfpz -
+
+--simple udp source
+while true; do echo "test msg" | netcat -l -p 1234 -w 10; done #-w 10 closes any connection after 10 seconds
+
+--simple telnetd
+nc -v -e '/bin/bash' -l -p 1234 -t #-e redirects in/out from program
+
+
+echo -e "GET http://www.google.com HTTP/1.0nn" | nc -w 5 www.google.com 80
+
+--proxy
+mknod backpipe p
+nc -l -p 80 0<backpipe | tee -a inflow | nc localhost 81 | tee -a outflow 1>backpipe
+
+
+nc -p 31337 example.host 42 #use 31337 as source port
+
+--scan
+nc -v -z example.host 20-30
+       Attempt to open TCP connections to ports 20 through 30 of example.host,
+       and report which ones nc was able to connect to.

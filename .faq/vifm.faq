@@ -1,0 +1,54 @@
+:fi \.o$ #filters out all .o files
+zO Show the filtered files.
+zM Filter the files matching the filename filter.
+zo Show all of the dot files.
+zm Filter all of the dot files.
+zf Filter all of the selected files.
+
+:in - invert filter
+
+:s #sorts
+:his
+:marks
+:split, :only
+:file - use second command on file
+
+gg,GG
+/regexp
+^G info of current file
+:empty - remove from trash
+
+cw - rename
+m bookmark ' go to bookmark
+l - handle file
+sync - synchronize both
+
+
+command macros
+	%a user arguments
+	%f all of the selected files
+	%F all of the selected files in the other directory list.
+	%d current directory name
+	%D other file list directory name
+	:com mv mv %f %D
+		would set the mv command to mv all of the selected files to the other
+		directory.
+
+		If you want a command to accept arguments you must use %a.
+		:com mkdir mkdir %a &
+		:com mygrep vim "+grep %a"
+		%a is simply replaced with the user arguments and the arguments are 
+		considered to be optional.   
+		:com lsl ls -l %a | less  - would run ls -l | less with or without 
+		an argument being given.  
+
+search patterns can be set with :com name /pattern
+	:com backup /~$
+
+-------------------------------------------------	
+How would you take the text between the second and third commas and replace it with arbitrary text?
+:%s/\(\([^,]*,\)\{2}\)[^,]*\(,.*\)$/\1arbitrary text\3/gc
+
+Ignoring CSV for a minute, if you'd like to replace all text from the 20th through 23rd characters of arbitrary text with the string "abcd", how would you do it?
+:%s/^\(.\{19}\).\{4}\(.*\)$/\1abcd\2/gc
+-------------------------------------------------	

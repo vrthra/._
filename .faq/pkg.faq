@@ -1,0 +1,5 @@
+pkg authority
+pkg set-authority -P -O http://osol-re.sfbay.sun.com 
+#pkg set-authority -P osol-re
+pkg rebuild-index
+pkg install SUNWzsh

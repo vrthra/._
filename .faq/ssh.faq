@@ -1,0 +1,39 @@
+chmod -R o-rwx ~/.ssh
+
+tar -czvf - ~/public_html/netdb | ssh proxybld@webproxy "cat > netdb.tar"
+
+sshd
+/usr/lib/ssh/sshd -d -D
+
+ssh -2 -v -i ~/.ssh/id_dsa hg@webproxy
+chmod 4700 /export/hgrepo/
+
+chmod 700 ~/
+chmod 700 ~/.ssh
+chmod 600 .ssh/authorized_keys
+
+
+for using it as an sshproxy
+ssh -t rn151090@formula1 ssh rasathalam.vm
+
+pass sound
+dd if=/dev/dsp | ssh -c xxx -C me@mymashine dd of=/dev/dsp
+
+persistant ssh
+ssh -MNf me@mymachine.
+
+.ssh/config
+Host myhost
+ControlPath ~/.ssh/master-%r@%h:%p
+ControlMaster no
+ForwardAgent yes
+
+Also,
+. <(ssh-agent)
+ssh-add ~/.ssh/id_rsa
+
+And on the same terminal, do ssh to get it forwarded.
+
+
+screen
+ssh -t host screen -r

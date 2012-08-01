@@ -1,0 +1,6 @@
+#on linux:
+lsof
+
+LD_DEBUG=all lari -omv =wget
+
+ldd -e LD_DEBUG=all /usr/sfw/bin/wget

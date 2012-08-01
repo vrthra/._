@@ -1,0 +1,57 @@
+cat ~/diff | mail -s "my good subject" rahul@sun.com
+uuencode surfing.jpeg surfing.jpeg | mail rahul@sun.com
+(cat mailtext; uuencode surfing.jpeg surfing.jpeg) | mail rahul@sun.com
+
+mail -s "Some Subject" user1@domain.com < output_from_app 
+
+
+enable mail: solaris
+svccfg -v -s sendmail setprop config/local_only=false 
+svcadm refresh sendmail 
+svcadm restart sendmail
+
+delete 1-5
+
+* is all
+x exits without modifying
+
+top * prints the top of all
+
+h lists all the mails still active
+r to reply
+e to modify
+retain to list the headers to be shown.
+retain from: subject:
+save 1-3 /tmp/tst
+w 1 /tmp/newmail (no headers)
+U 1-3 unread
+#----------------------------------
+^C^C to kill reply
+~m to include mail
+~h to edit headers
+~a - sig
+~b name (BCC)
+~c name (CC)
+~t name
+~d (read dead.letter into the message)
+~e edit | ~v
+~f 1-5 (read 1-5 into the curretn messag) ~F includes message headers
+~q quit
+~m mesages after indending
+~p print
+~r filename ~r !cmd
+~< file == ~r
+~< !cmd
+~R reply to
+~s subject
+~w filename
+~x (~q saves in dead.letter)
+~! (exec command)
+~| cmd , ~^ cmd  (pipe the message thru command)
+~. (EOF)
+~?
+#----------------------------------
+mailrc
+alias cohorts bill ozalp jkf mark kridle@ucbcory
+
+#----------------------------------

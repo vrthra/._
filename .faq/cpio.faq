@@ -1,0 +1,24 @@
+cpio
+----
+find ./proxy_apps | cpio -co | gzip > proxy_apps.cpio.gz
+gzcat proxy_apps.cpio.gz | cpio -di
+
+ls | cpio -ov | gzip > lslist.cpio.gz
+
+
+gzcat lslist.cpio.gz | cpio -idv "*.pl"
+
+gzcat lslist.cpio.gz | cpio -itv "*.pl" #just list no extract
+
+-r does rename
+
+cpio -ivf "*.c" #files except *.c
+
+-u overwrite with older
+
+gzcat vim.cpio.gz| cpio -itv --no-absolute-filenames
+
+
+find $HOME -print | cpio -ovBH newc > me.cpio
+cpio -itBH newc < me.cpio
+

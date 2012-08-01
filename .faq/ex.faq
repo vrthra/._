@@ -1,0 +1,9 @@
+--usage---
+ex .wadmrc <<EOF      
+s/^#.*$//g
+w
+.
+EOF
+----------
+(echo '1,$ !sort'; echo w ) | ex p
+

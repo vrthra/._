@@ -1,0 +1,12 @@
+folding
+=======
+zf<motion>
+or {selection}zf
+zM close all
+zR open all
+
+zk,zj
+opening : zo
+
+Undo branching
+g+,g-

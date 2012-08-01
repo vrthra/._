@@ -1,0 +1,64 @@
+darcs clone http://groups.engr.oregonstate.edu/lambda/pub/repo/code/vcs
+darcs push gopinath@kiana.eecs.oregonstate.edu:/nfs/stak/a2/groups/lambda/public_html/pub/repo/code/vcs
+
+
+darcs add * -r
+
+darcs whatsnew -l
+
+darcs record --all
+
+darcs unrecord
+
+darcs revert
+IMPORTANT
+Your umask should be 002 and you should be in the lambdawww group. It can be accomplished by the following commands
+umask 002
+
+.profile: export PATH=$HOME/.cabal/bin:$PATH
+
+Repo management:
+----------------
+darcs clone http://groups.engr.oregonstate.edu/lambda/pub/repo/code/<reponame>
+darcs push <user>@<machine>.eecs.oregonstate.edu:/nfs/stak/a2/groups/lambda/public_html/repo/repo>
+
+e.g
+darcs push gopinath@filp.engr.oregonstate.edu:/nfs/stak/a2/groups/lambda/public_html/repo/gittools
+
+You can configure it in the local repo under
+_darcs/prefs/repos
+e.g
+gopinath@flip.engr.oregonstate.edu:/nfs/stak/a2/groups/lambda/public_html/repo/gittools
+http://groups.engr.oregonstate.edu/lambda/repo/gittools
+darcs push --set-default gopinath@flip.engr.oregonstate.edu:/nfs/stak/a2/groups/lambda/public_html/repo/gittools
+
+Add All files
+    darcs add * -r
+
+Check Status
+    darcs whatsnew -l
+    darcs diff
+
+Record Changes
+    darcs record --all
+
+Undo Committed Changes
+    darcs unrecord
+
+Remove uncommitted changes
+    darcs revert
+
+Creating a new repo
+----------------------
+newgrp lambdawww
+umask 002
+mkdir -p /nfs/stak/a2/groups/lambda/public_html/repo/myrepo
+cd !$
+chmod -R g+rw .
+cat > _darcs/prefs/defaults
+apply umask 0002
+^D
+
+
+darcs record -a -l --no-i
+darcs push -a

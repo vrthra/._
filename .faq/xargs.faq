@@ -1,0 +1,8 @@
+
+reverse (i.e one filed in input == one line in output):
+
+for i in `echo $XX`; do echo $i; done
+
+ls -alt |awk 'BEGIN {RS=" "} /.+/{print}' | more
+ls -alt |awk '/.+/' RS=' '| more
+

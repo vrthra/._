@@ -1,0 +1,2 @@
+pvs is used for checking the version of a library
+pvs -d /usr/lib/libsasl.so

@@ -1,0 +1,28 @@
+h Remove a trailing pathname component, leaving the head. 
+r Remove a trailing suffix of the form `.xxx', leaving the basename 
+e Remove all but the suffix 
+t Remove all leading pathname components, leaving the tail 
+p < H > Print the new command but do not execute it 
+q < H > Quote the substituted words, escaping further substitutions 
+x < H > Like q, but break into words at each blank 
+l Convert the words to all lowercase 
+u Convert the words to all uppercase 
+f < FP > Repeats the immediately (without a colon) following modifier until the resulting word doesn't change any more. 
+F:expr: < FP > Like f, but repeats only n times if the expression expr evaluates to n. Any character can be used instead of the `:', if any of `(', `[', or `{' is used as the opening delimiter the second one has to be ')', `]', or `}' respectively. 
+w < FP > Makes the immediately following modifier work on each word in the string. 
+W:sep: < FP > Like w but words are considered to be the parts of the string that are separated by sep. Any character can be used instead of the `:'; opening parentheses are handled specially, see above. 
+
+s/l/r[/] Substitute r for l as described below. Unless preceded immediately by a g, with no colon between, the substitution is done only for the first string that matches l. For arrays and filename expansion, this applies to each word of the expanded text. 
+
+& Repeat the previous s substitution. Like s, may be preceded immediately by a g. In variable expansion the & must appear inside braces, and in filename expansion it must be quoted with a backslash. 
+
+The s/l/r/ substitution works as follows. 
+The left-hand side of substitutions are not regular expressions, but character strings. 
+Any character can be used as the delimiter in place of `/'. 
+A backslash quotes the delimiter character. 
+The character `&', in the right-hand-side r, is replaced by the text from the left-hand-side l. 
+The `&' can be quoted with a backslash. 
+A null l uses the previous string either from the previous l or from the contextual scan string s from `!?s'. 
+You can omit the rightmost delimiter if a newline immediately follows r 
+the rightmost `?' in a context scan can similarly be omitted. 
+Note the same record of the last l and r is maintained across all forms of expansion.

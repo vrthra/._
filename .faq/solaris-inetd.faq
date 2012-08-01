@@ -1,0 +1,6 @@
+enable an entry in inetd.conf
+tftp dgram udp6 wait root /usr/sbin/in.tftpd in.tftpd -s /tftpboot
+
+root@badkitten:/# inetconv
+root@badkitten:/# svcs | grep tftp
+online         16:15:58 svc:/network/tftp/udp6:default

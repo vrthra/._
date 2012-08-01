@@ -1,0 +1,2 @@
+/etc/ttys
+ttyv8   "/usr/X11R6/bin/xdm -nodaemon"  xterm   off secure

@@ -1,0 +1,136 @@
+dbx - processid
+d$>debug proggie #debug the proggie
+d$>status #all the breakpoints
+(dbx) delete 3 5
+#memory access checking
+d$>check -access
+mem leak checking
+d$>check -memuse
+#multithreaded proggie
+d$>lwps
+d$>lwp #display current lwp
+d$>lwp <le1> #switch
+d$>where
+#different source dir
+d$>pathmap [-c] from to #-c implies current dir
+#record and replay
+save [-number] [file]
+restore [file]
+replay [-number] #essentialy undo the last command
+#use history first
+d$>history
+
+#Navigation
+up
+down
+frame
+list [procedure]
+
+#relax lookup
+dbxenv scope_look_aside on
+stop in `` funct #funct may be static and not in scope
+#If the dbx environment variable scope_look_aside is set to on, dbx looks for:
+#s  Static variables defined in other files if not found in current scope. Files from
+#   libraries in /usr/lib are not searched.
+#s  C++ member functions without class qualification
+#s  Instantiations of C++ inline member functions in other files if a member function
+#   is not instantiated in current file.
+
+func <funct_name>
+which C::foo
+#Scope
+print `item #prints the global scope others are :: and :lineno
+whatis foo
+whereis foo
+ func `file_name`function_name
+stop in `animate.o`change_glyph:230`item
+
+#using symbols -- use # and use \ before $
+d$> stop in #.mul
+d$> whatis #\$FEcopyPc
+d$> print `foo.c`#staticvar
+
+#type definition
+whatis -t foo
+whatis -t -r foo #inheritance
+
+execution
+step 24
+next 24
+cont at 124 #-- resumes at 124 with out executing inbet cmds
+eg
+ use assign to assign a var a value,
+continue just after the var decl
+
+If you use the cont command with a when breakpoint command, the program skips
+the call to how_fast() each time the program attempts to execute line 123.
+
+d$> when at 123 { assign speed = 180; cont at 124;}
+
+stop in glyph -if animate()
+(dbx) stop inmember draw #stop in all overloaded draw
+(dbx) stop inclass shape #stop in all member functs
+
+
+
+extras
+(dbx) stop infunction sort {command;}
+(dbx) stop inobject &foo
+To stop execution when a memory address has been accessed, type:
+(dbx) stop access mode address-expression [, byte-size-expression]
+mode specifies how the memory was accessed. It can be composed of one or all of the
+letters:
+r           The memory at the specified address has been read.
+w           The memory has been written to.
+x           The memory has been executed.
+mode can also contain either of the following:
+a           Stops the process after the access (default).
+b           Stops the process before the access.
+In both cases the program counter will point at the offending instruction. The
+"before" and "after" refer to the side effect.
+address-expression is any expression that can be evaluated to produce an address. If
+you give a symbolic expression, the size of the region to be watched is automatically
+deduced; you can override it by specifying byte-size-expression. You can also use
+nonsymbolic, typeless address expressions; in which case, the size is mandatory.
+In the following example, execution will stop execution after the memory address
+0x4762 has been read:
+  (dbx) stop access r 0x4762
+In this example, execution will stop before the variable speed has be written to:
+  (dbx) stop access wb &speed
+To stop program execution if the value of a specified variable has changed, type:
+  (dbx) stop change variable #not applicable in multithread 
+
+To stop program execution if a conditional statement evaluates to true, type:
+  (dbx) stop cond condition #no multi
+--------------
+stop in foo -if a>5
+(dbx) stop in foo -if !strcmp("abcde",str)
+Variable scope can be used in setting a breakpoint filter. In this example, the current
+scope is in function foo() and local is a local variable defined in main():
+(dbx) stop access w &main`local -if pr(main`local) -in main
+
+---tracing
+dbxenv trace_speed number
+(dbx) trace -file trace1
+trace event-specification [ modifier ]
+(dbx) when at 123 { list $lineno;}
+
+monitoring
+display expression, ...
+display #displays the numbers of all displayed vars
+undisplay expression
+undisplay 0
+#arrays
+(dbx) print arr(2,4)
+print arr[2..4]
+print arr[2..6:2] #all even members
+#use 
+run
+pop #[on error]
+edit #the file and fix it
+fix
+cont
+#multi
+threads
+search sym_name 
+search

@@ -1,0 +1,31 @@
+       To split up a digest one usually uses:
+              formail +1 -ds >>the_mailbox_of_your_choice
+       or
+              formail +1 -ds procmail
+
+       To remove all Received: fields from the header:
+              formail -I Received:
+
+       To remove all fields except From: and Subject: from the header:
+              formail -k -X From: -X Subject:
+
+       To supersede the Reply-To: field in a header you could use:
+              formail -i "Reply-To: foo@bar"
+
+       To convert a non-standard mailbox file into a standard mailbox file you
+       can use:
+              formail -ds <old_mailbox >>new_mailbox
+
+       Or, if you have a very tolerant mailer:
+              formail -a Date: -ds <old_mailbox >>new_mailbox
+
+       To extract the header from a message:
+              formail -X ""
+       or
+              sed -e '/^$/ q'
+
+       To extract the body from a message:
+              formail -I ""
+       or
+              sed -e '1,/^$/ d'
+

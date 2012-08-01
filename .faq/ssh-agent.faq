@@ -1,0 +1,8 @@
+/usr/bin/gnome-session-xmonad
+> ssh-agent xmonad
+> ssh-add
+
+forward the agent authority each time
+ssh -A $machine
+# verify
+> ssh-add -l

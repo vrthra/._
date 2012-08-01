@@ -1,0 +1,3 @@
+xwd > mexico.xwd
+convert mexico.xwd mexico.jpg
+xv mexico.jpg

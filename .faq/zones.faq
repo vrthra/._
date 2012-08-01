@@ -1,0 +1,49 @@
+list zones
+# zoneadm list -vc
+
+delete
+# zonecfg -z $zone delete
+# zonecfg -z $zone delete -F
+
+
+# zonecfg -z z1
+z1: No such zone configured
+Use 'create' to begin configuring a new zone.
+zonecfg:z1> create
+zonecfg:z1> set zonepath=/u01/zones/z1
+zonecfg:z1> set autoboot=true
+zonecfg:z1> add fs
+zonecfg:z1:fs> set dir=/opt
+zonecfg:z1:fs> set special=/opt
+zonecfg:z1:fs> set type=lofs
+zonecfg:z1:fs> add options [ro,nodevices]
+zonecfg:z1:fs> end
+zonecfg:z1> verify
+zonecfg:z1> add net
+zonecfg:z1:net> set address=10.67.1.151/24
+zonecfg:z1:net> set physical=eri0
+zonecfg:z1:net> end
+zonecfg:z1> verify
+zonecfg:z1> commit
+zonecfg:z1> exit
+
+# zoneadm -z z1 install
+
+# zoneadm -z z1 boot
+# zlogin -e \@ -C z1
+@.
+# zoneadm -z z1 halt
+
+# zoneadm -z z1 halt
+# zoneadm -z z1 uninstall
+# zoneadm -z z1 delete
+
+
+# barfed 
+remove entry in /etc/zones/index
+remove xml file under /etc/zones
+delete the dir associated with zone.
+
+#-------------------------
+sudo zlogin -e \@ -C z1
+

@@ -1,0 +1,70 @@
+# rpm -ivh foo-2.0-4.i386.rpm
+# rpm -i ftp://ftp.redhat.com/pub/redhat/RPMS/foo-1.0-1.i386.rpm
+# rpm -i http://oss.oracle.com/projects/firewire/dist/files/kernel-2.4.20-18.10.1.i686.rpm
+
+    Used to install a RPM package. Note that RPM packages have file naming conventions like foo-2.0-4.i386.rpm, which include the package name (foo), version (2.0), release (4), and architecture (i386). Also notice that RPM understands FTP and HTTP protocols for installing and querying remote RPM files. 
+
+# rpm -e foo
+
+    To uninstall a RPM package. Note that we used the package name foo, not the name of the original package file foo-2.0-4.i386.rpm above. 
+
+# rpm -Uvh foo-1.0-2.i386.rpm
+# rpm -Uvh ftp://ftp.redhat.com/pub/redhat/RPMS/foo-1.0-1.i386.rpm
+# rpm -Uvh http://oss.oracle.com/projects/firewire/dist/files/kernel-2.4.20-18.10.1.i686.rpm
+
+    To upgrade a RPM package. Using this command, RPM automatically uninstall the old version of the foo package and install the new package. It is safe to always use rpm -Uvh to install and upgrade packages, since it works fine even when there are no previous versions of the package installed! Also notice that RPM understands FTP and HTTP protocols for upgrading from remote RPM files. 
+
+# rpm -qa
+
+    To query all installed packages. This command will print the names of all installed packages installed on your Linux system. 
+
+# rpm -q foo
+
+    To query a RPM package. This command will print the package name, version, and release number of the package foo only if it is installed. Use this command to verify that a package is or is not installed on your Linux system. 
+
+# rpm -qi foo
+
+    To display package information. This command display package information including the package name, version, and description of the installed program. Use this command to get detailed information about the installed package. 
+
+# rpm -ql foo
+
+    To list files in installed package. This command will list all of files in an installed RPM package. It works only when the package is already installed on your Linux system. 
+
+# rpm -qf /usr/bin/mysql
+mysql-3.23.52-3
+
+    Which package owns a file? This command checks to determine which installed package a particular file belongs to. 
+
+# rpm -qpl kernel-2.4.20-18.10.1.i686.rpm
+# rpm -qpl ftp://ftp.redhat.com/pub/redhat/RPMS/foo-1.0-1.i386.rpm
+# rpm -qpl http://oss.oracle.com/projects/firewire/dist/files/kernel-2.4.20-18.10.1.i686.rpm
+
+    List files in RPM file. This command allows you to query a (possibly) uninstalled RPM file with the use of the the "-p" option. You can use the "-p" option to operate on an RPM file without actually installing anything. This command lists all files in an RPM file you have in the current directory. Also note that RPM can query remote files through the FTP and HTTP protocols. 
+
+# rpm --verify mysql
+
+    To verify an installed package. This command will list all files that do NOT pass the verify tests (done on size, MD5 signature, etc). Where a file does NOT pass, the output is listed using the following codes that signify what failed:
+
+        S File size
+      M Mode (includes permissions and file type)
+      5 MD5 sum
+      L Symlink 
+      D Device 
+      U User 
+      G Group 
+      T Mtime
+
+    Take for example the following:
+
+      # rpm --verify mysql
+      S.5....T c /etc/my.cnf
+
+    This example indicates that file /etc/my.cnf failed on:
+
+      File size 
+      MD5 Sum 
+      Modified Time 
+
+    However, the "c" tells us this is a configuration file so that explains the changes. It should still be looked at to determine what the changes were. 
+
+# rpm --checksig foo

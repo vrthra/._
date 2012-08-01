@@ -1,0 +1,3 @@
+initscr32 and others for solaris are not defined.
+
+-L/usr/ccs/lib -lcurses instead of -lncurses

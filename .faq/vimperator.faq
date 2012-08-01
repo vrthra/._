@@ -1,0 +1,3 @@
+execute set_firefox_pref("network.proxy.http_port",100)
+
+/,^g,^G

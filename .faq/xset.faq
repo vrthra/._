@@ -1,0 +1,9 @@
+xset r off
+xset r on
+xset r 250
+
+on Ubuntu:
+xset r rate 250 30
+
+mouse:
+xset m 4/1 1

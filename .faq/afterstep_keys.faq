@@ -1,0 +1,16 @@
+ctrl-shift-x [Maximize]
+ctrl-shift-s [shade]
+ctrl-shift-p [stick]
+ctrl-shift-c [close]
+ctrl-shift-m [move]
+ctrl-shift-w [resize]
+
+ctrl-shift-l [windowlist]
+ctrl-shift-r [run]
+
+alt-n/p [next/prev]
+alt-u/d [up/down]
+alt-t [togglelayer]
+
+alt-arrows [move view]
+

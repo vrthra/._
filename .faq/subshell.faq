@@ -1,0 +1,1 @@
+(echo "GET / HTTP/1.0\n\n";sleep 1) | telnet varunam 8000

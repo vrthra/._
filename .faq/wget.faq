@@ -1,0 +1,2 @@
+wget -qO – "http://www.tarball.com/tarball.gz" | gzip -dc | tar zxvf -
+(dont save locally)

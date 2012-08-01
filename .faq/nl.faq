@@ -1,0 +1,2 @@
+ls /bin | nl -nrz -w3 -s'|'
+ls /bin | nl -nrz -w3 -bpzip -s'|'

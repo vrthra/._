@@ -1,0 +1,39 @@
+#==================
+multi user session:
+[.screenrc (-c)
+multiuser on
+addacl *
+detach
+nethack on
+sessionname multi
+shelltitle multi
+]
+screen -x multi (on all clients)
+#==================
+scroll mode
+c-a [
+
+<enter> to mark
+<enter> to mark again
+
+c-a ] to paste
+
+c-a c makes another window
+
+c-a n , c-a p iterates, c-a [N]
+c-a " lists windows, c-a w
+
+monitoring
+c-a ; (30 seconds silence) , c-a M (activity)
+
+--to reattach
+ps -x
+kill -CHLD (screenpid)
+
+use screen -x for multiuser mode and screen -r for single user
+
+incase of any problems, look in /tmp dir for directories not writable by user
+
+if You are not the owner of XXX comes, check the owner of =screen.
+if owned by any one other than root, change it to root, delete /tmp/uscreens
+

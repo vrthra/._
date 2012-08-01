@@ -1,0 +1,3 @@
+freebsd:
+make the mbr writable:
+sysctl kern.geom.debugflags=16

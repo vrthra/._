@@ -1,0 +1,20 @@
+multiplexing moused.
+/usr/sbin/moused -z 4 -p /dev/ums0 -t auto -I /var/run/moused.ums0.pid
+/usr/sbin/moused -z 4 -p /dev/psm0 -t auto -I /var/run/moused.psm0.pid
+
+
+Section "ServerLayout"
+	Identifier     "X.org Configured"
+	Screen      0  "Screen0" 0 0
+	InputDevice    "Mouse1" "CorePointer"
+	InputDevice    "Keyboard0" "CoreKeyboard"
+EndSection
+
+Section "InputDevice"
+	Identifier  "Mouse1"
+	Driver      "mouse"
+	Option	    "Protocol" "auto"
+	Option	    "Device" "/dev/sysmouse"
+	Option	    "ZAxisMapping" "4 5 6 7"
+EndSection
+

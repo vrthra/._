@@ -1,0 +1,11 @@
+xterm*visualBell: true
+    * The X server: use the "xset b" command to select the bell's behaviour. The command takes three numeric arguments: volume, pitch and duration. "xset -b" disables the bell altogether. Configuring the X server affects all the applications running on the display.
+    * xterm: xterm can convert each bell to either a visible or audible signal. If you use the audible bell, the settings of "xset" will apply. The bell in xterm defualts to be audible, but you can use the "-vb" command line option and the "xterm*visualBell: true" resource to turn it to a visible flash. You can toggle visible/audible signaling at run-time by using the menu invoked by control--left-mouse-button. If you run X you most likely won't need the following information.
+    * tcsh (6.04 and later): "set visiblebell". The instruction can be placed in .cshrc or can be issued interactively. To reset the audible bell just "unset visiblebell". To disable any notification issue use "set nobeep" instead.
+    * bash (any bash, as fas as I know): put "set bell-style visible" in your ~/.bashrc. Possible bell-style's are also "none" or "audible".
+    * bash (with readline, as well as other readline based applications): put "set prefer-visible-bell" in ~/.inputrc.
+    * nvi and elvis: put "set flash" in ~/.exrc or tell ":set flash" interactively (note the colon). To disable the visible bell use noflash in place of flash.
+    * emacs: put "(setq visible-bell t)" in your ~/.emacs. It is disabled by "(setq visible-bell nil)".
+    * less: use "-q" on command line to use the visual bell, use "-Q" to disable any reporting. Default options can be put in your environment variable "LESS".
+    * screen: issue the CtrlA-CtrlG command. It changes the behaviour of all the virtual screens. Refer to the man page under "CUSTOMIZATION" for setting the default.
+

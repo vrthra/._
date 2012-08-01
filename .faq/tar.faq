@@ -1,0 +1,1 @@
+tar -cvf - etc opt var | (cd / && tar -xvpf -)

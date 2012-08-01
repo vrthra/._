@@ -1,0 +1,3 @@
+xset dpms s off
+xset -dpms
+xset dpms q

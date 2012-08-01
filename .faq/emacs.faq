@@ -1,0 +1,42 @@
+c-h c-u i
+c-u m-x info ret
+
+switch windows
+=============
+c-x o
+
+buffers
+=============
+c-x b
+
+Home/End
+alt-< alt->
+
+pipe
+======
+(..select..) m-| 
+
+macros
+======
+c-x (
+....
+c-x )
+
+m-x name-last-kbd-macro
+:me
+
+m-x me  #executes
+
+indent
+======
+c-m-\
+
+kill-to char
+============
+m-z <char>
+
+
+save
+=====
+c-x c-s
+c-x c-w         # alternate

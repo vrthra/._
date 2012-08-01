@@ -1,0 +1,18 @@
+CONFIGURE_ARGS="--enable-mexico"  make 
+
+pkg_add -r
+CONFIGURE_TARGET=      i386-portbld-freebsd6.1
+CONFIGURE_TARGET=      i386-freebsd6.1
+
+
+
+================================
+basic_os
+|echo i386-portbld-freebsd6.1 |  sed 's/^\(.*\)-\([^-]*-[^-]*\)$/\2/' 
+portbld-freebsd6.1
+
+basic_machine
+|echo i386-portbld-freebsd6.1 | sed 's/-[^-]*$//'                   
+i386-portbld
+
+machine should be i386

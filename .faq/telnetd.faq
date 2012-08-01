@@ -1,0 +1,3 @@
+check /etc/services
+check /etc/pam.d/telnetd or other
+check for firewall

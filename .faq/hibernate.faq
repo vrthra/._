@@ -1,0 +1,1 @@
+echo -n 4 | sudo tee /proc/acpi/sleep

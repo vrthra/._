@@ -1,0 +1,43 @@
+install both /usr/ports/net/iwi-firmware
+install both /usr/ports/net/iwi-firmware-kmod
+/usr/ports/distfile=>
+ipw2200-fw-2.4.tgz
+ipw2200-fw-3.0.tgz
+iwi-freebsd-1.3.4.tgz
+
+
+kldload  if_iwi
+kldload iwi_bss
+kldstat
+
+/boot/loader.conf
+if_iwi_load="YES"
+if_wi_load="YES"
+
+/etc/rc.conf
+iwi_enable="YES"
+ifconfig_iwi0="ssid rover"
+iwi_interfaces="iwi0"
+iwi_mode_iwi0="bss"
+
+/etc/wpa_supplicant.conf
+network={
+    ssid="rover"
+    key_mgmt="NONE"
+#    wep_key3="xxxxx"
+#    wep_tx_keyidx=3
+}
+
+iwicontrol iwi0 -d /boot/firmware -m bss
+
+wpa_supplicant -i iwi0 -c /etc/wpa_supplicant.conf
+
+dhclient iwi0
+
+(make sure
+iwi_enable="YES"
+wpa_supplicant="YES"
+ifconfig_iwi0="ssid indigo authmode shared wepmode on weptxkey 1 wepkey 1:0x0070070070 DHCP"
+dhcp_program="/usr/local/sbin/dhclient"
+)
+

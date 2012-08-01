@@ -1,0 +1,8 @@
+find . | xargs basename | while read b;do;echo "$b -++";done
+
+ps | {read; while read pid tt stat time commmand;do;echo $pid;done}
+
+ps lax | { read x; while read x owner pid parent x x x x x stat x; do
+   [ "$owner"="foo" -a "$stat"="Z" ] && kill "$parent"
+   done
+}

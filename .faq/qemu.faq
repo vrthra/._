@@ -1,0 +1,8 @@
+Does kernel has support?
+# grep CONFIG_TUN= /boot/config-`uname -r`
+# if [-x /dev/net/tun]
+# then
+#   mknod /dev/net/tun c 10 200
+# fi
+sudo modprobe tun
+echo tun >> /etc/modules

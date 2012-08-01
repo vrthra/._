@@ -1,0 +1,107 @@
+GDB | DBX
+	
+
+break line | stop at line 
+
+break func | stop in func 
+
+break *addr | stopi at addr 
+
+break ... if expr | stop ... -if expr 
+
+cond n | stop ... -if expr 
+
+tbreak | stop ... -temp 
+
+watch expr | stop expr [slow] 
+
+watch var | stop modify &var [fast] 
+
+catch x | intercept x 
+
+info break | status 
+
+info watch | status 
+
+clear | clear 
+
+clear fun  | delete n 
+
+delete | delete all 
+
+disable | handler -disable all 
+
+disable n | handler -disable n 
+
+enable | handler -enable all 
+
+enable n | handler -enable n 
+
+ignore n cnt | handler -count n cnt 
+
+commands n | when ... { cmds; } 
+
+backtrace n | where n 
+
+frame n | frame n 
+
+info reg reg | print $reg 
+
+finish | step up 
+
+signal num | cont sig num 
+
+jump line | cont at line 
+set var=expr | assign var=expr 
+
+x/fmt addr | x addr/fmt 
+
+disassem addr | dis addr 
+
+shell cmd | sh cmd [if needed] 
+
+info func regex | funcs regexp 
+
+ptype type | whatis -t type 
+
+define cmd | function cmd 
+
+handle sig | stop sig sig 
+
+info signals | status; catch 
+
+attach pid | debug - pid 
+
+attach pid | debug a.out pid 
+
+file file | [unnecessary] 
+
+exec file | debug file 
+
+core file | debug a.out corefile 
+
+set editing on | set -o emacs 
+
+set language x | language x 
+
+set prompt x | PS1=x 
+
+set history size x | HISTSIZE=x 
+
+set print object on | dbxenv output_dynamic_type on 
+
+show commands | history 
+
+dir name | pathmap name 
+
+show dir | pathmap 
+
+info line <n | listi n 
+
+info source | file 
+
+info sources | files; modules 
+
+forw regex | search regexp 
+
+rev regex | bsearch regexp

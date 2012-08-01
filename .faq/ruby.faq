@@ -1,0 +1,9 @@
+class Object
+    def tap
+       yield self
+       self
+    end
+end
+
+blah.sort.grep( /foo/ ).map { |x| x.blah }
+blah.sort.grep( /foo/ ).tap { |xs| p xs }.map { |x| x.blah }

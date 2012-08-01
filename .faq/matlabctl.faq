@@ -1,0 +1,7 @@
+| look for mfiles
+path
+cd
+| Save current variables
+save file.dat
+load file.dat
+| 

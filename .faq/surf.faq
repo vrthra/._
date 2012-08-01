@@ -1,0 +1,34 @@
+          Ctrl-h Ctrl-l Walks back/fwd the history.
+
+          Ctrl-k Ctrl-j Scrolls page up/downwards.
+
+          Ctrl-Shift-k Ctrl-Shift-j Ctrl-Shift-i Zooms page in/out/reset.
+          Ctrl-g Opens the URL-bar.
+          Ctrl-/ search-bar.
+          Ctrl-[Shift]-n next search .
+
+          Ctrl-p Loads URI from primary selection.
+          Ctrl-y Copies current URI to primary selection.
+          Ctrl-Shift-p Calls Printpage Dialog.
+          Ctrl-r Reloads the website [shift - nocache].
+          Ctrl-o show the sourcecode of the current page.
+
+Escape Stops loading current page or stops download.
+OPT
+          -e xid
+               Reparents to window specified by xid.
+
+          -i   Disable Images
+
+          -p   Disable Plugins
+
+          -s   Disable Javascript
+
+          -v   Prints version information to standard output, then
+               exits.
+
+          -x   Prints xid to standard output. This can be used to
+               script the browser by using xprop(1).
+
+     USAGE
+ 

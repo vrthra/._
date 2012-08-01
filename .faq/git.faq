@@ -1,0 +1,10 @@
+git remote -v
+git remote rm myremote
+
+git checkout -b fixpid
+
+# fork pe-deb-puppet
+git remote add myremote git@github.com:vrthra/pe-deb-puppet
+git push myremote fixpid
+
+

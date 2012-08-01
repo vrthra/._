@@ -1,0 +1,2 @@
+/usr/lib/X11/rgb.txt /openwin/lib/X11/rgb.txt
+xclock -xrm "xclock*background: lightblue' #override resource

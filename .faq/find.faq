@@ -1,0 +1,171 @@
+find . -size +100
+
+find . -not \( -name .svn -prune \) -type f
+
+find . -regex '.*\(h\|cpp\)'
+
+find . -name '*.html' -exec 'sed' 's/.*class="\([^"]*\?\)".*/\1/ip;d' '{}' ';' 
+
+replicate just the directory structure.
+find . -type d -exec mkdir -p $DESTDIR/{} \;
+
+
+Basics
+Let's start simple by looking for things by name. Remember that the first argument you give find is where to look.
+
+# find all files with something in their name
+
+find . -name "*.jpg"
+
+...
+./Pictures/iPhoto Library/Data/2006/Roll 20/00697_bluewaters_1440x900.jpg
+./Pictures/iPhoto Library/Data/2006/Roll 20/00705_cloudyday_1440x900.jpg
+./Pictures/iPhoto Library/Data/2006/Roll 20/00710_fragile_1600x1200.jpg
+./Pictures/iPhoto Library/Data/2006/Roll 20/00713_coolemoticon_1440x900.jpg
+./Pictures/iPhoto Library/Data/2006/Roll 20/00714_cloudyday_1440x900.jpg
+...
+Note that by default when you give a location to start from (in our case "."), the find command starts there and drills all the way down during its search. So in this case I started from my home directory and it found the files all the way down in "~/Pictures/iPhoto Library/Data/2006/Roll 20" as well.
+[ Placing quotes around the search criteria avoids issues with wildcard characters and is probably a good habit to get into. You can also use -iname instead of -name; it's the same but it's case insensitive ]
+
+
+Find by User
+# find all files that belong to a certain user
+
+find . -user daniel
+
+...
+./Music/iTunes/iTunes Music/Tool/Undertow/01 Intolerance.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/02 Prison Sex.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/03 Sober.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/04 Bottom.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/05 Crawl Away.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/06 Swamp Song.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/07 Undertow.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/08 4 Degrees.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/09 Flood.m4a
+./Music/iTunes/iTunes Music/Tool/Undertow/69 Disgustipated.m4a
+...
+[ Also works for groups (-group) ]
+
+
+Find by Type
+# find only directories, files, links, or sockets
+
+find . -type d
+
+...
+./Development/envelope
+./Development/mhp
+./Development/mservers
+./Development/mservers/fortune100
+./Development/mst
+./Development/mst/nmap
+./Development/mst/services
+...
+Those are all directories, and to look for the others (files, links, or sockets), just substitute f, l, s for the d in the command above.
+
+
+Find by Size
+# find things over a megabyte in size
+
+find ~/Movies/ -size +1024M
+
+...
+/Movies/Comedy/Funny.mpg
+/Movies/Drama/Sad.avi
+...
+[ +M indicates that you're searching in megabytes, but you can also search in bytes or kilobytes if so desired. ]
+
+
+Find by Modification Time
+find also has a number of options that help one answer forensics-oriented questions such as when a file's contents or permissions were last changed.
+
+# find all files in /etc owned by root that have been modified within the last day
+
+find /etc/ -user root -mtime 1
+
+...
+/etc/passwd
+/etc/shadow
+...
+The checks you can use here are:
+
+-atime: when the file was last accessed
+-ctime: when the file's permissions were last changed
+-mtime: when the file's data was last modified
+These searches are done in 24 hour increments and followed by a number n. If you want to match the exact 24 hour period you use n by itself. More frequently, however, you'll want to say everything since yesterday, or everything "more than 3 days ago." This is accomplished using the -n and +n options respectively.
+
+There are also minute versions of the atime, ctime, and mtime arguments:
+
+-amin: when (in minutes) the file was last accessed
+-cmin: when (in minutes) the file's permissions were last changed
+-mmin: when (in minutes) the file's data was last modified
+
+Find by Permissions
+# find all files in my directory with open permissions
+
+find ~ -perm 777
+
+...
+~/testfile.txt
+~/lab.rtf
+...
+
+Additional Forensics-oriented Options:
+-nouser: shows output that's not associated with an existing userid
+-nogroup: shows output not associated with an existing groupid
+-links n: file has n links
+-newer file: file was modified more recently than file.
+-perm mode: file has mode permissions.
+
+Combinations
+Just as with any good unix/linux command, the real power comes in combining options. You can combine find arguments using and, or, and not. By default if you use two different arguments you're and'ing them. If you want to use or you give the -o option, and if you want to get everything except something, you use the ! option.
+
+# find .jpg images (files) owned by daniel
+
+find . -user daniel -type f -name *.jpg
+
+...
+./Pictures/iPhoto Library/autumn_woods.jpg
+./Pictures/iPhoto Library/blue_forest.jpg
+./Pictures/iPhoto Library/brothers.jpg
+...
+# now do the same, but exclude anything with "autumn" in the name
+
+find . -user daniel -type f -name *.jpg ! -name autumn*
+
+...
+./Pictures/iPhoto Library/blue_forest.jpg
+./Pictures/iPhoto Library/brothers.jpg
+...
+# show me all ruby programs in /apps owned by root that have been accessed in the last two minutes
+
+find /apps/ -user root -type f -amin -2 -name *.rb
+
+...
+/apps/testing.rb
+/apps/runme.rb
+...
+
+Combining find with exec and xargs
+What's the fun in finding a bunch of stuff if you're not going to do something with it? So while it's interesting to say, "show me stuff", it's far more useful to say, "Take every text file owned by ex-employee Jason that's hasn't been accessed in 60 days and move it to a remote backup folder."
+
+
+Cookbook Examples Of find in action
+Find all files on your system that are world writable. The 0002 denotes a 2 in the "other" field in the file permissions, which is the write bit
+find / -perm -0002 
+
+Collect files that are not owned by valid users and delete them
+find / -nouser -print0 | xargs -0 rm 
+
+Clean the images off of your *nix desktop
+find ~/Desktop -name "*.jpg" -o -name "*.gif" -o -name "*.png" -print0 | xargs -0 mv --target-directory ~/Pictures
+** The -print0 option terminates results with a null character instead of the default newline, making it cleaner and less likely to balk in many cases
+
+Correct the permissions on your web directory
+find /your/webdir/ -type d -print0 | xargs -0 chmod 755
+find /your/webdir -type f | xargs chmod 644 
+
+Show a list of files in /etc that have been modified since last month
+find /etc -mtime -30 
+

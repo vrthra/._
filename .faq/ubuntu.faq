@@ -1,0 +1,11 @@
+automount with Sun and Nis
+    /home yp:auto.home -nosuid,vers=3
+
+Ubuntu 10.10 is "maverick"
+Ubuntu 10.04 or Trisquel 4.0 is "lucid"
+Ubuntu 9.10 or Trisquel 3.5 is "karmic"
+Ubuntu 9.04 is "jaunty"
+Ubuntu 8.10 is "intrepid"
+Ubuntu 8.04 is "hardy"
+Debian Etch is "etch"
+Debian Lenny is "lenny"

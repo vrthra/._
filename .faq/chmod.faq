@@ -1,0 +1,8 @@
+directory sticky bit.
+chmod -R g+rwxs code 
+find . -type d -exec chmod g+s {} \;
+
+chgrp -R GROUP /path/to/repo
+find /path/to/repo -type d | xargs chmod g+s 
+
+git init --bare --shared=group

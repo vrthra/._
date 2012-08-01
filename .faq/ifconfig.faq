@@ -1,0 +1,17 @@
+/sbin/ifconfig eth0 192.168.10.12 netmask 255.255.255.0 broadcast 192.168.10.255
+    
+
+Network address by convention would be the lowest: 192.168.10.0
+Broadcast address by convention would be the highest: 192.168.10.255
+The gateway can be anything, but following convention: 192.168.10.1
+
+edit /etc/sysconfig/network to make changes permanent in linux
+
+--more than one ip address--
+ifconfig eth0   XXX.XXX.XXX.XXX netmask 255.255.255.0 broadcast XXX.XXX.XXX.255
+ifconfig eth0:0 192.168.10.12   netmask 255.255.255.0 broadcast 192.168.10.255
+ifconfig eth0:1 192.168.10.14   netmask 255.255.255.0 broadcast 192.168.10.255
+ 
+route add -host XXX.XXX.XXX.XXX dev eth0
+route add -host 192.168.10.12 dev eth0
+route add -host 192.168.10.14 dev eth0

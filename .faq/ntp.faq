@@ -1,0 +1,40 @@
+go into root.
+
+go to /etc/inet/ and copy ntp.client to ntp.conf
+
+>>
+#webproxy ip
+server webproxy prefer
+server 10.12.147.90
+multicastclient 224.0.1.1
+driftfile /var/ntp/ntp.drift
+<<
+/etc/init.d/xntpd stop
+/etc/init.d/xntpd start
+
+#cat /var/ntp/ntp.drift
+0.0
+
+#ntpq
+ntpq> peers
+     remote           refid      st t when poll reach   delay   offset    disp
+==============================================================================
+ sunone090       .LCL.            1 u    1   64   17     0.58   -0.385 1875.09
+
+use 
+#rdate webproxy 
+to sync remote time
+
+#----------------------------
+s10
+svcadm enable svc:/network/ntp:default
+
+svcs | grep ntp
+online          7:55:56 svc:/network/ntp:default
+tail -f /var/svc/log/network-ntp:default.log
+[ May  1 07:55:52 Executing start method ("/lib/svc/method/xntp") ]
+[ May  1 07:55:56 Method "start" exited with status 0 ]
+rdate webproxy 
+
+------or-----
+0 2 * * * /usr/sbin/ntpdate -s -b -p 8 -u 129.132.2.21

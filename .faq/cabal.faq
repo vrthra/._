@@ -1,0 +1,7 @@
+cabal configure -ghc
+cabal build
+cabal sdist
+
+cabal configure
+cabal build
+cabal install

@@ -1,0 +1,5 @@
+cat /proc/sys/vm/swappiness > 75
+    (Usage - one main process)
+cat /proc/sys/vm/swappiness < 25
+    (Usage - multiple processes)
+/etc/sysctl.conf

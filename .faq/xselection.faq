@@ -1,0 +1,12 @@
+start synergys
+---------------
+.synergy.conf
+section: screens
+	akasham:
+		meta = alt
+end
+---------------
+in vim
+:. !xsel -ib
+
+

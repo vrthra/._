@@ -1,0 +1,240 @@
+sed -n '/starthere/,/endhere/p' myfile
+sed -n 12,18p myfile
+
+ /foo/,/bar/ { s/Johnson/White/g; s/Smith/Wesson/g; }
+
+--insert a file--
+ sed -e '/regex/{r insert.file' -e 'd;}' source
+---------------
+/test4/{                 # if /test4/ is found, ...
+    s/$/aaa/;             # ... perform these actions
+    s/[0-9]/number/;
+    s/test5/YYY/;         # Boolean /test4/ && /test5/
+}
+
+/test4/!{                # if /test4/ is missing, ...
+    s/^/bbb/;             # ... perform these instead
+    s/[a-f]/letter/;
+    s/test6/ZZZ/;         # Boolean /test4/! && /test6/
+}
+----------------------
+/test9/ { 
+    /test10/ {     # Boolean IF /test9/ && /test10/ are true,
+        cmd1; cmd2; cmd3;      # ... do these 3 commands
+        b next4
+    }                      # ELSEIF /test9/ && /test10/! are true,
+    cmd4; cmd5; cmd6;      # ... do cmd4, cmd5, and cmd6
+    b next4
+}                        # ELSE,
+cmd7; cmd8; cmd9;        # ... do cmd7, cmd8, and cmd9
+: next4                  # This corresponds to ENDIF
+
+/^\.TS/,/^\.TE/!d   #extract everything between .TS and .TE [!following address reverses the meaning]
+
+cat buglist.txt| sed -ne '/2W/p' #-n means do not print, unless p
+
+
+=========================================
+
+cat alpha.txt| sed -e '/c/,/h/d' #prints all except between c and h
+=>cat alpha.txt| sed -ne '/c/,/h/!p' #prints all except between c and h
+
+cat alpha.txt| sed -e '/c/,/h/!d' #prints all between c and h
+=>cat alpha.txt| sed -ne '/c/,/h/p' #prints all between c and h
+
+multiple instructions
+---------------------
+use multiple -e
+use ; to separate
+use \n to separate
+
+---------------------
+cat alpha.txt| sed 's/A/A/i'
+i=> case insensitive
+
+/^==/s/-/+/g #substitute - with + if the line starts with ==
+/^==/!s/-/+/g #substitute - with + on all the other lines.
+
+Use 
+#n to have the same effect as sed -n
+
+[addr]/pattern/repl/flags [flags = <n>,g,p,w file] n- nth occurance, p- print w - write to file
+
+
+&-> matches the string matched
+\1 -> nth subgroup \(\)
+
+delete
+------
+/a/,/b/d
+
+append/insert/change
+/address/a\ #inserts after the address
+text
+/address/i\ #inserts before the address
+text
+/address/c\ #changes teh address line
+text
+
+list
+----
+lists the pattern space with special chars in ascii
+sed -ne "l"
+
+transform
+sed -e 'y/abcd/ABCD/'
+
+print
+------
+p
+print line number
+----------------
+/address/=
+cat range.txt| sed -ne '/a/{p;=}'
+
+next
+----
+|cat range.txt| sed -ne '/a/{p}'  
+a1
+a2
+a3
+|cat range.txt| sed -ne '/a/{n;p}'
+a2
+test
+
+-- outputs current pattern space and reads next line into pattern space
+with out breaking out of loop
+
+read
+----
+|cat range.txt| sed -ne '/a/{             
+p
+r num.txt
+}'
+
+write
+------
+|cat range.txt| sed -ne '/a/{w me}'
+
+quit
+----
+'100q'
+
+------------------
+use xxx\
+yyy to have the effect of xxx\nyyy
+
+------------------
+
+Next
+-----
+cat range.txt| sed -ne '/a/{N;s/\n/ /g;l}'
+a1 a2$
+a3 test$
+
+|cat range.txt| sed -ne '/a/{N;l}'
+a1\na2$
+a3\ntest$
+
+
+
+$!N #next only if not end
+
+N appends the next line into pattern space, after which
+the ^ matches very begining and $ matches very end ignoring \n in between
+
+------------------
+Print
+-----
+prints only the top of the pattern space [until first \n]
+|cat range.txt| sed -ne '/a/{N;p}'         
+a1
+a2
+a3
+test
+
+|cat range.txt| sed -ne '/a/{N;P}'
+a1
+a3
+
+Delete
+------
+delete the top of the pattern space and causes the loop to start new with out
+reading a new line
+
+hold
+-----
+h,H [copy or append contents of pattern space to hold space]
+
+get
+---
+g,G [reverse]
+
+Exchange
+-------
+x 
+
+
+reverse flip
+-------
+1
+2
+11
+22
+111
+222
+
+/1/ {
+h
+d
+}
+/2/{
+G
+}
+
+para
+---
+/^$/!{
+H
+d
+}
+/^$/{
+x
+s/^\n/<p>/
+s/$/<\/p>/
+G
+}
+
+break
+-----
+/address/b label
+
+:begin
+commands
+commands
+b begin
+/address/b begin
+
+test
+----
+/address/t label
+
+branches to label only if there was a substitution in the address.
+
+:begin
+/@f1(\([^)]*\))/{
+s//\\fB\1\\fR/g
+b begin
+}
+/@f1(.*/{
+N
+s/@f1(\([^)]*\n[^)]*\))/\\fB\1\\fT/g
+t again
+b begin
+}
+:again
+P
+D
+
+
+

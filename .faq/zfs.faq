@@ -1,0 +1,3 @@
+zpool create space c0t1d0s7
+zfs create space/mail
+zfs set mountpoint=/var/mail space/mail

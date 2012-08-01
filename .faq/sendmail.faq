@@ -1,0 +1,3 @@
+m4 /etc/mail/sendmail.mc > /etc/sendmail.cf
+
+/usr/lib/sendmail -bv tinderbox-daemon@cvsync.red.iplanet.co

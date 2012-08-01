@@ -1,0 +1,5 @@
+netstat -nltp
+    numeric listening tcp program
+netstat -ntp
+    numeric connected tcp program
+

@@ -1,0 +1,39 @@
+the env portion is any thing after -- in boot.
+kernel (nd)/http_proxy start_hostname=mexico --
+
+/etc/bootptab
+dummy.test.net:\
+         :ht=ether:\
+         :sa=129.158.224.203:\
+         :hn:\
+         :bf=http_proxy:\
+         :bs=auto:\
+         :hd=/tftpboot:\
+         :ds=129.158.224.31:\
+         :gw=129.158.224.254:\
+         :sm=255.255.255.0:\
+         :vm=rfc1048:
+
+oskit.test.net:\
+         :ht=ether:\
+         :ha=00065b7c03e0:\
+         :ip=129.158.224.188:\
+         :tc=dummy.test.net
+
+vayavyam.test.net:\
+         :ht=ether:\
+         :ha=00065b7c085e:\
+         :ip=129.158.224.78:\
+         :tc=dummy.test.net
+
+agneyam.test.net:\
+         :ht=ether:\
+         :ha=0003ba5cdfeb:\
+         :ip=129.158.224.203:\
+         :tc=dummy.test.net
+
+/etc/tftpd.conf
+defaultDirectory   /tftpboot
+rootDirectory      /tftpboot
+debuglevel 255
+

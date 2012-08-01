@@ -1,0 +1,21 @@
+/etc/gdm/Init/Default:/usr/bin/killall synergyc
+/etc/gdm/Init/Default:/usr/bin/synergyc varunam
+/etc/gdm/PostLogin/Default.sample:/usr/bin/killall synergyc
+/etc/gdm/PreSession/Default:/usr/bin/killall synergyc
+/etc/gdm/PreSession/Default:/usr/bin/synergyc varunam
+/etc/X11/xdm/Xsetup:/usr/bin/killall synergyc
+/etc/X11/xdm/Xsetup:/usr/bin/synergyc varunam
+/etc/X11/xdm/Xstartup:/usr/bin/killall synergyc
+/etc/X11/xdm/Xsession:/usr/bin/killall synergyc
+/etc/X11/xdm/Xsession:/usr/bin/synergyc varunam
+
+solaris10:
+cp /usr/dt/config/Xsetup /etc/dt/config
+|diff -u /usr/dt/config/Xsetup /etc/dt/config
+--- /usr/dt/config/Xsetup       Sat Dec 18 00:49:45 2004
++++ /etc/dt/config/Xsetup       Tue Jul 28 09:39:53 2009
+@@ -199,5 +199,6 @@
+-
++/usr/sbin/killall synergyc
++/usr/bin/synergyc vayavyam
+

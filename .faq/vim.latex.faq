@@ -1,0 +1,5 @@
+xdvi -editor 'gvim --remote-wait +%l %f' a.3.dvi
+ctrl + button 1
+
+latex --src [your_file.tex]
+or \usepackage{srcltx}

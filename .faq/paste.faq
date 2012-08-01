@@ -1,0 +1,16 @@
+paste -d"|"  cutlist1 cutlist2
+paste -s -d"||\n" filename #uses the sequence in -d recursively so ineffect, join 3lines to 3 fields
+1
+a
+-
+2
+b
+-
+3
+c
+-
+becomes
+1|a|-
+2|b|-
+3|c|-
+

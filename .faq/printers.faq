@@ -1,0 +1,30 @@
+http://www.cups.org/documentation.php/options.html
+
+lpget list | grep myprinter
+lpget photondbl
+lpget -k usage list
+
+On ubuntu
+--------
+
+edit /etc/cups/client.conf
+ServerName printserv.eecs.oregonstate.edu (from it)
+
+then 
+lpinfo -v
+...
+lpstat -v | grep kec2130
+lpstat -p -d
+
+| lpr -P kec2130 mini-project-1.pdf 
+| lp -d kec2130 ...
+
+lpoptions -d kec2130
+(check .cups/lpoptions)
+
+lp -o landscape -o scaling=75 -o media=A4
+lpr -o landscape -o scaling=75 -o media=A4
+
+lpoptions -p kec2130 -l
+
+| a2ps ~/private/581/hw2/Syntax.hs| mpage -2 | lpr (rotaged pages in layout)

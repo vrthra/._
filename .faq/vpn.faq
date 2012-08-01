@@ -1,0 +1,6 @@
+ivpn-india.sun.com
+Group: vpn
+    : vpn4sun
+    : enable transparent tunneling
+    : ipsec over udp
+    : use vpnc

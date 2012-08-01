@@ -1,0 +1,8 @@
+| sudo /opt/android/android-sdk-linux/platform-tools/adb devices
+List of devices attached 
+????????????    no permissions
+
+| sudo /.forge/android-sdk-linux/platform-tools/adb kill-server
+| sudo ./.forge/android-sdk-linux/platform-tools/adb start-server
+
+| sudo ./.forge/android-sdk-linux/platform-tools/adb devices

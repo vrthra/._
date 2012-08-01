@@ -1,0 +1,7 @@
+show non printing
+cat -vet filename
+     |||
+     ||+--display tab as '^I'
+     |+--display end of each line as '$'
+     +--display non-printing characters
+

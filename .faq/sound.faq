@@ -1,0 +1,25 @@
+kldload snd_driver
+cat /dev/sndstat
+dmesg | grep pcm
+cat me.wav > /dev/dsp
+
+cat /dev/urandom > /dev/dsp
+unmute:
+ amixer -- sset Master playback -0dB
+mute:
+ amixer -- sset Master playback -80dB
+
+
+/etc/pulse/client.conf
+    autospawn = no
+killall pulseaudio
+------------------------
+pacmd list-sinks
+pacmd set-default-sink 0
+
+
+------------------------
+alsactl init
+amixer --quiet set Master toggle      
+amixer --quiet set PCM toggle      
+while true; do amixer --quiet set Master 1+ ; done

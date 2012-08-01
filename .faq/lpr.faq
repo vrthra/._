@@ -1,0 +1,3 @@
+lpr filename
+lpq
+lprm jobid

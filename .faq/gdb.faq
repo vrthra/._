@@ -1,0 +1,193 @@
+gdb -tui
+gdb
+
+Attention
+
+You can use TAB-key completion and some abbreviations, such as p for print, on gdb. You can also use command history and command editing that are based on readline library.
+
+Help
+    command 	explanation 	remarks
+    h [category] 	Shows help 	help's abbreviation. This document doesn't cover all commands, so I suggest you to refer to the help.
+Set breakpoints
+
+    The process stops where a breakpoint is set.
+    command 	explanation 	remarks
+    b line 	Set a breakpoint at line 	b is an abbreviation of break.
+    b func 	Set a breakpoint at the function, func 	
+    b file:line 	Set a breakpoint at line in the file, file 	
+Set watchpoints
+
+    Watchpoints stops the process whenever a specified variable number's value or expression's value change. Very useful.
+    command 	explanation 	remarks
+    watch exp 	Stops execution whenever the expression, exp's value changes 	You can specify from a variable number to a complicated expression for exp.
+    awatch v 	Stops execution whenever the value of a variable number, v is written 	watch v doesn't stop execution if the same value is written into v. On the other hand, awatch v stops execution.
+
+    Example
+        For watchpoint.c, watch val1==10 stops execution at 10th loop. awatch val2 stops execution at 15th line. watch *(&val1+1)==10 works, too. (It stops execution at 15th line at 10th loop). 
+
+Deal with breakpoints and watchpoints
+    command 	explanation 	remarks
+    info br 	Shows the list of the breakpoints and the watchpoints 	info breakpoints's abbreviation.
+    del i 	Cancel i-th break(watch)point in the list shown by info br command 	
+    clear {func|line} 	Cancel the break(watch)point set at function, func or at line 	Personally, I like to use del command, as it's easier.
+    enable i 	Enable i-th break(watch)point 	Used for disabled break(watch) points
+    diable i 	Disable (temporarily) i-th break(watch)point 	
+    condition i exp 	Add an expression as a condition to stop to i-th break(watch)point 	Stops execution only if the expression, exp is true. To disable the condition, do condition i.
+    command i 	Set commands to be executed when i-th break(watch)point is hit 	Type command i and return key, and you are required to input commands. Type commands and end to indicate the end of them. Refer to the pseudo tracepoint as an example.
+Set tracepoints
+
+    When the function is called at which a tracepoint is set, the caller function, the arguments, and the return value are shown. The process doesn't stop. You can emulate dbx's tracepoint by command command as follow,
+
+    Pseudo tracepoints
+
+        Do as follows, to set a tracepoint at the function, func, in watchpoint.c
+
+           1. (gdb) b func
+           2. (gdb) command 1
+           3. > info locals
+           4. > bt 2
+           5. > end
+
+The execution of the program
+    command 	explanation 	remarks
+    run [arg] 	Run the program 	
+    c 	Resume the stopped program (continuation) 	c is an abbreviation of continue.
+    n [n] 	Execute the line unit 	A function call is 1 step (I.e. not step into any functions).
+    s [n] 	Execute the line unit 	If there is a function call which is debugable, the line in the function is also counted. That is, stepping into the function.
+    finish 	Goes out from the current function, and goes to the upper(caller) function 	
+    return [val] 	Interrupt the current function, and goes to the upper(caller) function 	The current function is interrupted, so the code following after the current position isn't executed. You can specify the return value, val from the function.
+    attach pid 	Attach gdb to the process, whose procee ID is pid 	
+    q 	Finish gdb 	q is an abbreviation of quit.
+Move around the function call stack
+
+    In the graphical mode case, it is useful to open the other window to display the function call stack, and to (double)click on it to go there.
+    Note, these commands don't make any progress on execution, which means, the breaked point is not changed.
+    command 	explanation 	remarks
+    bt 	Shows the function call stack at present, from the main() function to the current function 	bt is an abbreviation of backtrace.
+    frame i 	Move to i-th function of the call stack shown by bt command 	
+    down 	Move down in the stack 	
+    up 	Move up in the stack 	
+
+    About the scope of variables
+
+        You can see values of the local variables in the function where you have moved to.
+
+        Example
+            In case func_caller() calls func_called() and both functions have a local variable, i,
+            when the process is stopped at func_called(), and you do print i, you see a value of the local variable in func_called(). When you do up command (or frame command) and move to func_caller() and do print i, you see a value of the local variable in func_caller(). 
+
+Show values of the variables
+
+    In the graphical mode case, it is useful to open the display command window, which always shows the values.
+    command 	explanation 	remarks
+    p v 	Shows the value of a variable number, v 	p is an abbreviation of print.
+    disp v 	Shows the value of a variable number, v, always 	disp is an abbreviation of display. undisp(undisplay) hide the values.
+    x/fmt addr 	Shows the value of the address addr, by the specified fmt format 	x is an abbreviation of examine. See h x for details of fmt.
+    info lo 	Shows the values of the local variable numbers 	info locals's abbreviation.
+
+    About x command
+
+        print command is enough to know the value of variables, when they are normal types.
+        Otherwise, for example, when character strings are stored in JIS Kanji code, it could be useful to use x command.
+
+        Example
+
+            x/32xb ptr
+                Format, "32xb" implies that x is hex and b is byte (8bit) unit and 32 is a repeat number. This shows 32 bytes on 16 base from the address ptr.
+
+Show the variable type
+
+    Variable type means such as int, char, and so on. When many typedef's are used, this could be quicker to know the type of a variable number than to browse source code. So I often use it.
+    command 	explanation 	remarks
+    whatis v 	Show the type of a variable number, v 	
+    ptype v 	Shows the details of the type of a variable number, v, such as members of a structure 	
+    ptype t 	Shows the details of the type t, such as members of a structure 	
+
+    Example 1
+        typedef unsigned char Byte; Byte b; In this case,
+        whatis b shows Byte. ptype p and ptype Byte show unsinged char. 
+    Example 2
+        typedef struct _XDisplay {...} Display; Display d; In this case,
+        whatis d shows Display. ptype d and ptype Display show struct _XDisplay {...(members of structure)...}. 
+
+Change visible portion
+    command 	explanation 	remarks
+    l [func|line|file] 	Shows the portion of source code specified by function, func or line or file named file. 	You can repeat l command to see portions.
+Search a character string in the file
+    command 	explanation 	remarks
+    search str 	Search a character string, str in the file 	reverse search also works.
+Runtime execution
+
+    These commands make progress on execution dynamically at runtime.
+    command 	explanation 	remarks
+    call func(arg) 	Call the function, func 	
+    set v = x 	Set a value, x (a constant number of a varible number) to the variable number, v 	
+Misc
+    command 	explanation 	remarks
+    shell command 	Executes a shell command 	E.g. shell ls.
+    set env NAME [=] val 	Set a value, val to an environment variable, NAME 	E.g. set env LANG ja_JP.eucJP. show env shows the list.
+
+Initialize file
+    You can set some aliases in ~/.gdbinit. 
+
+
+
+Print arrays
+
+int main() {
+        int *a;
+        int b[3] = {1,2,3};
+        a = b;
+
+        int *c[3] = {a, b, 0};
+        int **d = c;
+        return 0;
+}
+
+print *a@3
+---------------------
+ set logging on
+show logging 
+info source
+info scope main
+info locals 
+info breakpoints
+info reg rip cs
+break context_switch if next == init_task
+break WHERE if COND
+
+b do_mmap_pgoff 
+Breakpoint 1 at 0xffffffff8111a441: file mm/mmap.c, line 940.
+(gdb) command 1
+Type commands for when breakpoint 1 is hit, one per line.
+End with a line saying just "end".
+>print addr
+>print len
+>print prot
+>end
+(gdb)
+
+break write if $rsi == 2
+
+# disassemble 5 instractuions
+gdb: x/5i schedule
+x/20i $ip-40
+
+
+gdb ./MyProgram -ex 'break foo' -ex 'run' -ex 'next' -ex 'next' -ex 'print bar' -ex 'q'
+
+gcatch(){
+  gdb -ex 'r' -ex 'back' -ex 'q' --args $*
+}
+
+You can add -ex 'set confirm off' to the line or to your .gdbinit
+
+
+~/.gdb/ptrace
+break ptrace
+commands 1
+    return
+   continue
+end
+
+watch *0xdeadbeaf. A watch point trig gers when the con tents of the mem ory loca tion changes

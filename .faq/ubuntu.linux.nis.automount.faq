@@ -1,0 +1,4 @@
+/etc/auto.master:
+/home   yp:auto.home -nosuid,vers=3
++auto.master
+

@@ -1,0 +1,10 @@
+boot net -s
+boot cdrom -s
+It will give you
+#
+mount /dev/dsk/c0t1d0s0 /a
+
+TERM=vt100;export TERM
+
+edit /etc/shadow and remove encrypted passwd
+reboot

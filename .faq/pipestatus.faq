@@ -1,0 +1,1 @@
+bash -c 'cat  a | wc -c | wc -l ; echo ${PIPESTATUS[*]}'

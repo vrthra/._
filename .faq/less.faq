@@ -1,0 +1,7 @@
+hl Me.hs | less -r # for color
+
+# like tail
+myproc | less +F 
+
+^C will stop scrolling, and Shift+F will restart tailing.
+

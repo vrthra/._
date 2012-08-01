@@ -1,0 +1,19 @@
+java -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8000  -Xdebug <prog>
+
+jdb -connect com.sun.jdi.SocketAttach:hostname=lonepeak,port=8000
+or 
+jdb -attach 8000
+
+clear
+threads
+dump
+where
+print
+locals
+methods
+up
+down
+cont
+list
+use 
+!!

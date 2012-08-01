@@ -1,0 +1,6 @@
+/go windowname
+/file -msg target file
+/ls <regexp> for nick
+/postpone
+/dcc send rn151090 t.c
+/dcc get rn151090 t.c

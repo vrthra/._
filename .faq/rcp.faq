@@ -1,0 +1,7 @@
+rcp agneyam:/tmp/me.pl me.pl
+rcp * agneyam:/tmp
+rcp -r agneyam:/test .
+rcp -r rahul@agneyam:. .
+
+#test.tcl is in home dir
+rcp agneyam:test.tcl .

@@ -1,0 +1,11 @@
+pam_nologin
+ -- check for /etc/nologin file
+
+
+to get X to run by a remote user
+/etc/pam.d/xserver
+#%PAM-1.0
+auth       sufficient   pam_permit.so
+auth       required pam_permit.so
+account    required pam_permit.so
+#pam_permit is the most promiscous

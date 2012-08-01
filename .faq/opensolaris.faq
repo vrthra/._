@@ -1,0 +1,13 @@
+wx uncreate ..
+wx reset .. (to parent version)
+workspace parent -p /net/sfwnv.sfbay/gates/sfwnv/gate
+bringover -p /ws/sfwnv-clone -w sfw usr/src
+
+disable X
+svcadm disable gdm
+
+
+sccs edit
+sccs delget
+wx redelget
+

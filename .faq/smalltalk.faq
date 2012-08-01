@@ -1,0 +1,186 @@
+"---------------------------------------"
+"Arrays"
+#(1  2 3 4 5 6 7 8) do: [:aNum|
+	 Transcript show: aNum;cr.
+]
+"---------------------------------------"
+
+|uc unq|
+uc:=OrderedCollection new. 
+uc add: '2' ; add: '1'. 
+uc add: '3'; add: '3'. 
+unq:=uc asSet.
+Transcript show: (unq asSortedCollection) ; cr.
+unq do: [ :each |
+	Transcript show: each ; cr .
+] . 
+"============================================================="
+"OrderedCollection browse"
+"============================================================="
+1 to: 10 do: [:i|
+	Transcript show: (i asString); show: '::'.
+] .
+"============================================================="
+ablk := [1 + 2].
+ablk value .
+"============================================================="
+
+ablk := [:x :y | x + y ] .
+ablk value: 1 value:3
+
+ablk := [:x :y | x + y . ^44 ] .
+ablk value: 1 value:3
+"============================================================="
+|dog cat|
+dog := Dog new.
+dog
+     name: 'mydog';
+     age: 3 .
+
+cat := Cat new.
+cat
+     name: 'mycat';
+     age: 5 .
+
+Transcript
+     show: cr;
+     show: cat speak; cr;
+     show: dog speak; cr;
+     show: (dog speak: 'myspeak' may: 'mymex'); cr.
+
+Pet>>method
+speak
+    "let it speak"
+    self subclassResponsibility
+Dog>>method
+    "dog speak"
+    ^'wooo'
+"+++++++++++++++++++++++++++++++++++++++++"
+Object subclass: #Main
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'My-Samples'!
+
+!Main methodsFor: 'accessing' stamp: 'Rahul 4/1/2007 01:59'!
+blockrun
+	"Just run."
+	| uc unq |
+	uc := OrderedCollection new.
+	uc add: '2';
+		 add: '1'.
+	uc add: '3';
+		 add: '3'.
+	unq := uc asSet.
+	Transcript show: unq asOrderedCollection;
+		 cr.
+	unq
+		do: [:each | Transcript show: each;cr].! !
+
+!Main methodsFor: 'accessing' stamp: 'Rahul 4/1/2007 01:58'!
+petrun
+	"Just run."
+	| dog cat |
+	dog := Dog new.
+	dog name: 'mydog';
+		 age: 3.
+	cat := Cat new.
+	cat name: 'mycat';
+		 age: 5.
+	Transcript show: cat speak;
+		 cr;
+		 show: dog speak;
+		 cr;
+		
+		show: (dog speak: 'myspeak' may: 'mymex');
+		 cr! !
+
+!Main methodsFor: 'accessing' stamp: 'Rahul 4/1/2007 02:00'!
+run
+	"Just run."
+	1to: 10
+		do: [:i | Transcript show: i asString;
+				 show: '::']! !
+
+!Main methodsFor: 'accessing' stamp: 'Rahul 4/1/2007 02:53'!
+whilerun
+	"Just run."
+	| i |
+	i := 2.
+	[Transcript show: i;
+		 cr.
+	i := i + 3.
+	i <= 9] whileTrue.
+	[i >= 0]
+		whileTrue: [Transcript show: i. i := i - 1]! !
+
+
+Object subclass: #Pet
+	instanceVariableNames: 'name age'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'My-Samples'!
+!Pet commentStamp: 'Rahul 4/1/2007 01:50' prior: 0!
+Pet class!
+
+
+!Pet methodsFor: 'accessing' stamp: 'Rahul 4/1/2007 01:53'!
+age
+	"get agge"
+	^age! !
+
+!Pet methodsFor: 'accessing' stamp: 'Rahul 4/1/2007 01:54'!
+age: aNumber
+	"set age"
+	age := aNumber! !
+
+!Pet methodsFor: 'accessing' stamp: 'Rahul 4/1/2007 01:53'!
+name
+	"get name"
+	^name! !
+
+!Pet methodsFor: 'accessing' stamp: 'Rahul 4/1/2007 01:54'!
+name: aString
+	"set name"
+	name := aString! !
+
+
+!Pet methodsFor: 'as yet unclassified' stamp: 'Rahul 4/1/2007 01:49'!
+speak
+	"let it speak"
+	self subclassResponsibility! !
+
+
+Pet subclass: #Cat
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'My-Samples'!
+!Cat commentStamp: 'Rahul 4/1/2007 01:51' prior: 0!
+cat class!
+
+
+!Cat methodsFor: 'as yet unclassified' stamp: 'Rahul 4/1/2007 01:51'!
+speak
+	"talking cat"
+	^'meow'! !
+
+
+Pet subclass: #Dog
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'My-Samples'!
+!Dog commentStamp: 'Rahul 4/1/2007 01:52' prior: 0!
+Dog class!
+
+
+!Dog methodsFor: 'as yet unclassified' stamp: 'Rahul 4/1/2007 01:52'!
+speak
+	"talking dog"
+	^ 'boww'! !
+
+!Dog methodsFor: 'as yet unclassified' stamp: 'Rahul 4/1/2007 01:56'!
+speak: aString may: anotherString
+	"see how well he speaks" 
+	^anotherString , '==' , aString ! !

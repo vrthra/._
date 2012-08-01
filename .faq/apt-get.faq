@@ -1,0 +1,4 @@
+W: GPG error: ... NO_PUBKEY 60D11217247D1CFF
+                                    ^
+gpg --keyserver keyserver.ubuntu.com --recv 247D1CFF
+gpg --export --armor 247D1CFF | sudo apt-key add -

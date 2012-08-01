@@ -1,0 +1,16 @@
+mdconfig -a -t vnode -f /tmp/boot.flp -u 4 
+
+where "/tmp/boot.flp" is the filename. 
+
+-u is for unit "4" -- i.e. device md4 
+
+then: 
+
+mkdir /tmp/flop 
+
+mount -t ufs /dev/md4 /tmp/flop 
+
+to finish: 
+
+umount /tmp/flop 
+mdconfig -d -u 4

@@ -1,0 +1,23 @@
+foreach varlist1 list1 ?varlist2 list2 ...? body
+-----------------------------------------------
+foreach i {lst} {
+puts $i
+}
+
+foreach {i j} {lst} {
+puts "$i = $j"
+}
+
+foreach i {abc} j {def} {
+puts [lappend $i $j
+}
+-----------------------------------------------
+set x [get-process-stats --config test --node agneyam]
+array set stats [join $x]
+array get stats *Cache*
+
+array get env
+----------------------------------------------
+catch {unset} err
+puts $err
+----------------------------------------------

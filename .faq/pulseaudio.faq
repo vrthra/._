@@ -1,0 +1,2 @@
+ /etc/pulse/client.conf 
+autospawn = no

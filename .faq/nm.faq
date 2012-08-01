@@ -1,0 +1,7 @@
+nmcli nm wifi on
+nmcli nm wifi off
+
+nmcli dev wifi list
+
+nmcli con down id 'Auto iHOUSE'
+

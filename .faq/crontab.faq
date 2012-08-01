@@ -1,0 +1,16 @@
+crontab -l
+crontab -r
+crontab -e
+/var/spool/cron/crontabs
+crontab cronfile #cronfile contains the below format
+
+00-10 17 * 3,6,9,12 5 find / -newer .last_time -print > bkuplst
+
+1] the number of minutes after specified hr, range indicates exec every minute
+2] hr in 24 hr format
+3] day of month [here *]
+4] month number
+5] days of week [here 5 - Friday]
+
+0 * * * * /usr/sbin/ntpdate -s -b -p 8 -u webproxy > /dev/null 2>&1
+--run every hour and no mails

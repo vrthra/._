@@ -1,0 +1,2 @@
+sudo apt-get install vim-latexsuite
+sudo vim-addons -w install latex-suite

@@ -1,0 +1,8 @@
+wifi
+
+/etc/modprobe.d/blacklist.conf
+blacklist bcma
+blacklist brcm80211
+blacklist brcmsmac
+
+additional drivers STA

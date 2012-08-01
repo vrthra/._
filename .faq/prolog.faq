@@ -1,0 +1,5 @@
+main :-
+    open('myOutput.txt',write,ID),
+    (   ( mySolution(X), write(ID,X), nl(ID), fail )
+      ; close(ID)
+    ).

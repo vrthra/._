@@ -1,0 +1,20 @@
+httpd.conf:
+ProxyRequests On
+ProxyPass / http://agneyam.india.sun.com/
+
+/usr/lib/pkg.depotd -d /space/images -p 10000
+
+sudo pkg image-create -F -a agneyam.india.sun.com=http://agneyam.india.sun.com/ /space/images
+
+pkgsend open mypkg@1.3-4.6
+=>
+export PKG_TRANS_ID=1204534412_pkg%3A%2Fmypkg%401.3%2C5.11-4.6%3A20080303T142332Z
+pkgsend add file mypkg/i_am_the_file path=/etc/mypkg/myfile
+pkgsend close
+
+pkg:/mypkg@1.3,5.11-4.6:20080303T142332Z
+
+pkgsend -s http://agneyam.india.sun.com:10000 send SUNWipkg
+pkg refresh
+pkg status -va
+

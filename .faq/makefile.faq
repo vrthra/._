@@ -1,0 +1,56 @@
+.cpp.o:
+	    $(CC) -o $@ -c $< 
+$@ == mainjs.o 
+$< == mainjs.cpp
+
+$< - the current dependcy file 
+$@ - the current target file 
+$* - the base name of the current target 
+$? - all dependencies that are newer than the target
+$^ - names of all dependencies (uniq)
+$+ - names of dependencies (duplicates)
+
+@ - do not print messages
+- - ignore return value.
+
+
+envvars
+======
+LD_LIBRARY_PATH:=build/lib:${LD_LIBRARY_PATH}
+
+functions
+======
+define run-ant
+	$(MAKE) ANT_TARGETS="$@" antit
+endef
+publish:
+	$(run-ant)
+
+#assemble-my-t1 assemble-my-t2
+assemble-%:
+	$(run-ant)
+
+%-assemble: my-%-compile
+	$(run-ant)
+
+install-%-jk: all-jk-%
+	    (cd $(JK_VER)-$* ; ../install-module -b $* -m jk)
+----------
+define mexico
+	@echo $1
+endef
+
+all:
+	$(mexico) me
+----------
+%.c: %.o
+	gcc -c $< -o $@
+----------
+forloop
+=======
+LIST=aa bb cc
+all :
+	@for f in $(LIST) ; do \
+		echo $$f ; \
+	done
+--------

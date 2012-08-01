@@ -1,0 +1,2 @@
+Find becomes default after changing folder options
+c:\> regsvr32 /i shell32

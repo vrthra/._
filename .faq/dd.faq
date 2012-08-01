@@ -1,0 +1,1 @@
+dd bs=1M if=/dev/sda | gzip | ssh user@remote 'dd of=sda.gz'    Backup harddisk to remote machine

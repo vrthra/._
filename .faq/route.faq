@@ -1,0 +1,11 @@
+sudo route add -net 0.0.0.0 netmask 0.0.0.0 dev eth0
+
+
+---
+
+route add default gw XXX.XXX.XXX.XXX dev eth0
+route add  -net  XXX.XXX.XXX.0  netmask 255.255.255.0 gw XXX.XXX.XXX.XXX dev eth0 
+
+Where XXX.XXX.XXX.XXX is the gateway to the internet as defined by your ISP or network operator.
+
+in case of mistake, use del in place of add

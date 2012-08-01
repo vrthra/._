@@ -1,0 +1,24 @@
+install both firmware and firmware-kmod
+
+cat /boot/loader.conf
+    if_iwi_load="YES"
+    if_wi_load="YES"
+
+
+cat /etc/rc.conf
+    iwi_enable="YES"
+    wpa_supplicant="YES"
+    ifconfig_iwi0="WPA DHCP"
+    
+cat /etc/wpa_supplicant.conf
+    network={
+    ssid="rover"
+    scan_ssid="1"
+    key_mgmt=NONE
+    }
+    netowk={
+    ssid="indigo"
+    wep_key3="xxx"
+    key_mgmt=NONE
+    wep_tx_keyidx=3
+    }

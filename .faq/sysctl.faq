@@ -1,0 +1,3 @@
+|sysctl -w kern.ipc.shmall=32768
+|sudo sysctl -w kern.ipc.shmmax=67108864
+/etc/sysctl.conf

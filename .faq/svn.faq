@@ -1,0 +1,20 @@
+svnadmin create /sapce/store/svn
+cat > /space/store/svn/conf/passwd
+[users]
+rahul = mex
+^D
+
+cat > /space/store/svn/conf/svnserv.conf
+[general]
+rahul = mex
+passwd-db = passwd
+^D
+
+svnserve -d -r /space/store/
+
+mkdir /tmp/svn/netdb/trunk
+cp -Rp ~/netdb/* /tmp/svn/netdb/trunk
+cd /tmp/svn
+svn import . svn://webproxy.india.sun.com/svn -m "Initial" --username rahul --password mex --no-auth-cache
+cd ~
+svn checkout svn://webproxy.india.sun.com/svn/netdb

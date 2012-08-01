@@ -1,0 +1,44 @@
+sudo tcpdump -ilo -nN -vvv -s 1500 port 25 -w out
+
+-s is snaplen (default is 68) 1500 is entire (first xx bytes captured)
+-n no dns query
+-e use mac
+
+Filters:
+tcpdump src client.example.com and dst server.example.com
+tcpdump host client.example.com
+tcpdump "host client and not ( port telnet or port domain )"
+---------------
+   src addr                 Source IP address matches addr                 
+   dst addr                 Destination IP address matches addr            
+   host addr                Source or destination IP address matches addr  x
+   ether <src/dst/host> addrxEthernet address matches addr                  
+   [src/dst] net net        IP address is on network net                   
+   net net                  Source or destination IP addr is on network netx
+   net net mask mask        As above but network range defined by mask     
+   [src/dst] port port      Port is port                                   
+   port port                Source or destination port is port             
+   less octets              Packet size is less than or equal to octets    
+   greater octets           Packet size is greater than or equal to octets x
+   icmp                     Packet is an ICMP packet                       
+   tcp                      Packet is a TCP packet                         
+   udp                      Packet is a UDP packet                         
+   ip                       Packet is an IP packet                         
+   arp                      Packet is an ARP packet                        
+   broadcast                Packet is addressed to a broadcast address     
+
+   #!/usr/bin/perl
+   # This code is hereby placed in the public domain by its author,
+   # Marc Horowitz .  If you use it, it would be polite if you left
+   # my name on it, but there's no requirement.
+   $| = 1;
+   while(<>) {
+       if (/^\s/) {
+           ($nospc = $_) =~ s/\s+//g;
+           ($spc = $nospc) =~ s/(....)/$1 /g;
+           ($bin = pack("H*",$nospc)) =~ tr/\000-\037\177-\377/./;
+           printf("%16s%-45s%s\n","",$spc,$bin);
+       } else {
+           print;
+       }
+   }

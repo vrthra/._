@@ -1,0 +1,9 @@
+vm#.ssh/config
+Host t.vaishnavam
+    Hostname <vaishnavam-ip>
+    RemoteForward 2222 localhost:22
+    User rn151090
+
+vm#ssh t.vaishnavam
+
+vaishnavam# ssh -p 2222 rahul@localhost

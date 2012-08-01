@@ -1,0 +1,40 @@
+Enable telnet admin for IOS:
+-------------------------------
+Router#config terminal
+Router(config)#line vty 0 4
+Router(config-line)#login
+Router(config-line)#password nik
+Router(config-line)#exit
+
+
+============================
+wccp
+============================
+config
+(config):ip wccp web-cache
+(config):iinterface fastEthernet 0/0
+(config-if)#ip wccp web-cache redirect in
+show  ip wccp
+
+
+
+
+==============================
+valhalla#show  ip wccp web-cache  view
+    WCCP Routers Informed of:
+        -none-
+
+    WCCP Cache Engines Visible:
+        -none-
+
+    WCCP Cache Engines NOT Visible:
+        -none-
+valhalla#show ip wccp web-cache detail
+
+valhalla#debug ip wccp events|packets|subblocks
+
+
+more system:running-config
+
+tclsh
+

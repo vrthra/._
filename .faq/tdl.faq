@@ -1,0 +1,46 @@
+tdl create
+tdl add "task"
+add <parent> "task"
+list -n <priority>
+list -av
+list -p
+list /search/
+done x
+undone x
+priority urgent <index nos>
+31 jan 2006
+defer @20060131 4
+postpone X open
+delete/remove
+report 1w
+       -1h                 exactly 1 hour ago
+       -2d                 exactly 2 days ago
+       +1w                 exactly 1 week in the future
+       +1m                 exactly 1 month (30 days) in the future
+       +2y                 exactly 2 years in the future
+       -1d-0815            08:15am yesterday
+       +1d-08              8am tomorrow
+       +1w-08              8am on the same day as today next week
+       +6h-08              8am on the day containing the time 6 hours ahead of now
+       .-08                8am today
+       .-20                8pm today
+       20011020            absolute : 12 noon on 20th October 2001
+       011020              absolute : 12 noon on 20th October 2001 (current century)
+       1020                absolute : 12 noon on 20th October 2001 (current century and year)
+       20                  absolute : 12 noon on 20th October 2001 (current century, year and month)
+       20011020-081500     absolute : 08:15am on 20th October 2001
+       20011020-0815       absolute : 08:15am on 20th October 2001 (seconds=0)
+
+       20011020-08         absolute : 08:00am on 20th October 2001 (minutes=seconds=0)
+       011020-08           absolute : 08:00am on 20th October 2001 (minutes=seconds=0, current century)
+       etc                 (see below)
+       -sun                12 noon on the previous Sunday
+       +sat                12 noon on the following Saturday
+       +sat-08             8am on the following Saturday
+       -tue-0815           08:15am on the previous Tuesday
+
+
+
+revert
+save
+undo

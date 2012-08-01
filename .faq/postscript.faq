@@ -1,0 +1,25 @@
+rlwrap ghostscript
+(%stdout) (w) file (mexico) writestring flush
+---------
+(%stderr)
+
+show the current top stack to stdout
+==
+=  - print (x) as x 
+
+Lexical scoping in postscript - bind
+/foo {add mul} bind def
+else def is just dynamic scoping.
+
+library
+/+ {add} def
+
+stack - shows  the whole stack
+pstack - + arrays
+string s print   - prints the string with format.
+
+cvs - convert to string
+cvi - convert to integer
+
+
+(myeval.ps) run - runs the file in gs

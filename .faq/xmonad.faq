@@ -1,0 +1,24 @@
+/usr/share/xsessions/xmonad.desktop
+
+<mod> + w -> workspace
+<mod> + e -> overhead
+<mod + s> + w -> send window to workspace
+<mod + s> + e -> send window to overhead
+
+.Xresources
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+.Xdefaults
+Xft.dpi: 96
+Xft.lcdfilter: lcddefault
+Xft.antialias: true
+Xft.hinting:true
+Xft.hintstyle: hintfull
+Xft.rgba: rgb
+*customization: -color
+

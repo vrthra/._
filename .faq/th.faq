@@ -1,0 +1,40 @@
+Language.Haskell.TH.Lib
+
+ghci -fth
+{-# LANGUAGE TemplateHaskell #-}
+
+ghci> :m +Language.Haskell.TH
+ghci> runQ [|tupleReplicate 4|] >>= print
+AppE (VarE TupleReplicate.tupleReplicate) (LitE (IntegerL 4))
+
+:m +Language.Haskell.TH.Syntax
+let varx = VarE (mkName "x")
+
+let str = $(return $ LitE (StringL "str"))
+
+| let x = 100
+| $(return (VarE (mkName "x")))
+100
+
+runQ [p| x |]
+runQ [d| x = 100 |]
+X runQ [d| $( [p| x |] ) = 100 |]
+X let $([|x|]) = $([|100|]) in $([|x|])
+
+
+$(return (LetE [ValD (VarP (mkName "x")) (NormalB (LitE (IntegerL 100))) []] (LitE (IntegerL 100))))
+
+runQ [| let $([p|x|]) = 100 in $([| "s" |]) |]
+
+$(return (LetE [ValD (VarP (mkName "x")) (NormalB (LitE (IntegerL 100))) []] (LitE (IntegerL 100)) ))
+$(do {x <- [|100|] ; return (LetE [ValD (VarP (mkName "x")) (NormalB (LitE (IntegerL 100))) []] x  ) } )
+$(do {x <- [|100|] ; y <- [p|x|] ; return (LetE [ValD y (NormalB (LitE (IntegerL 100))) []] x  ) } )
+$(do {x <- [|100|] ; y <- [p|x|] ; return (LetE [ValD y (NormalB x ) []] x) } )
+
+runQ [| \x -> 1 |]
+$(return it) 100
+
+$([| let x = $([|100|]) in $([|x|]) |])
+$( do {z <- [|x|] ; [| let x = $([|100|]) in $(return z) |] } )
+
+

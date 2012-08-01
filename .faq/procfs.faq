@@ -1,0 +1,3 @@
+fstab:
+proc            /proc   procfs  rw 0 0
+mount /proc

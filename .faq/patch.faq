@@ -1,0 +1,18 @@
+-d is the directory file is in, 
+-u is unified 
+-pn is the number of slashes to destroy
+-f force, 
+-R swap old and new  
+-c context 
+-B pref - prefix file name 
+-e ed script 
+-F n fuzz factor :) inc it +2
+-l ignore whitespace 
+-N ignore patches already applied
+patch -d /dir/ -u < me.patch 
+or
+# dummy '-C'
+cat me.patch | patch -u -C -p1
+
+running patch again , it asks to unapply the patch
+make sure to use /tools/ns/bin/patch [v=2.1]

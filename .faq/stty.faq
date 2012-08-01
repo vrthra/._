@@ -1,0 +1,5 @@
+#get all vars
+stty -a
+stty erase ^H
+stty echo
+stty intr '^C'

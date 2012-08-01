@@ -1,0 +1,3 @@
+unconv --listener
+
+unconv -f pdf *.pptx

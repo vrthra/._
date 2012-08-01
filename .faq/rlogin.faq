@@ -1,0 +1,19 @@
+#hostname username
+
+-all all
++ +
+
+-allsystems open to rn151090
++ rn151090
+
+-coad open to rn151090
+coad rn151090
+
+#-----------------
+to enable
+remove /etc/hosts.allow/deny
+
+>>/etc/pam.d/rlogin comment out.
+#auth       required    /lib/security/pam_securetty.so
+check /var/log/messages of the system being connected to.
+sometimes the rlogin module may not know about + entries

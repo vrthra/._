@@ -1,0 +1,36 @@
+mkdir -p /zone/1
+chmod 4700 !$
+bash-2.05b# zonecfg -z zone1
+create
+set zonepath=/zone/1
+set autoboot=true
+add net
+set address=192.168.35.210
+set physical=hme1
+end
+info
+>zonepath: /zone/1
+>autoboot: true
+>pool:
+>inherit-pkg-dir:
+>        dir: /lib
+>inherit-pkg-dir:
+>        dir: /platform
+>inherit-pkg-dir:
+>        dir: /sbin
+>inherit-pkg-dir:
+>        dir: /usr
+>net:
+>        address: 192.168.35.210
+>        physical: hme1
+verify
+commit
+^D
+#cat /etc/zones/zone1.xml 
+
+zonecfg -z zone1 info
+zoneadm list -vc
+zoneadm -z zone1 install
+
+zoneadm -z zone1 uninstall
+zoneadm -z zone1 delete

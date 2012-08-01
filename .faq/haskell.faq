@@ -1,0 +1,113 @@
+Writer Monad
+
+ take 10 $ execWriter $ sequence $ repeat $ tell ([3]::[Int])
+
+ON INSTALLATION TROUBLES for new GHC
+=========================
+remove ~/.ghc ~/.cabal and try again.
+
+install: goa hoogle lambdabot hlint pointfree
+
+
+Interesting LANGUAGES
+UnboxedTuples (,True) = (\x -> (x, True))
+http://permalink.gmane.org/gmane.comp.lang.haskell.cafe/98574
+
+ImplicitParams
+========================================
+Implicit parameters are really useful when developing. If at some point you don't know how to fill in a particular hole, you can put ?hole there. Then Ghc will tell you the type that should go there.
+
+This becomes especially important when dealing with higher order functions, like continuations. Here is an example that I used just yesterday:
+cat4_i y q = YieldT $ ?bla (\qs k -> liftM (\(a,s) -> k a (?todo s)) (runQState4 qs y))
+
+*Main> :t cat4_i
+cat4_i :: (MonadTrans f,
+           Monad (f m1),
+           ?todo::s (f m1) t3 -> t2,
+           ?bla::(QState4 s t3 m1 t1 -> (t1 -> t2 -> r) -> f m1 r)
+                -> m (YieldT_ o m a))
+       => s (f m1) t3 -> t -> YieldT o m a
+
+(Don't pay too much attention to this messy example)
+========================================
+myfunc ('t':'o':'a':'s':'t':'e':'r' : restOfString) = ...
+
+Using a normal pattern match works, but gets bothersome as the prefix string gets longer.
+{-# LANGUAGE PatternGuards #-}
+import Data.List
+myFunc string | Just restOfString <- stripPrefix "toaster" string =
+    -- do something special
+myFunc string = -- do the default case here
+
+Using a library function instead of a pattern match is a bit easier to read and write.
+{-# LANGUAGE ViewPatterns #-}
+import Data.List
+myFunc (stripPrefix "toaster" -> Just restOfString) = -- do something special
+myFunc string = -- do the default case here
+
+A GHC 6.10 syntax extension makes this usage even more natural.
+========================================
+TransformListComp : generalized list comprehensions
+NPlusKPatterns
+RegularPatterns
+
+
+foldl1 (<|>) [Nothing, Just 5, Just 3]
+#for debug
+import Debug.Trace
+debug :: (Show a) => a -> a
+debug a = trace ("DEBUG: " ++ show a) a
+
+foo arg | trace (">"++(show arg)) False = undefined
+foo x = x * x
+#---------pattern matching
+fib 0 = 0
+fib n = n + fib (n - 1)
+#---------------------------
+# Case of
+#---------------------------
+fib n = fibGen 0 1 n
+fibGen a b n = case n of
+	0 -> a
+	n -> fibGen b (a + b) (n - 1)
+#---------------------------
+# list comprehensions
+#---------------------------
+fibs = 0 : 1 : [ a + b | (a, b) <- zip fibs (tail fibs)]
+----
+#
+[ func x | x <- list, boolFunc x ]
+# the thing after ',' is a conditional
+nums = [ 4, 2, 6, 8, 5, 11 ]
+[ x * x | x <- nums, x < 7 ]
+= [ 16, 4, 36, 25 ]
+
+#just plain list
+n = 0 : [x+1 | x <- n]
+
+#--access lists 
+#by index
+fibs !! 2
+#sublist
+take 10 fibs
+#---------------------------
+
+########################################
+Guards
+########################################
+showTime h m
+	| h == 0 = "12" ++ ":" ++ showMin ++ " am"
+	| h < 11 = (show h) ++ ":" ++ showMin ++ " am"
+	| otherwise = (show (h - 12)) ++ ":" ++ showMin ++ " pm"
+    where
+	showMin
+		| m < 10 = "0" ++ show m
+		| otherwise = show m
+
+myOdd x = if (mod x 2) == 1 then True else False
+
+########################################
+lambdas
+########################################
+(\x y -> x * 4 + y)
+

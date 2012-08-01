@@ -1,0 +1,42 @@
+ls /target
+cd /target
+mount
+fsck -l
+ls -l /dev/discs/disc0
+fsck.ext3 /dev/discs/disc0/part1
+-----------------------
+
+sudo apt-get -f install
+sudo dpkg --configure -a
+sudo apt-cdrom add
+sudo apt-get update
+sudo apt-get install ubuntu-minimal
+sudo apt-get install ubuntu-desktop
+
+
+------------------
+put you livecd in and restart...then just log on to livecd....
+
+then open terminal
+
+type
+
+sudo mkdir /mnt/repair
+
+sudo mount /dev/?d?? /mnt/repair
+
+*noted that ?d? mean part of your ubuntu root partition....it might be sda1...or hdb1 or sdb or whatever...depend where you install your ubuntu....
+
+sudo chroot /mnt/repair su
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo aptitude upgrade
+sudo apt-get -f install
+sudo dpkg --configure -a
+sudo apt-get upgrade
+
+
+exit
+sudo reboot
+

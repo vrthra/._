@@ -1,0 +1,3 @@
+ppriv -l
+
+ppriv -v $$

@@ -1,0 +1,9 @@
+/usr/local/bin/erl -setcookie cs550 -sname rahul -inet_dist_listen_min 9100 -inet_dist_listen_max 9100
+
+
+application:set_env(kernel, inet_dist_listen_min, 9100).
+application:set_env(kernel, inet_dist_listen_max, 9105).
+net_adm:ping(rahul@agneyam).
+
+
+

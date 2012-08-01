@@ -1,0 +1,98 @@
+clean any untracked.
+git clean -xfd .
+
+make a new branch with current changes.
+git checkout -b maint/rake_improvements
+
+
+irc-puppet:
+#puppetlabs sbalteppup
+
+wifi: puppetmaster reductive
+
+bugs
+https://projects.puppetlabs.com/projects/commercial-release-eng/issues/new
+
+https://www.intacct.com/ia/acct/login.phtml?.company=PuppetLabs&.login=rgopinath
+user: rgopinath pass: Aishwarya1!
+
+
+
+git submodule init
+git submodule update
+
+----
+/home/rahul/enterprise-dist/packaging/deb/puppet
+git checkout --track origin/debian
+git branch -a
+
+
+building
+/home/rahul/enterprise-dist/packaging/deb/
+# change rsync.
+ sudo /bin/bash build.sh puppet
+ should place the packages in the current dir.
+  (*errors*)
+-> Use this for manual.
+#| git checkout --track origin/2.5.x
+#| git remote add puppet git@github.com:puppetlabs/enterprise-dist.git
+#(for git pull)
+
+cd <pkgname>-version/
+dh_make --createorig (=> .tar)
+dpkg-buildpackage 
+
+
+#RPM stuff
+# on pe-packages
+git co --track origin/el5
+
+cd ~/
+| rpmdev-setuptree
+cp <*>.spec $HOME/rpmbuild/
+
+#el5
+| rpmbuild-md5 -bs SPECS/pe-rubygem-rack.spec
+
+mock : zone
+|  mock -r pupent-el5-i386 rpmbuild/SRPMS/pe-<?>
+dir> /var/mock/<conf>/result
+
+host:sles-builder
+development/enterprise-dist
+  git submodule init
+  git submodule update
+  git submodule sync
+  packaging/
+    git checkout --track origin/2.5.x
+    rake sync 
+    rake PKG=rubygem-rack sles:rpm
+    
+
+
+/enterprise-dist/packaging/deb
+checking out ruby
+build.sh ruby
+-> gbp:error: You are not on branch 'debian' but on '(no branch)'
+
+cd ruby
+git branch -a
+(no branch)
+git checkout --track origin/debian
+
+
+Tarballs
+neptune.puppetlabs.lan
+/opt/enterprise/2.5/ci-ready  
+
+build procedure for pe-community-debina
+#--------------------------------------
+use pe-debian6 vm
+
+rake -T
+rake package PKG=puppet
+cd pkg/puppet-ver
+dh_make  --createorig -f ../puppet-2.7.17.tar.gz
+dpkg-buildpackage
+
+Acutally just do "debuild" from root dir and look in ".."

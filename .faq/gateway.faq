@@ -1,0 +1,5 @@
+route -nee
+look for 0.0.0.0
+
+ip route show
+

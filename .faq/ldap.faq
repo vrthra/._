@@ -1,0 +1,3 @@
+|ldapsearch -h vayavyam -p 3389 -b cn=Users,dc=webtier,dc=com -D admin -w adminadmin "samAccountName=alpha"
+|ldapsearch -b "dc=sun,dc=com" -v -h vayavyam -p 3389 "uid=rn151090"                                       
+|

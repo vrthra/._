@@ -1,0 +1,3 @@
+file -i .faq/find.faq
+.faq/find.faq: text/plain charset=us-ascii
+

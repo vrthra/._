@@ -1,0 +1,2 @@
+ps aux | sort -nrk +4 | tail 
+

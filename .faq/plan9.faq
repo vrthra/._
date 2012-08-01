@@ -1,0 +1,248 @@
+# ^T^Tr -- shutdown - doesn't work
+
+------------------------------
+shift+right click to middle click
+page <- viewer for pdf, jpg etc.
+------------------------------
+Creating a new p9
+====================
+
+qemu-img create -f qcow2 9front.qcow2.img 12G
+#qemu -hda 9front.qcow2.img -cdrom 9front.iso -boot d -vga std -m 768 -net nic,macaddr=52:54:00:00:EE:03
+qemu -hda 9front.qcow2.img -cdrom 9front.iso -boot d -vga std -m 768 -net nic -net user
+bootargs [Enter]
+user: glenda
+term% inst/start
+-- also try inst/textonly -- doesnt work.
+[partdisk] <-
+> sdC0 - QEMU Harddisk
+> sdD0 - QEMU DVD
+[which] sdC0
+install mbr? y
+fsck
+> w
+> q
+paritition <-
+> w
+> q
+-----------------------------
+To boot 
+==========
+qemu -hda 9front.qcow2.img  -cdrom 9front.iso -net nic -net user
+
+check if net is loaded with
+% cat /net/ndb
+
+if not, use dhcp as
+% ip/ipconfig
+
+
+------------------------------
+Preparing
+==========
+9fs 9fat
+
+cat /n/9fat/plan9.ini
+cat /lib/ndb/local
+cat /rc/bin/cpurc
+
+% bind -ac /dist/plan9front /
+% hg pull
+% hg up
+
+mount sources directory
+% 9fs sources
+%% 9fs sources.lsub.org
+% ns
+
+install contrib
+% mkdir -p /dist/replica/client
+% /n/sources/contrib/fgb/root/rc/bin/contrib/install fgb/contrib
+% contrib/list
+% contrib/install stefanha/vim
+% contrib/install fgb/openssh
+% /386/bin/openssh/ssh
+% pkg/list
+% pkg/install ssh2-
+
+% pkg/list
+#% pkg/install vim
+% contrib/install fgb/z 
+% contrib/install fgb/freetype
+% contrib/install fgb/x11
+
+
+
+
+#% replica/pull -v /dist/replica/network
+#% replica/pull -v -s <conflict> /dist/replica/network
+
+----------------------------------------
+ALWAYS USE ACME TO INSTALL
+----------------------------------------
+http://plan9.bell-labs.com/wiki/plan9/UNIX_to_Plan_9_command_translation/index.html
+
+% acme
+
+check /mnt/term
+$ ./drawterm-osx-intel -a p9auth.offbyone.lan -c p9cpuf.offbyone.lan -u glenda
+$ ./drawterm -a YOUR_IP -c YOUR_IP -u glenda
+
+
+try running abaco
+Use DEL key for ^C
+
+Using the cd
+mount /srv/9660 /n/dist /tmp/plan9.iso
+
+#or
+#9660srv
+#mount  /srv/9660 /n/dist /dev/sdD0/data
+#replica/pull -v /dist/replica/cd
+# mount local disk
+
+# disk/kfs -f /dev/sd00/fs
+# mount /srv/kfs /n/kfs
+
+indipendent acme
+% plumber
+% acme
+http://mirtchovski.com/lanlp9/tips.html
+
+/usr/username/lib/profile
+edit rio and make it
+rio -s to scroll
+(or middle click on terminal and select scroll)
+
+./RcProfile
+
+
+
+----
+% echo 'key proto=p9sk1 dom=plan9 user=glenda !password=PASSWORD' >/mnt/factotum/ctl
+% aux/listen1 -t tcp!*!ncpu /bin/cpu -R &
+
+-----------------------------
+Add a new user to the file server: 
+% echo newuser username >>/srv/cwfs.cmd
+
+Make the new user a member of the upas (email) group: 
+% echo newuser upas +username >>/srv/cwfs.cmd
+
+The newuser filesystem command is described in the fs(8) manpage. 
+
+Upon first login, run: 
+% . /sys/lib/newuser
+
+change 
+9fs 9fat 
+acme plan9.ini
+user=glenda
+nobootprompt=local!/dev/sdC0/fscache
+
+
+
+==============
+http://plan9.bell-labs.com/wiki/plan9/installing_plan_9_on_qemu/index.html
+If you are running a (standalone) CPU server, you need to open up some ports for the host system: 
+qemu -hda Plan9.qcow2.img -net nic \
+    -net user,hostfwd=tcp:127.0.0.1:17567-:567,hostfwd=tcp:127.0.0.1:17010-:17010
+
+ This enables the host system to drawterm into localhost. Note that qemu listens on port 17567 instead of 567 (auth server) because 567 is a privileged port on Unix.
+
+===============
+^F -> shell complete
+
+
+Program
+---------
+winwatch
+vt
+
+gmail
+--------------
+upas/fs -f /imaps/imap.gmail.com/blufox@gmail.com
+server certificate F3043DD689A2E7DDDFBEF82703A6C65EA9B634C1 not recognized
+echo 'x509 sha1=F3043DD689A2E7DDDFBEF82703A6C65EA9B634C1' > /sys/lib/tls/mail
+upas/fs -f /imaps/imap.gmail.com/blufox@gmail.com
+- wait for 15 minutes and check /mail/fs/mbox/
+
+proto=pass server=imap.gmail.com service=imap user=blufox@gmail.com
+auth/factotum -g "proto=pass service=imap server=imap.gmail.com user=blufox@gmail.com !password=http://xkcd.com"
+===============
+In some circumstances, it may also be possible to use the Plan 9 mail tools to send via Gmail. If you change the last line of /mail/lib/remotemail to: 
+exec /bin/upas/smtp -sa -u blufox@gmail.com -h $fd tcp!smtp.gmail.com!smtp $sender $*
+
+ This will, however, send all mail on the system as that Gmail user. Also, if mail is ever queued for later delivery, the factotum visible to cron will need the keys to authenticate to Gmail.
+
+yes.  you can have as many mailboxes open as you wish.
+once upas/fs is running, you can
+  u = user@mai...
+  l = label
+  echo open /imaps/imap.gmail.com/$u/$l $l>/mail/fs/ctl
+
+in fact if labels is a list you could
+  for(i in $labels)
+    echo open /imaps/imap.gmail.com/$u/$i $i>/mail/fs/ctl
+
+On Virtual Box, the network driver 
+Adapter 1: Intel PRO/1000 MT Server (Bridged adapter, eth0)
+works on bridged connections. (Nothing else works.)
+
+/usr/<user>/bin/rc/riostart has the stats program.
+You can change it to winwatch.
+
+ftpfs 192.168.1.102
+[user]: rahul
+cd /n/ftp
+
+cat /dev/kprint
+echo statw >>/srv/cwfs.cmd
+
+drawterm
+=========
+try 
+% ip/ipconfig
+% cat /net/ndb
+  ip=<1>
+  dom=<2>
+% auth/factotum
+% echo 'key proto=p9sk1 dom=<2> user=glenda !password=password' >/mnt/factotum/ctl
+% aux/listen1 -t tcp!*!17010 /bin/cpu -R &
+
+$ drawterm -a <1> -c <1> -u glenda
+
+turn dma on (default pio) with 
+echo dma on > /dev/sdC0/ctl
+http://plan9.stanleylieber.com/archive/2009/04/
+
+/mnt/web/ctl not found -
+% webcookies
+% webfs
+
+
+FONTS
+contrib/install quanstrom/vera
+font=/lib/font/bit/vera/unicode.12.font
+in lib/profile
+
+
+Mail
+----
+bind -a /acme/bin/386 /bin
+cat /mail/lib/rewrite.gateway | sed -e 's/YOURDOMAIN.COM/vrtra.net/g' > /mail/lib/rewrite 
+
+echo '
+exec /bin/upas/smtp -d -sa -u 9@vrtra.net -h $fd tcp!smtp.gmail.com!587 9@vrtra.net $*' >> /mail/lib/remotemail
+
+gmail.rc:
+#!/bin/rc
+auth/factotum
+plumber
+auth/factotum -g 'proto=pass service=smtp server=smtp.gmail.com user=9@vrtra.net !password?'
+echo 'x509 sha1=F392AEB428FE64036FE155ED719E5FF688905A57' > /sys/lib/tls/smtp
+echo 'x509 sha1=F3043DD689A2E7DDDFBEF82703A6C65EA9B634C1' > /sys/lib/tls/mail
+upas/fs -f /imaps/imap.gmail.com/9@vrtra.net
+acme -c 1 -l $home/_/mail
+
+

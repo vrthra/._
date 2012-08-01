@@ -1,0 +1,8 @@
+git clone git@github.com:vrthra/enterprise-dist.git
+git submodule init
+git submodule update
+
+for later git pull
+git remote add puppetlabs git@github.com:puppetlabs/enterprise-dist.git
+
+

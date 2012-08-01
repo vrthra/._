@@ -1,0 +1,33 @@
+
+|ndd -get /dev/tcp ip_forwarding
+0
+sudo ndd -set /dev/tcp ip_forwarding 1
+
+|routeadm
+
+|modinfo | grep "IP Filter"
+214 7ba00000  22ff8 228   1  ipf (IP Filter: v4.0.2)
+
+/etc/ipf/ipf.conf
+pass in log all
+pass out log all
+
+/etc/ipf/ipnat.conf
+rdr eri0 0.0.0.0/0 port 80 -> 129.158.224.203 port 8080 tcp
+
+
+vi /etc/ipf/pfil.ap 
+|sudo svcadm enable ipfilter
+
+sudo autopush -f /etc/ipf/pfil.ap 
+sudo ifconfig eri0 unplumb; sudo ifconfig eri0 plumb 129.158.224.203 up
+
+|sudo svcadm enable ipfilter
+|sudo svcadm restart network/pfil
+|sudo svcadm restart ipfilter
+
+|svcs -x ipfilter
+|sudo ifconfig eri0 modlist
+|ndd /dev/pfil qif_status eri0
+|sudo ifconfig eri0 modlist
+|sudo ipnat -l

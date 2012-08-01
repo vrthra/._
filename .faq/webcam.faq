@@ -1,0 +1,5 @@
+streamer -f jpeg -o me.jpg
+streamer -o quicktime.mov -f yuv2 -F stereo -r 12 -t 0:10
+
+mplayer tv:// -tv driver=v4l2:device=/dev/video0 -vo x11 -vf screenshot (key:s)
+

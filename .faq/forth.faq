@@ -1,0 +1,165 @@
+http://www.softsynth.com/pforth/pf_tut.htm#Variables
+bye \' 'quits (' 'this is a comment)
+
+. ( pops the top of the stack )
+.s ( print the top of stack non destructive.)
+
+char x
+=> the ascii int value of x
+
+65 emit
+=>A (the ascii char value of 65)
+
+." ( display the string that follows after the blank until the close quote)
+: hi  ." Hello, World!"  ;
+
+also
+.( Hello world ) cr
+
+( : starts a new definition in dictionary and ; terminates it.)
+
+Extending the dictionary.
+========================
+: *+ * + ;
+=> create a new dictionary word that is composed of 
+   sequential application of * and +
+[code:
+decimal
+5 6 7 *+ .
+]
+
+: emit-q 81 emit ;
+same as 
+: emit-q [ char q ] literal emit ;
+same as 
+: emit-q [char] q emit;
+
+char is 
+: [char] char postpone literal ; immediate
+
+
+the [] switches to interpretor state and switches back.
+
+to view the definition => see 'word'
+see *+
+
+Definition a^2 + b^2
+==============
+: sq ( a => a^2 ) dup * ;
+: sumsqr ( a b => a^2 + b^2 )
+   sq
+   swap
+   sq
+   +
+;
+
+variables
+==============
+variable my-var
+my-var . ( see the address )
+see my-var (see the contents)
+
+513 my-var !
+see my-var (see the contents => 513)
+
+my-var @ . ( prints 513)
+my-var ? ( @ .)
+
+20 my-var +! ( store 533 into my-var)
+
+=================
+Direct to mem
+================
+23  1002 ! (  store 23 in x1002)
+
+
+including words:
+==============
+include high-score.fs
+
+Define constants
+==================
+
+128 constant max_chars
+max_chars .
+
+Logical op
+==============
+23 71 = . ( => 0 = false)
+23 23 = . ( => -1 = true)
+( < > or and not )
+
+========cute sub====
+: drink? ( age -- )
+  20 >
+;
+
+21 drink? ( => true)
+
+compare with 0
+===============
+ 0> 0=
+
+if else case
+===================
+
+: .sqplus ( plus stack if true else multiply)
+    if dup *
+    else dup +
+    then
+;
+
+[out:
+    10 1 .sqplus .
+    => 100
+    10 0 .sqplus .
+    => 20
+]
+
+The else line is optional.
+
+: .tcase ( testing case )
+    case
+    0 of ." zero" endof
+    1 of ." one" endof
+    2 of ." two" endof
+    dup . ." Invalid"
+    endcase
+;
+
+[out:
+    1 tcase
+    => one
+    2 tcase
+    => two
+    3 tcase
+    => 2 Invalid
+]
+   
+ 
+Strings
+====================
+
+:test s" Hello world" ; \ leaves two num, one is addr, next is len
+
+test type \ prints the entire string
+
+:test c" Hello world" ; \ leaves addr of a string with first byte containing the str len.
+
+count converts to s" from c"
+
+c@ fetches one char at the address on the stack.
+char+ advances the address in the stack.
+
+
+input
+=================
+: input$ ( -- $addr)
+    pad 1+ \ leave room for byte count
+    127 accept \ receive max of 127 chars
+    pad c! \ store the byte count
+    pad (return address)
+;
+
+input$ count type
+

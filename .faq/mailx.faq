@@ -1,0 +1,72 @@
+cat ubuntu-files | mailx -s "ubuntu-files" my.mail@my.address
+mailx -A sun -H -f '+sun'
+
+:n  All new messages.
+:o  All old messages (any not in state read or new).
+:u  All unread messages.
+:d  All deleted messages (for the undelete command).
+:r  All read messages.
+:f  All 'flagged' messages.
+:a  All answered messages (cf. the markanswered variable).
+:t  All messages marked as draft.
+:k  All 'killed' messages.
+:j  All messages classified as junk.
+.   The current message.
+;   The message that was previously the current message.
+,   The parent message of the current message, that is the message with the Message-ID given in the 'In-Reply-To:' field or the last entry of the 'References:' field of the current message.
+-   The next previous undeleted message, or the next previous deleted message for the undelete command. In sorted/threaded mode, the next previous such message in the sorted/threaded order.
++   The next undeleted message, or the next deleted message for the undelete command. In sorted/threaded mode, the next such message in the sorted/threaded order.
+^   The first undeleted message, or the first deleted message for the undelete command. In sorted/threaded mode, the first such message in the sorted/threaded order.
+$   The last message. In sorted/threaded mode, the last message in the sorted/threaded order.
+&x  In threaded mode, selects the message addressed with x, where x is any other message specification, and all messages from the thread that begins at it. Otherwise, it is identical to x. If x is omitted, the thread beginning with the current message is selected.
+*   All messages.
+'   All messages that were included in the message list for the previous command.
+/string
+    All messages that contain string in the subject field (case ignored). See also the searchheaders variable. If string is empty, the string from the previous specification of that type is used again.
+address
+    All messages from address.
+(criterion)
+    All messages that satisfy the given IMAP-style SEARCH criterion. This addressing mode is available with all types of folders; for folders not located on IMAP servers, or for servers unable to execute the SEARCH command, mailx will perform the search locally. Strings must be enclosed by double quotes '"' in their entirety if they contain white space or parentheses; within the quotes, only backslash '\' is recognized as an escape character. All string searches are case-insensitive. When the description indicates that the 'envelope' representation of an address field is used, this means that the search string is checked against both a list constructed as
+
+("real name" "source-route" "local-part" "domain-part")
+
+for each address, and the addresses without real names from the respective header field. Criteria can be nested using parentheses.
+(criterion1 criterion2 ... criterionN)
+    All messages that satisfy all of the given criteria.
+(or criterion1 criterion2)
+    All messages that satisfy either criterion1 or criterion2, or both. To connect more than two criteria using 'or', (or) specifications have to be nested using additional parentheses, as with '(or a (or b c))'; '(or a b c)' means ((a or b) and c). For a simple 'or' operation of independent criteria on the lowest nesting level, it is possible to achieve similar effects by using three separate criteria, as with '(a) (b) (c)'.
+(not criterion)
+    All messages that do not satisfy criterion.
+(bcc string)
+    All messages that contain string in the 'envelope' representation of the Bcc: field.
+(cc string)
+    All messages that contain string in the 'envelope' representation of the Cc: field.
+(from string)
+    All messages that contain string in the 'envelope' representation of the From: field.
+(subject string)
+    All messages that contain string in the Subject: field.
+(to string)
+    All messages that contain string in the 'envelope' representation of the To: field.
+(header name string)
+    All messages that contain string in the specified Name: field.
+(body string)
+    All messages that contain string in their body.
+(text string)
+    All messages that contain string in their header or body.
+(larger size)
+    All messages that are larger than size (in bytes).
+(smaller size)
+    All messages that are smaller than size (in bytes).
+(before date)
+    All messages that were received before date; date must be in the form d[d]-mon-yyyy, where d[d] is the day of the month as one or two digits, mon is the name of the month?one of 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', or 'Dec', and yyyy is the year as four digits; e.g. "30-Aug-2004".
+(on date)
+    All messages that were received on the specified date.
+(since date)
+    All messages that were received since the specified date.
+(sentbefore date)
+    All messages that were sent on the specified date.
+(senton date)
+    All messages that were sent on the specified date.
+(sentsince date)
+    All messages that were sent since the specified date.
+()  The same criterion as for the previous search. This specification cannot be used as part of another criterion. If the previous command line contained more than one independent criterion, the last of those criteria is used. 

@@ -1,0 +1,22 @@
+Initialize the database first:
+certutil -N -d /space/sjsps.4.0.7/alias/ -P proxy-server1-agneyam-
+else you will get:
+: An I/O error occurred during security authorization.
+
+
+Then create the self-signed key.
+echo "dsadasdasdasdadasdasdasdasdsadfwerwerjfdksdjfksdlfhjsdk" > noise.txt
+certutil -S -s "CN=subject" -x -1 -z noise.txt -t "u,u,u" -d alias_directory -P  "https-admserv-atyourownrisk-" -n nickname
+certutil -S -s "CN=Agneyam.India.Sun.COM" -t "u,u,u" -x -1 -d . -z noise.txt -f pwdfile.txt -P proxy-server1-agneyam-
+server (self signed):(2,4)
+
+client:(0?)
+
+list it:
+certutil -L -P proxy-server1-agneyam- -d .
+certutil -L -d . -P proxy-server1-agneyam- -n Agneyam
+
+Usages: Key Encipherment
+        Key Agreement
+
+

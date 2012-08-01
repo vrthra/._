@@ -1,0 +1,5 @@
+pldd $pid -> list the dynamic libs currently in use
+pfiles $pid -> list open files
+pstack $pid -> print stack trace
+pwdx $pid -> print current working dir.
+pcred -u $user $pid -> change pid of a process.

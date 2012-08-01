@@ -1,0 +1,29 @@
+Mod4-Shift-Return	Start command line.
+Mod4-p	Open the Windows? Start menu.
+Mod4-b	Toggles bar on and off.
+Mod4-t	Toggles taskbar on and off.
+Mod4-v	Sets vertically tiled layout.
+Mod4-h	Sets horizontally tiled layout.
+Mod4-g	Sets grid layout.
+Mod4-m	Sets monocle layout.
+Mod4-f	Sets floating layout.
+Mod4-Space	Toggles between current and previous layout.
+Mod4-Shift-Space	Toggle focused window between tiled and floating state.
+Mod4-Left	Decrease master area size.
+Mod4-Right	Increase master area size.
+Mod4-Return	Zooms/cycles focused window to/from master area (tiled layouts only).
+Mod4-Up	Focus next window.
+Mod4-Down	Focus previous window.
+Mod4-Dot	Sets floating state to true and moves focused window.
+Mod4-Hyphen	Sets floating state to true and resizes focused window.
+Mod4-c	Close focused window.
+Mod4-[1..n]	View all windows with nth tag.
+Mod4-0	View all windows with any tag.
+Mod4-Tab	Toggles to the previously selected tags.
+Mod4-Shift-[1..n]	Apply nth tag to focused window.
+Mod4-Shift-0	Apply all tags to focused window.
+Mod4-Control-[1..n]	Add/remove all windows with nth tag to/from the view.
+Mod4-Control-Shift-[1..n]	Add/remove nth tag to/from focused window.
+Mod4-Shift-d	Lists managed windows with currently viewed tags.
+Mod4-BackSpace	Reloads bug.n.
+Mod4-Shift-q	Quit bug.n.

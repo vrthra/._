@@ -1,0 +1,2 @@
+cut -d \| -f 2,3  #delim is | show fields 2 and 3
+cut -c 6-22,24-32 #show columns 6-22 and 24-32

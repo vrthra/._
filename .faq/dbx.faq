@@ -1,0 +1,202 @@
+dbx
+
+Attention
+    This is a little bit obsolete. I'm far from using dbx.
+    This is not a systematic manual, rather this shows only the useful commands for me. Some explanations might not be available for your dbx, because I mainly use the "debugger"(the graphical user interface of dbx) of Solaris2.5.
+
+Features like csh
+
+    Although it is based on ksh, "like csh" might be familiar to you.
+    command 	explanation 	remarks
+    !x 	The command starting with character, x in the history 	
+    !! 	The previous command in the history 	
+    history 	Display the command history 	
+    dalias name value 	Set an alias 	
+Set breakpoints
+
+    The process stops where a breakpoint is set.
+    command 	explanation 	remarks
+    stop at line 	Set a breakpoint at line 	
+    stop at func 	Set a breakpoint at the function, func 	
+Set tracepoints
+
+    When the function is called at which a tracepoint is set, the caller function, the arguments, and the return value are shown. The process doesn't stop.
+    command 	explanation 	remarks
+    trace func 	Set a tracepoint at a function, func 	
+Deal with breakpoints and tracepoints
+    command 	explanation 	remarks
+    status 	Shows the list of the breakpoints and the tracepoints 	
+    delete i 	Cancel i-th break(trace)point in the list shown by status command 	
+    delete all 	Cancel all break(trace)points 	
+    clear 	Cancel the break(trace)point at the current position 	
+    handler -enable func 	Enable the break(trace)point set at function, func 	Used for disabled break(trace)points
+    handler -disable func 	Diable (temporarily) the break(trace)point set at function, func 	
+The execution of the program
+    command 	explanation 	remarks
+    run [arg] 	Run the program 	
+    rerun 	Rerun the stopped program again 	
+    cont 	Resume the stopped program (continuation) 	
+    next [n] 	Execute the line unit 	A function call is 1 step (I.e. not step into any functions).
+    step [n] 	Execute the line unit 	If there is a function call which is debugable, the line in the function is also counted. That is, stepping into the function.
+    step up 	Goes out from the current function, and goes to the upper(caller) function 	
+    quit 	Finish dbx 	
+Move around the function call stack
+
+    In the graphical mode case, it is useful to open the other window to display the function call stack, and to (double)click on it to go there.
+    Note, these commands don't make any progress on execution, which means, the breaked point is not changed.
+    command 	explanation 	remarks
+    where 	Shows the function call stack at present, from the main() function to the current function 	
+    frame i 	Move to i-th function of the call stack shown by where command 	
+    down 	Move down in the stack 	
+    up 	Move up in the stack 	
+
+    About the scope of variables
+
+        You can see values of the local variables in the function where you have moved to.
+
+        Example
+            In case func_caller() calls func_called() and both functions have a local variable, i,
+            when the process is stopped at func_called(), and you do print i, you see a value of the local variable in func_called(). When you do up command (or frame command) and move to func_caller() and do print i, you see a value of the local variable in func_caller(). 
+
+Show values of the variables
+
+    In the graphical mode case, it is useful to open the display command window, which always shows the values. display command can show local variables. When the process returns from the function, the local values become undefined, and when the function is called again, the values become visible again.
+    command 	explanation 	remarks
+    print v 	Shows the value of a variable number, v 	
+    display v 	Shows the value of a variable number, v, always 	
+    examine addr /count fmt 	Shows the value of the address addr, by the specified fmt format 	You can use an abbreviation, x for examine
+    dump 	Shows the values of the local variable numbers 	
+
+    About examine command
+
+        print command is enough to know the value of variables, when they are normal types.
+        Otherwise, for example, when character strings are stored in JIS Kanji code, it could be useful to use examine command.
+
+        Example
+
+            examine ptr /12x
+                Format, "x" implies to show the value as the 16-base number in 2 bytes unit. This shows 24(=12x2) bytes on 16 base from the address ptr.
+
+Show the variable type
+
+    Variable type means such as int, char, and so on. When many typedef's are used, this could be quicker to know the type of a variable number than to browse source code. So I often use it.
+    command 	explanation 	remarks
+    whatis [-e] v 	Show the type of a variable number, v 	
+    whatis -t t 	Shows the details of the type t, such as members of a structure 	
+    whatis -r [-d] v 	-r shows information of the base class. -d shows information of the dynamic 	For C++
+
+    Example 1
+        typedef unsigned char Byte; Byte b; In this case,
+        whatis b shows Byte. whatis -t Byte shows typedef unsinged char Byte. 
+    Example 2
+        typedef struct _XDisplay {...} Display; Display d; In this case,
+        whatis d shows Display. whatis -t Display shows typedef struct _XDisplay Display. whatis -t struct _XDisplay shows struct _XDisplay {...(members of structure)...}. 
+
+To know the current position
+    command 	explanation 	remarks
+    file 	Shows the current file name 	
+    func 	Shows the current function name 	
+    line 	Shows the current line number 	
+    module 	Shows the current module name (library name or executable file name) 	
+Change visible portion
+
+    These commands don't make any progress on execution. They are mainly used to set breakpoints. If you want to set a breakpoint at the top of a function, you can do it by stop in command. On the other hand, if you want to set a breakpoint at any line of a function, you displays the function with func command, and set a breakpoint with stop at command.
+    command 	explanation 	remarks
+    func func 	Shows the function, func 	
+    file file 	Shows the file, file 	
+    line line 	Shows the line specified by line 	
+Search a character string in the file
+
+    When you know the function name, func command is faster to search the function. If many strings are matched, you should use an editor to know the line. You can use line command to jump a specified line.
+    command 	explanation 	remarks
+    search str 	Search a character string, str in the file 	
+    bsearch str 	Reverse search 	
+Runtime execution
+
+    These commands make progress on execution dynamically at runtime.
+    command 	explanation 	remarks
+    call func(arg) 	Call the function, func 	
+    assign v x 	Set a value, x (a constant number of a varible number) to the variable number, v 	
+(TIPS)How to know the position of an infinite loop
+
+    It is enough to stop with ctrl-c for gdb. For dbx, you need to do the following steps after stopping the dbx.
+    command 	explanation 	remarks
+    detach 	Detach dbx from the process 	
+    debug -p pid 	Examine a process ID, and attach dbx again 	
+    where 	Show the call stack to know the position of the infinite loop 	
+
+Initialize file
+    In ~/.dbxrc, you can set aliases, and GUI settings, and so on.
+
+--------------
+# dbx setting
+history 60
+# aliases
+dalias bload "source ~/.dbx_breakpoints"
+dalias bsave "status -s >> ~/.dbx_breakpoints"
+dalias p print
+dalias s step
+dalias n next
+dalias sta status
+dalias c cont
+dalias del delete
+dalias d dump
+dalias enable handler -enable
+dalias disable handler -disable
+dalias watch stop modify
+
+# debugger layout
+toolenv srclines 30
+toolenv cmdlines 13
+
+# delete button
+unbutton up
+unbutton down
+
+# add button
+button ignore dump
+button ignore status 
+button ignore quit
+
+
+ stop at linenumber [ if condition ]                                                                                                                    
+ stop in procedure/function [ if condition ]                                                                                                            
+ stop variable [ if condition ]                                                                                                                         
+ stop if condition          
+
+
+        list [ line1 [, line2 ] ]                                                                                                                              
+         list procedure/function       
+
+         func [ procedure/function ]                                                                                                                            
+         file [ filename ] 
+
+#set the current line to matched regex
+        / regularexpression                                                                                                                                    
+         ? regularexpression   
+
+        edit [ filename ]                                                                                                                                      
+        edit procedure/function         
+
+dereferencing ptrs 
+*ptr
+ptr^
+
+whereis identifier
+which identifier
+
+#list all variables
+if . is specified, all active vars are printed
+
+
+
+        trace [ in procedure/function [ if condition ]]                                                                                                        
+         trace linenumber [ if condition ]                                                                                                                      
+         trace procedure/function [ in procedure/function ] [ if condition ]                                                                                    
+         trace expression at linenumber [ if condition ]                                                                                                        
+         trace variable [ in  ] [ if condition ]       
+
+
+
+dump [function]
+

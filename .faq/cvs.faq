@@ -1,0 +1,6 @@
+cvs up -d  -r S1WSDev_Branch #on directory
+
+cvs up -r version -p file > file #to get file without sticky
+
+to diff between rivisions
+cvs diff -r 1.2.2.7.22.1.112.1.46.1 -r 1.2.2.7.22.1.112.1.46.2 i18n.h 

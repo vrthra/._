@@ -1,0 +1,73 @@
+disp
+------------------------------------
+IF
+t = rand(1);
+if t > 0.75
+  s = 1
+elseif t < 0.25
+  s = 2
+else
+  s = 3
+endif
+------------------------------------
+FOR
+for i = [1 2 3 4]
+  s = s+1
+end
+for i = [1 2 3 4]; s = s +1; disp(s); end
+for i = [1 2 3 4], s = s +1, end
+------------------------------------
+WHILE
+while i > 10
+  i = i + 1;
+end
+------------------------------------
+x = ceil(10*rand);  % Generate a random integer in {1, 2, ... , 10}
+switch x
+   case {1,2}
+      disp('Probability = 20%');
+   case {3,4,5}
+      disp('Probability = 30%');
+   otherwise
+      disp('Probability = 50%');
+end
+------------------------------------
+fcn.m
+function y = fcn(x)
+  y = sin(x.^2);
+
+------------------------------------
+feval('fcn',2)
+
+------------------------------------
+Anonymous functinos
+f = @(x,y) 2*x*y;
+f(2,2)
+ode45(f, [0:15],1)
+------------------------------------
+passing function handles
+function xprime = f(t,x)
+xprime = x;
+ode45(@myfunc, [0:15], 1)
+
+% myadd adds two variables together
+function result = myfunc(func, a, b);
+result = func(a, b);
+
+[in a separate m-file]
+function sum = myadd(a, b)
+sum = a+b;
+
+result = myfunc(@myadd, 1, 2);
+------------------------------------
+Structures
+a = struct('b', 0, 'c', 'test')
+b.c = 100
+b.d = '100'
+
+b(2).c = 101
+b.c
+[b.('c')]
+------------------------------------
+
+------------------------------------

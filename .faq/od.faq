@@ -1,0 +1,3 @@
+od -x - display as hex
+od -c - display known ascii values.
+od -a - display ascii

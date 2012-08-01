@@ -1,0 +1,21 @@
+count 6
+=> 1 2 3 4 5 6
+tell 6
+=>  0 1 2 3 4 5
+
+The number of objects is called tally
+tally count 6
+=> 6
+sum tell 6
+=> 15
+
+Shape of an array is its dimensions.
+
+shape count 6
+=>6
+shape 1 1
+=>2
+
+2 2 reshape 1 1 2 2 
+=> 1 1
+   2 2

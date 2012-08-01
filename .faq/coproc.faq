@@ -1,0 +1,17 @@
+on ksh
+bc |&
+print -p '5 / 3'
+read -p res
+print - "Result: $res"
+
+print -p 'scale=3'
+print -p '5 / 3'
+read -p res
+print - "Result: $res"
+
+exec 3<&p use fd3 to read from coproc
+exec 4>&p use fd4 to write to coprocess
+
+print -u n # print to fd n
+read -u n a b c # read from n
+

@@ -1,0 +1,6 @@
+To update a cscope database without closing vim, issue ":!cscope -b", then ":cs reset".
+
+find $CWD -name "*.$1" > cscope.files
+cscope -b -q -i $CWD/cscope.files
+#ctags -L $CWD/cscope.files
+

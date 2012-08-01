@@ -1,0 +1,6 @@
+#nohup like if you did not start with nohup
+send ctrl Z or sigstp 
+pkill -STOP <process>
+
+then do
+disown %1

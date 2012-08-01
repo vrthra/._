@@ -1,0 +1,171 @@
+http://www.abarnett.demon.co.uk/tutorial.html
+Using array indices to set the value of a variable to a char instead of switch
+static char *classes="WSU";
+letter = classes[queue];
+
+Using aliased data instead of direct pointer values
+void func1( int *data ) {
+    int i;
+    int localdata = *data;
+    for(i=0; i<10; i++) {
+           somefunc2( localdata, i);
+    }
+}
+
+use unsigned when possible
+
+
+reduce Floting point arith [use x*100/100 when you need a decimal place of 2]
+
+dont use two loops where one will suffice, except in cases where there is a lot of work inside, [if it fits in processor cache, it will be faster] check both 
+
+loop unrolling
+
+faster for
+for( i=0;  i<10;  i++){ ... } is slower than
+for( i=10; i--; ) { ... } [note the decrement and testing together]
+
+switches are better than ifelse
+
+avoid using ++ and -- with in loop(exp) [some times harder to optimize]
+minimize globals
+declare anything with in a file as static
+
+use word size vars if possible
+
+single dim arrays are faster than multidim
+
+put related functions in the same file [compilers do optimization better if they are in the same compilation unit]
+
+single precision maths is faster than double precision
+
+fp mult is faster than fp division [use *.5 than val/2.0]
+
+addition is quicker than mult [val + val + val instead of val*3]
+
+puts faster than printf
+
+binary file io is faster than ascii file io
+
+check out mallopt and MAXFAST 
+
+http://www.azillionmonkeys.com/qed/optimize.html
+
+be careful when using tables instead of recalculating. [recalculating can make use of parallism and if the tables does not fit in cache, it may slow down access and thus perf]
+
+
+if (cond) {
+do a;
+} else {
+do b;
+} 
+might be sometimes optimized as
+do b;
+if (cond) {
+undo b;
+do ;
+} #avoids branch misprediction
+
+use finite differences to avoid multiplies;
+(use constant increments instead of multiples)
+for (i=0;i<10;i++) { i*10; }is slower than for(i=0;i<100;i+=10){i;}
+
+use powers of two for multi arrays for all but left most index
+//when accessing the array, compiler will have to compute a multiply to get
+//addres of indexed element, but it can be replaced by a shift sometimes with this
+char p[80][25] slower than char p[80][32]
+
+for(i<0;i<100;i++) {} slower than
+i=99;
+do {} while(i>=0) //avoids the first trivial true check in case of for
+
+try to use the same datatype most of the time when inter conversions are needed
+int i; char c; i = c; is slower than int i,c ; i = c;
+
+delcare local functions as static [tells compiler that it will not be referenced from other 
+modules, so can inline it or avoid taking its address.]
+-----------------------Non------------------------------------Opt------------------------------------
+ |     x = y % 32;                            |     x = y &31;                                      |     
+ |     x = y * 8;                             |     x = y <<3;                                      |     
+ |     x = y / w + z / w;                     |     x = (y + z) / w;                                |     
+ |     if( a==b &&c==d &&e==f ) {...}         |     if( ((a-b)|(c-d)|(e-f))==0 ) {...}              |     
+ |     if( (x &1) || (x &4) ) {...}           |     if( x & 5 ) {...}                               |     
+ |     if( x>=0 &&x<8 &&                      |     if( ((unsigned)(x|y))<8 ) {...}                 |     
+ |         y>=0 &&y<8 ) {...}                 |                                                     |     
+ |     if( (x==1) || (x==2) ||                |     if( x&(x-1)==0 &&x!=0 )                         |     
+ |         (x==4) || (x==8) || ... )          |                                                     |     
+ |     if( (x==2) || (x==3) || (x==5) ||      |     if( (1<<x) & ((1<<2)|(1<<3)|(1<<5)|(1<<7)| \    |     
+ |         (x==7) || (x==11) || (x==13) ||    |       (1<<11)|(1<<13)|(1<<17)|(1<<19)) ) {...}      |     
+ |         (x==17) || (x==19) ) {...}         |                                                     |     
+ |                                            |     static long abs(long x) {                       |     
+ |     #define abs(x) (((x)>0)?(x):-(x))      |     long y;                                         |     
+ |                                            |         y = x>>31;    /* Not portable */            |     
+ |     int a[3][3][3];                        |         return (x^y)-y;                             |     
+ |     int b[3][3][3];                        |     }                                               |     
+ |     ...                                    |                                                     |     
+ |     for(i=0;i<3;i++)                       |     typedef struct {                                |     
+ |       for(j=0;j<3;j++)                     |             int element[3][3][3];                   |     
+ |          for(k=0;k<3;k++)                  |     } Three3DType;                                  |     
+ |             b[i][j][k] = a[i][j][k];       |     Three3DType a,b;                                |     
+ |     for(i=0;i<3;i++)                       |     ...                                             |     
+ |       for(j=0;j<3;j++)                     |     b = a;                                          |     
+ |          for(k=0;k<3;k++)                  |     memset(a,0,sizeof(a));                          |     
+ |             a[i][j][k] = 0;                |                                                     |     
+ |                                            |     for(tx=1,sx=0,x=0;x<100;x++) {                  |     
+ |     for(x=0;x<100;x++) {                   |       if( tx<=x ) {                                 |     
+ |       printf("%d\n",(int)(sqrt(x)));       |         tx+=2*sx+3;                                 |     
+ |     }                                      |         sx++;                                       |     
+ |                                            |       }                                             |     
+ |                                            |       printf("%d\n",sx);                            |     
+ |     unsigned int x, y, a;                  |     }                                               |     
+ |     ...                                    |                                                     |     
+ |     a = (x + y) >>1;                       |     unsigned int x, y, a;                           |     
+ |     /* overflow fixup */                   |     ...                                             |     
+ |     if( a <x &&a <y ) a += 0x8000000;      |     a = (x & y) + ((x ^ y)>>1);                     |     
+ |                                            |                                                     |     
+ |     c:\>tc myprog.c                        |     c:\>wpp386 /6r/otexan myprog.c                  |     
+ |     user% cc myprog.c                      |     user% gcc -O3 myprog.c                          |     
+ |                                            |                                                     |     
+ |     Use the quicksort algorithm.           |     Use radix, intro or heap(!) sort.               |     
+ |     Use Bresenham's line algorithm.        |     Use fixed point DDA line algorithm.             |     
+ |                                            |                                                     |     
+ |     Look through school notes for ideas.   |     Get examples from USENET/WEB/FTP                |     
+ |     Ignore suggestions from others.        |     Get suggestions but be skeptical.               |     
+ |     Code, code, code, code ...             |     Think, code, think, code ...                    |     
+-----------------------------------------------------------------------------------------------------
+heapsort better than quicksort when the data fits in l1l2 caches ? 
+http://www.azillionmonkeys.com/qed/sort.html 
+
+
+loop unrolling duff's device
+----------------------------
+void Procedure (unsigned int Len) {                                                                                                                        
+    int i;                                                                                                                                             
+    if (Len == 0) return;                                                                                                                              
+
+    i = ((Len - 1) & 7) - 7;                                                                                                                           
+
+    switch (-i) {                                                                                                                                      
+        do {                                                                                                                                       
+            case 0: InnerLoop (i + 0);                                                                                                         
+            case 1: InnerLoop (i + 1);                                                                                                         
+            case 2: InnerLoop (i + 2);                                                                                                         
+            case 3: InnerLoop (i + 3);                                                                                                         
+            case 4: InnerLoop (i + 4);                                                                                                         
+            case 5: InnerLoop (i + 5);                                                                                                         
+            case 6: InnerLoop (i + 6);                                                                                                         
+            case 7: InnerLoop (i + 7);                                                                                                         
+                    i += 8;                                                                                                                    
+        } while (i < Len);                                                                                                                         
+    }                                                                                                                                                  
+}                   
+
+if (r == value1)                                                                                                                                               
+    r = value2;                                                                                                                                                
+else                                                                                                                                                           
+ r = value1;  //usually slower than
+ r = r ^ (value1 ^ value2); or  r = (value1 + value2) - r;
+
+===============C++============
+http://www.tantalon.com/pete/cppopt/appendix.htm#AppendixA  [stl container speed table]
+

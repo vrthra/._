@@ -1,0 +1,3 @@
+echo "my-computer" > /etc/hostname
+echo "127.0.0.1 my-computer.my-domain.ext my-computer localhost" > /etc/hosts
+/etc/init.d/hostname.sh

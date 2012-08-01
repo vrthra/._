@@ -1,0 +1,9 @@
+apropos man
+man 3 netlink
+whatis netlink
+
+cat man/man3/regex.3 | nroff -man | more
+groff -Tascii -man Gnome.1x | more
+=========
+
+man regex | col -b | more

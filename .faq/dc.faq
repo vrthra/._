@@ -1,0 +1,28 @@
+precision
+5 k
+inspect
+f
+
+1 [push "1" on the stack] 
+2 [push another number on the stack] 
+3 [push yet another number on the stack] 
+4 [push yet another number on the stack] 
+f [print the entire stack; you should see 1 2 3 4] 
+p [print the number on the top of the stack without affecting the stack; you should see 4] 
++ [perform addition (binary operation), therefore pop two last values off the stack (4,3), and push the result (7) on the stack] 
+p [print the number on the top of the stack, i.e. the results of the last addition (7).]. 
+p [print again the number on the top of the stack to see that the stack wasn't affected by printing (7)] 
+* [perform multiplication (binary operation), therefore pop two last values, and push the result (14)] 
+p [print the result of the multiplication (14)] 
+P [pop the last number off the stack (14)] 
+p [print the number on the top of the stack] 
+2000 [push a large integer on the stack] 
+k [set the precision to the value which is on the top of the stack, i.e. 2000] 
+1 [push another number on the stack] 
+f [print the content of the entire stack] 
+701 [push another number on the stack] 
+/ [divide last two numbers on the stack, i.e. "1/701" with 2000 decimal places of precision] 
+p [print the result of the last division] 
+q [quit the arbitrary precision reverse Polish notation calculator]
+
+c [clear]

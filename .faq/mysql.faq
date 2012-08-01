@@ -1,0 +1,41 @@
+sudo service mysql start
+mysqlshow -u root -ptoor
+mysql -h localhost -u root -ptoor
+> show databases;
+> use mysql;
+> show tables;
+> create database testdb;
+> insert into user (host, user, password, select_priv) values ('', 'rahul', password('aishwarya'), 'Y');
+> flush privileges;
+> grant all privileges on testdb.* to rahul;
+\> grant all privileges on testdb.* to rahul@'%';
+> flush privileges;
+> show grants for rahul@'%';
+> use testdb;
+> create table employee (name char(20),dept char(20),jobtitle char(20));
+> bye
+
+mysql -h localhost -u rahul
+> use mysql;
+> describe employee;
+> insert into employee values ('ename.1', 'edept.1', 'job.1');
+> insert into employee values ('ename.2', 'edept.2', 'job.2');
+> select * from employee;
+> select * from employee where dept = 'edept.1'
+> update employee set dept = 'edept.1' where name = 'ename.2';
+
+mysqladmin drop testdb
+mysqladmin -u root -ptoor shutdown
+
+| echo "select * from employee;" | mysql -u rahul  testdb  
+> create table retired_employee ( name char(20) default '' not null,
+                    dept char(10) default '' not null,
+                    jobtitle char(20),
+                    unique name_dept (Name,Dept)
+                    );
+> create unique index name_dept on employee (name,dept); -- avoids duplicate keys
+> alter table employee add empid int not null auto_increment primary key; 
+> alter table employee drop index name_dept;
+> select distinct dept from bedrock;
+> select * from  bedrock where name  like/regexp "^B%y__" ; (and, or)
+> select count(*) from employee;

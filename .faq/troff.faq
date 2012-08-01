@@ -1,0 +1,1 @@
+cat frontpage abstract.B contents.C introduction.D expressions.E udf.F datatypes.G scope.H unix.I tabsandrules.J prec.K grammar.L | gpic | gtbl | geqn | groff -ms > myfile.ps

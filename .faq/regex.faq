@@ -1,0 +1,5 @@
+perl -Mre=debug -e"q(xiv) =~ m/^m*(d?c{0,3}|c[dm])(l?x{0,3}|x[lc])(v?i{0,3}|i[vx])$/i"
+
+use YAPE::Regex::Explain;
+print YAPE::Regex::Explain->new(qr/\Q[abc]\E\d+/)->explain();
+

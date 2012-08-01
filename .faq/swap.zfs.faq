@@ -1,0 +1,2 @@
+sudo zfs create -V 2g space/swap
+sudo swap -a /dev/zvol/dsk/space/swap 

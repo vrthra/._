@@ -1,0 +1,101 @@
+/etc/user_attr
+user::::defaultpriv=dtrace_kernel,basic,proc_owner,dtrace_proc
+
+dtrace -- instrumenting user-space
+Thursday, August 4. 2005
+
+So, I had the pleasure of meeting Brian Cantrill on Tuesday. dtrace rocks.
+
+One of the things we need to constantly be aware of writing high-performance apps is the number of system call induced by a specific C routine. This is often achieved by using strace/ktrace/truss and guessing the boundaries or by simply looking at the function and enumerating the syscalls. However, as the function you are investigating scopes higher, the more complicated it is to ascertain the number of syscalls you expect.
+
+Arrives... dtrace.
+
+#!/usr/sbin/dtrace -s
+
+#pragma D option quiet
+
+uintptr_t domain;
+uint64_t total;
+
+:::BEGIN {
+  self->last = 0;
+}
+
+pid$1::$2:entry
+{
+  self->ok++;
+  self->identifier = "C function induced";
+  / or set your custom identifier here
+    domain = (uintptr_t )copyin(arg0, 4);
+    self->identifier = copyinstr(*domain);
+  /
+  self->last = (self->ok == 1) ? timestamp : self->last;
+  total = total + (self->ok == 1) ? 1 : 0;
+}
+
+syscall:::entry
+/self->ok/
+{
+  self->syscall++;
+  @[probefunc] = count();
+}
+
+pid$1::$2:return
+/self->ok == 1 && self->syscall/
+{
+  printf("%s %d syscalls over %d us\n",
+         self->identifier, self->syscall, (timestamp - self->last)/1000);
+}
+pid$1::$2:return
+/self->ok == 1/
+{
+  @a["syscalls per invocation"] = quantize(self->syscall);
+  self->syscall = 0;
+}
+
+pid$1::$2:return
+/self->ok/
+{
+  self->last = (self->ok == 1) ? 0 : self->last;
+  self->ok--;
+  self->ok = (self->ok < 0) ? 0 : self->ok;
+}
+
+:::END {
+  printf("Total syscalls witnessed:\n");
+  printa(@);
+  printa(@a);
+}
+
+and when run against our MTA with a specific PID and function we see:
+
+# ./c2sys 4649 mail_queue_maintain_domain
+C function induced 7 syscalls over 297 us
+C function induced 7 syscalls over 233 us
+C function induced 7 syscalls over 223 us
+...
+C function induced 7 syscalls over 214 us
+C function induced 8 syscalls over 345 us
+C function induced 7 syscalls over 249 us
+^C
+Total syscalls witnessed:
+
+  mmap64                                                            1
+  portfs                                                           57
+  connect                                                          57
+  getsockopt                                                       57
+  setsockopt                                                       57
+  so_socket                                                        57
+  fcntl                                                           114
+
+  syscalls per invocation                           
+           value  ------------- Distribution ------------- count    
+              -1 |                                         0        
+               0 |@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            147      
+               1 |                                         0        
+               2 |                                         0        
+               4 |@@@@@@@@@@@                              56       
+               8 |                                         1        
+              16 |                                         0        
+
+That solves that question...

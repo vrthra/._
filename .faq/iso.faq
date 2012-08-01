@@ -1,0 +1,20 @@
+crete iso from cd
+================
+dd if=/dev/cd0a of=/tmp/disc.iso bs=64k
+
+(default is 512 bytes which cds do not support hence the 64k)
+
+create iso from path
+=====================
+mkisofs -V "Label" -J -L -r -o me.iso /mydata/
+
+check it.
+vnconfig /dev/vn0c ./me.iso
+mount -t cd9660 /dev/vnc0c /mnt
+
+burn it.
+cdrecord -scanbus
+
+(speed=4 for rw)
+cdrecord -eject speed=52 dev=1,5,0 me.iso
+

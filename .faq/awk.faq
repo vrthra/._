@@ -1,0 +1,36 @@
+awk 'NR=3, NR=5 {print NR,$1}' #selects lines from 3 to 5
+    printf "%3d %-20s %d\n" #using printf
+    printf "%3d %-20s %d\n" | "sort"
+    printf "%3d %-20s %d\n" > "mylist"
+
+awk '$3 == "xxx" || $2 == "yyy" {}' # && [  != ~ !~  regexp operators] > <
+awk '$2 ~ /mexico/ || $1 !~ /panama/ {print}'
+
+$0 is the entire line
+awk '$2 ~ /mexico/ || $1 !~ /panama/ {
+    count = count + 3
+    print count}'
+
+-------------
+BEGIN {FS="|" OFS="~"}
+END{}
+
+NF = number of fields
+FILENAME
+
+array 
+----
+count[1] = 5
+substr($str, $start, $end)
+split($str, arr, "delim")
+
+if () {} else {}
+
+for (i=0; i < 10; ++I ) {}
+for ( k in array ) { 
+}
+while() {}
+    
+
+identify long lines
+cat file |awk 'length>72'

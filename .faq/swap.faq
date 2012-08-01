@@ -1,0 +1,6 @@
+mkfile 250m /var/newswap
+swap -a /var/newswap
+
++ dfstab (for persistance aft reboot)
+/var/newswap - - swap - no -
+/dev/dsk/c0t0d0s5 - - swap - no -

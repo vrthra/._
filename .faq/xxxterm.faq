@@ -1,0 +1,7 @@
+s - toggle color
+: favadd
+:o open
+: proxy toggle
+: set http_proxy=http://proxy.oregonstate.edu:3128
+
+~/.xxxterm.conf

@@ -1,0 +1,34 @@
+crle -l /usr/sfw/lib -l /lib -l /usr/lib
+crle -u -l /usr/sfw/lib
+Remember, should you ever get in trouble with crle(1) configuration files,
+you can always instruct the runtime linker to ignore processing the 
+configuration file by setting the environment variable LD_NOCONFIG=yes: 
+   # crle -l /does/not/exist
+   # ls
+   ld.so.1: ls: fatal: libsec.so.1: open failed: No such file or directory
+   Killed
+   # LD_NOCONFIG=yes ls
+   devices/        lib/            proc/
+   ....
+   # LD_NOCONFIG=yes rm /var/ld/ld.config
+   # ls
+   devices/        lib/            proc/ 
+
+
+# crle -l /does/not/exist
+   # crle
+
+   Configuration file [version 4]: /var/ld/ld.config
+     Platform:     32-bit MSB SPARC
+     Default Library Path (ELF):   /does/not/exist
+     Trusted Directories (ELF):    /lib/secure:/usr/lib/secure  (system default)
+
+   Command line:
+     crle -c /var/ld/ld.config -l /does/not/exist
+
+   # elfdump -d /usr/bin/crle | fgrep RPATH
+   ld.so.1: fgrep: fatal: libc.so.1: open failed: No such file or directory
+   ksh: 18184 Killed
+   # LD_NOCONFIG=yes; export LD_NOCONFIG
+   # elfdump -d /usr/bin/crle | fgrep RPATH
+      [6]  RPATH             0x61b               $ORIGIN/../lib 

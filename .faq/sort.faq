@@ -1,0 +1,14 @@
+sort -t"|" -k 2 -r
+
+sort -t"|" -k 3,3 -k 2,2 #using secondary opt
+
+
+sort -t"|" -k 3.7,3.8 -k 2,2 #using secondary opt
+.x is the char position
+
+-t - delim
+-k - field
+-r - reverse
+-n numeric
+-u unique 
+-c check if it is sorted

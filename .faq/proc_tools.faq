@@ -1,0 +1,43 @@
+pflags
+
+    Print the /proc tracing flags, the pending and held signals, and other /proc status information for each lwp in each process.
+pcred
+
+    Print the credentials (effective, real, saved UIDs and GIDs) of each process.
+pldd
+
+    List the dynamic libraries linked into each process, including shared objects explicitly attached using dlopen(3DL). See also ldd(1).
+psig
+
+    List the signal actions and handlers of each process. See signal(3HEAD).
+pstack
+
+    Print a hex+symbolic stack trace for each lwp in each process.
+pfiles
+
+    Report fstat(2) and fcntl(2) information for all open files in each process.
+pwdx
+
+    Print the current working directory of each process.
+pstop
+
+    Stop each process (PR_REQUESTED stop).
+prun
+
+    Set each process running (inverse of pstop).
+pwait
+
+    Wait for all of the specified processes to terminate.
+ptree
+
+    Print the process trees containing the specified pids or users, with child processes indented from their respective parent processes. An argument of all digits is taken to be a process-id, otherwise it is assumed to be a user login name. Default is all processes.
+ptime
+
+    Time the command, like time(1), but using microstate accounting for reproducible precision. Unlike time(1), children of the command are not timed.
+
+
+--------
+preap- force a defunct process to be reaped by its parent
+gcore- get core images of running processes
+pargs- print process arguments, environment variables, or auxiliary vector
+pmap- display information about the address space of a process
