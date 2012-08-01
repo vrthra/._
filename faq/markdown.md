@@ -33,7 +33,7 @@ It also wraps a para and gets you a block quote
 
 [here](/link/) is a link
 
-Here is [ref] a reference.
+Here [is][ref] a reference.
 
 [ref]: http://reference.org "My reference".
 
