@@ -21,35 +21,46 @@ invert sequence to get incoming.
 
 ###  restore git pristine
 
-  git reset --hard
+    git reset --hard
 
 ### unstage a file
 
-  git rm --cahced <file>
+    git rm --cahced <file>
+    git rm -r --cached .
+
+### git push default target
+
+    git config --global push.default current
 
 ###  checkout a particular commit that started with message
-  git checkout :/"Msg"
+
+    git checkout :/"Msg"
 
 ###  undo a commit
-  git revert <hash>
+
+    git revert <hash>
 
 ###  Create changelog
-  git log > Changelog
+
+    git log > Changelog
 
 ###  diff and apply
-  git diff | git apply
+
+    git diff | git apply
 
 ###  Cherry picking
-  Get the checksum out of git : git log 
-  git branch -a
-  #git checkout --track origin/el6
-  git pull origin origin/el6
-  git checkout -b < new_branch > origin/< new_branch >
-  git branch -a #verify
-  git cherry-pick <chksum>
-  #verify git log | more
+
+    Get the checksum out of git : git log 
+    git branch -a
+    #git checkout --track origin/el6
+    git pull origin origin/el6
+    git checkout -b < new_branch > origin/< new_branch >
+    git branch -a #verify
+    git cherry-pick <chksum>
+    #verify git log | more
 
 ###  Remove a commit from github
+
 | git rebase -i HEAD~4
     and remove the commits needed.
 Now verify push to git hub.
@@ -68,8 +79,8 @@ git push -f origin branch
 To run puppet from source
 RUBYLIB=/home/rahul/dev/facter/lib:/home/rahul/dev/hiera/lib:/home/rahul/dev/hiera-puppet/lib:/home/rahul/dev/puppet/lib bin/puppet
 
-git clean -n -d -v .
-git clean -f -d -v .
+git clean -ndv .
+git clean -fdv .
 
 git reset --hard origin/branch
 
