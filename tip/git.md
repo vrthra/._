@@ -6,18 +6,25 @@
     my      git@github.com:vrthra/facter.git
     o       git@github.com:puppetlabs/facter.git
  
-    git diff --color o/master ticket/2.x/1424_zone_facts
+    git diff --word-diff --color o/master ticket/2.x/1424_zone_facts
     git diff --color --stat
+
+    git cherry -v o/3.x
 
     git log --color o/master..ticket/2.x/1424_zone_facts
     git log --color o/master..
     git log --color ..o/master
+
 
 invert sequence to get incoming.
 
 ### diff between cached and committed
 
     | git diff --cached
+
+### search for commits
+
+    | git show :/myfix
 
 ###  restore git pristine
 
@@ -27,6 +34,8 @@ invert sequence to get incoming.
 
     git rm --cahced <file>
     git rm -r --cached .
+
+    git add -i
 
 ### git push default target
 
@@ -44,9 +53,21 @@ invert sequence to get incoming.
 
     git log > Changelog
 
+### decorate
+
+    git log --oneline --decorate
+
 ###  diff and apply
 
     git diff | git apply
+
+### short status output
+
+    git status -sb
+
+### checkout a remote branch from some one else
+
+   git checkout -t origin/feature
 
 ###  Cherry picking
 
