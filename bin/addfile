@@ -1,0 +1,25 @@
+#!/bin/sh
+
+doit() {
+  for i in $*
+  do
+    if [ -f ~/$i ]
+    then
+      diff -u ~/$i $i
+    else
+      echo $i
+      cat $i | sed -e "s#%HOME%#$HOME#g" > ~/$i
+    fi
+  done
+}
+
+case $1 in
+  -e) doit "$@"
+    ;;
+  *) cat <<EOF
+Usage:
+  $0 -e .file
+EOF
+  exit 1
+  ;;
+esac
