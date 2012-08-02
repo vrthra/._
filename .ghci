@@ -1,4 +1,4 @@
-:set  prompt "λ "
+:set  prompt "| "
 let loop = do { l <- getLine; if l == "\^D" then return () else do appendFile "Main.hs" (l ++ "\n"); loop }
 :def paste (\_ -> loop >> return ":load Main.hs")
 :def x (\_ -> return ":e Main.hs \n :load Main.hs")
@@ -8,6 +8,7 @@ let loop = do { l <- getLine; if l == "\^D" then return () else do appendFile "M
 :m + GOA
 wakeup
 setLambdabotHome "%HOME%/.cabal/bin"
+:set -XImplicitParams
 :def pl        lambdabot "pl"
 :def unpl      lambdabot "unpl"
 :def index     lambdabot "index"
