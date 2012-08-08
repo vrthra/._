@@ -67,7 +67,16 @@ invert sequence to get incoming.
 
 ### checkout a remote branch from some one else
 
-   | git checkout -t origin/feature
+    | git checkout -t origin/feature
+
+#### If you get fatal: git checkout: updating paths is incompatible
+
+    | git show remote origin
+
+    If it shows up under new (will fetch) then do
+   
+    | git fetch origin
+    | git checkout -t origin/feature
 
 ###  Cherry picking
 
@@ -141,3 +150,11 @@ invert sequence to get incoming.
     (6)  | git commit -m"part two"
     (7)  | git commit -m"part three" -a
     (8)  | git rebase --continue
+
+### cleanup all tracked branches that were deleted in remote.
+
+    | git remote prune origin
+
+### Show branches in pretty way
+
+    | git log --graph --oneline --all
