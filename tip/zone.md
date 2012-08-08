@@ -19,8 +19,9 @@
     zonecfg:zone1:fs> end
     zonecfg:zone1> verify
     zonecfg:zone1> add net
-    zonecfg:zone1:net> set address=10.67.1.151/24
+    zonecfg:zone1:net> set address=192.168.101.11/23
     zonecfg:zone1:net> set physical=eri0
+    zonecfg:zone1:net> set defrouter=192.168.101.1
     zonecfg:zone1:net> end
     zonecfg:zone1> verify
     zonecfg:zone1> commit
@@ -37,3 +38,15 @@
 
     On a newline do
     `@.` or `~~.`
+
+zoneadm -z myzone halt
+zoneadm -z myzone boot
+
+zonecfg -z myzone info
+zonecfg -z myzone info net
+
+### ping from inside the myzone
+
+zlogin myzone ping 1.1.1.1
+
+
