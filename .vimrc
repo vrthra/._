@@ -124,3 +124,19 @@ set nofoldenable
 "au BufWritePost *.tex silent !pkill -USR1 xdvi.bin
 "noremap ,k :silent !pkill -USR1 xdvi.bin<CR>
 
+"----------------------------
+"high light ruby trailing errors
+let ruby_space_errors = 1
+"----------------------------
+" highlight trailing space only in command mode.
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+if version >= 702
+  autocmd BufWinLeave * call clearmatches()
+endif
+"----------------------------
+
