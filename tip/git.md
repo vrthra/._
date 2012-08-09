@@ -5,7 +5,7 @@
     | git remote -v
     my      git@github.com:vrthra/facter.git
     o       git@github.com:puppetlabs/facter.git
- 
+
     | git diff --word-diff --color o/master ticket/2.x/1424_zone_facts
     | git diff --color --stat
 
@@ -74,13 +74,13 @@ invert sequence to get incoming.
     | git show remote origin
 
     If it shows up under new (will fetch) then do
-   
+
     | git fetch origin
     | git checkout -t origin/feature
 
 ###  Cherry picking
 
-    Get the checksum out of git : git log 
+    Get the checksum out of git : git log
     | git branch -a
     #git checkout --track origin/el6
     | git pull origin origin/el6
@@ -97,7 +97,7 @@ invert sequence to get incoming.
     | git clean -fxd .
     | git reset --hard origin/branch
 
-#### clean unstaged from just the current directory onwards 
+#### clean unstaged from just the current directory onwards
 
     | git checkout .
 
@@ -124,7 +124,7 @@ invert sequence to get incoming.
 
 ### Start a branch based on a branch in origin
 
-    | git fetch origin 
+    | git fetch origin
     | git checkout --track origin/plugin
 
 
@@ -158,3 +158,10 @@ invert sequence to get incoming.
 ### Show branches in pretty way
 
     | git log --graph --oneline --all
+    | git log --decorate
+    | git config --global log.decorate full
+
+### git patches
+
+    | git format-patch -<n>
+    | cat patch | git apply
