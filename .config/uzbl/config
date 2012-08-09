@@ -283,15 +283,16 @@ set ebind     = @mode_bind global,-insert
 
 # Web searching binds
 @cbind  gg<Google:>_         = uri http://www.google.com/search?q=\@<encodeURIComponent(%r)>\@
-@cbind  ddg<DuckDuckGo:>_    = uri http://duckduckgo.com/?q=%s
-@cbind  \\awiki<Archwiki:>_  = uri http://wiki.archlinux.org/index.php/Special:Search?search=\@<encodeURIComponent(%r)>\@&go=Go
-@cbind  \\wiki<Wikipedia:>_  = uri http://en.wikipedia.org/w/index.php?title=Special:Search&search=\@<encodeURIComponent(%r)>\@&go=Go
+@cbind  pp<Pull:>_         = uri https://github.com/puppetlabs/puppet/pull/%r
+@cbind  ii<Pull:>_         = uri http://projects.puppetlabs.com/issues/%r
+#@cbind  ddg<DuckDuckGo:>_    = uri http://duckduckgo.com/?q=%s
+#@cbind  \\awiki<Archwiki:>_  = uri http://wiki.archlinux.org/index.php/Special:Search?search=\@<encodeURIComponent(%r)>\@&go=Go
+#@cbind  \\wiki<Wikipedia:>_  = uri http://en.wikipedia.org/w/index.php?title=Special:Search&search=\@<encodeURIComponent(%r)>\@&go=Go
 
 # Handy binds
 # Set function shortcut
 @cbind  s<var:>_<value:>_  = set %1 = %2
 # Exit binding
-@cbind  ZZ                 = exit
 # Dump config to stdout
 @cbind  !dump              = sh 'echo dump_config > "$UZBL_FIFO"'
 # Reload all variables in the config
@@ -303,7 +304,7 @@ set ebind     = @mode_bind global,-insert
 #@cbind  <Ctrl><Mod1>t  = sh 'urxvt -e socat unix-connect:"$UZBL_SOCKET" -'
 
 # Uri opening prompts
-@cbind  o<uri:>_       = uri %s
+@cbind  :o<uri:>_       = uri %s
 # Or have it load the current uri into the keycmd for editing
 @cbind  O<uri:\@uri>_  = uri %s
 
@@ -312,7 +313,7 @@ set ebind     = @mode_bind global,-insert
 @bind   <Ctrl>i  = @set_mode insert
 
 # Hard-bound bookmarks
-@cbind  gh  = uri http://www.uzbl.org
+@cbind  gp  = uri http://www.puppetlabs.com
 
 # New window binds
 @cbind  gw  = event REQ_NEW_WINDOW
@@ -327,7 +328,7 @@ set ebind     = @mode_bind global,-insert
 @cbind  yy  = sh 'echo -n "$UZBL_TITLE" | xclip'
 
 # Clone current window
-@cbind  c   = event REQ_NEW_WINDOW \@uri
+@cbind  :clone   = event REQ_NEW_WINDOW \@uri
 # Go the page from primary selection
 @cbind  p   = sh 'echo "uri $(xclip -o | sed s/\\\@/%40/g)" > "$UZBL_FIFO"'
 # Go to the page in clipboard
@@ -341,10 +342,12 @@ set ebind     = @mode_bind global,-insert
 @cbind <Ctrl>m<tags:>_  = sh 'echo "$UZBL_URI $1" >> "$XDG_DATA_HOME"/uzbl/bookmarks' '%s'
 # Or use a script to insert a bookmark.
 @cbind  M  = spawn @scripts_dir/insert_bookmark.sh
+@cbind  <Ctrl>s  = spawn @scripts_dir/insert_bookmark.sh
 
 # Bookmark/history loading
 @cbind  U  = spawn @scripts_dir/load_url_from_history.sh
 @cbind  u  = spawn @scripts_dir/load_url_from_bookmarks.sh
+@cbind  <Ctrl>l  = spawn @scripts_dir/load_url_from_bookmarks.sh
 
 # Temporary bookmarks
 @cbind  <Ctrl>d  = spawn @scripts_dir/insert_temp.sh
@@ -378,30 +381,32 @@ set formfiller = spawn @scripts_dir/formfiller.sh
 # --- Uzbl tabbed binds ------------------------------------------------------
 
 # Tab opening
-@cbind  gn              = event NEW_TAB
 @cbind  gN              = event NEW_TAB_NEXT
 @cbind  go<uri:>_       = event NEW_TAB %s
 @cbind  gO<uri:>_       = event NEW_TAB_NEXT %s
 
+@cbind  <Ctrl>t         = event NEW_TAB
+@cbind  <Ctrl>w         = exit 
+@cbind  <Ctrl>d         = exit 
+
 # Closing / resting
-@cbind  gC              = exit
 @cbind  ZZ              = exit
-@cbind  gQ              = event CLEAN_TABS
+@cbind  :clean          = event CLEAN_TABS
 
 # Tab navigating
 @cbind  g<              = event FIRST_TAB
 @cbind  g>              = event LAST_TAB
-@cbind  gt              = event NEXT_TAB
-@cbind  gT              = event PREV_TAB
+@cbind  <Ctrl>n         = event NEXT_TAB
+@cbind  <Ctrl>p         = event PREV_TAB
 @cbind  gi<index:>_     = event GOTO_TAB %s
 
 # Preset loading
 set preset = event PRESET_TABS
-@cbind  gs<preset save:>_   = @preset save %s
-@cbind  glo<preset load:>_  = @preset load %s
-@cbind  gd<preset del:>_    = @preset del %s
+@cbind  :w<preset save:>_   = @preset save %s
+@cbind  :l<preset load:>_   = @preset load %s
+@cbind  :d<preset del:>_    = @preset del %s
 # This doesn't work right now.
-#@cbind  gli                 = @preset list
+@cbind  gli                 = @preset list
 
 # open current page in vim.
 @cbind   v  = sh 'echo "js document.documentElement.outerHTML" | socat - unix-connect:$5 | html2text -nobs -width 160 | gvim - -c "set nofen"'
@@ -411,7 +416,7 @@ set preset = event PRESET_TABS
 
 # Default context menu
 menu_add Google = set uri = http://google.com
-menu_add Go Home = set uri = http://uzbl.org
+menu_add Git = set uri = http://github.com/vrthra
 menu_separator separator_1
 menu_add Quit uzbl = exit
 
@@ -456,6 +461,7 @@ sync_spawn_exec @scripts_dir/load_cookies.sh
 sync_spawn_exec @scripts_dir/load_cookies.sh @data_home/uzbl/session-cookies.txt
 
 # Set the "home" page.
-set uri = uzbl.org/doesitwork/@COMMIT
+#set uri = uzbl.org/doesitwork/@COMMIT
+set uri = about:blank
 
 # vim: set fdm=syntax:
