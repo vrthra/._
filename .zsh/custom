@@ -1,0 +1,22 @@
+stty intr '^C'
+unalias -m '*'
+stty erase 
+#stty erase 
+
+case $USER in
+    *root*)
+    HISTFILE=/tmp/.zsh_history_${USER}_${HOST}
+    ;;
+esac
+
+z_HOME=$HOME/.home
+z_HOME_LIB=$z_HOME/lib
+z_HOME_BIN=$z_HOME/bin
+HOME_PATH=$z_HOME_BIN:$z_HOME_BIN/$z_ARCH
+
+OPT_PATH=/opt/bin:/opt/csw/bin:/usr/sfw/bin:/usr/gnu/bin:/usr/ccs/bin:/usr/local/bin:
+SBIN_PATH=/sbin:/usr/sbin:/usr/local/sbin:/opt/csw/sbin:/opt/sbin
+BIN_PATH=/bin:/usr/bin:/usr/local/bin:/opt/csw/bin:/opt/bin
+
+export PATH=$HOME/.cabal/bin:$BIN_PATH:$SBIN_PATH:$OPT_PATH
+

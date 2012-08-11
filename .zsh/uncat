@@ -1,0 +1,3 @@
+ssh-add 2> /dev/null
+zsh=${HOME}/.home/bin/`uname -ps|tr ' ' _`/zsh
+
