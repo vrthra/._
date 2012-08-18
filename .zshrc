@@ -1,3 +1,4 @@
+echo ".zshrc\n---"
 # colors
 getcolor() {
 case "$1" in
