@@ -3,7 +3,7 @@ echo -n "Enter email: "
 read email
 echo -n "Enter pass: "
 read pass
-cat <<EOF
+cat <<EOF > .gitconfig
 [user]
 	email = $email
 	name = rahul
