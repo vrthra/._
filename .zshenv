@@ -1,4 +1,3 @@
-echo ".zshenv\n---"
 # -----------------------------------------------------------------------------
 # .zshenv is sourced in every zsh session, while .zshrc is only used in
 # interactive sessions,
@@ -38,10 +37,10 @@ TERMINFO=~/.terminfo
 # -----------------------------------------------------------------------------
 # HOME dirs
 # -----------------------------------------------------------------------------
-H_I=$HOME/.home
-H_BIN=$H_I/bin
-H_LIB=$H_I/lib
-H_PATH=$H_BIN:$H_BIN/$ARCH
+i_H=$HOME/.home
+i_BIN=$i_H/bin
+i_LIB=$i_H/lib
+i_PATH=$i_BIN:$i_BIN/$ARCH
 # -----------------------------------------------------------------------------
 # PATH, careful - if home is nfs mounted, it would be a long wait.
 # -----------------------------------------------------------------------------

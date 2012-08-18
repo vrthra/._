@@ -31,8 +31,6 @@ setopt pushdignoredups
 setopt EXTENDED_HISTORY NO_HIST_BEEP HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE
 setopt ALWAYS_TO_END
 
-
-
 makeopts=(clobber all publish installation compile run-server run-client BUILD_VARIANT=DEBUG BUILD_VARIANT=OPTIMIZED compile-admin-cli assemble-admin-cli publish-admin-cli)
 compctl -k makeopts gmake make
 

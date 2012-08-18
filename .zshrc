@@ -1,55 +1,70 @@
-echo ".zshrc\n---"
-# colors
-getcolor() {
-case "$1" in
-  red) print "31m";;
-  green) print "32m";;
-  yellow) print "33m";;
-  blue) print "34m";;
-  magenta) print "35m";;
-  cyan) print "36m";;
-  white) print "37m";;
-  black) print "30m";;
-esac
-}
-[ -z "$z_PS1_COLOR" ] || z_PS1_COLOR="34m"
-# export PS1='%K{white}%F{red}<red on white>%f%k<default colours>'
-# echotc Co
-mycolor() {
-    case $UID in
-        0) print "31m" ;;
-        *) print ${z_PS1_COLOR} ;;
-    esac
-}
-myprompt() {
-    case $UID in
-        0) print "# " ;;
-        *) print "| " ;;
-    esac
+# -----------------------------------------------------------------------------
+# Fancy colors
+# red 31 green 32 yellow 33 blue 34 magenta 35 cyan 36 white 37 black 30
+# '%K{black}%F{red}|%k%f'
+# `echotc Co` gets you the supported colors in a terminal.
+# -----------------------------------------------------------------------------
+
+[ -z "$i_CDSTACK" ] || i_CDSTACK=0
+[ -z "$i_fcolor" ] || i_fcolor=blue
+
+i_prompt() {
+  case "$UID-$i_CDSTACK" in
+    0-*) PS1="# "
+    *-0) PS1="%K{black}%F{i_fcolor}|%k%f "
+    *-*) PS1="$i_CDSTACK%K{black}%F{i_fcolor}|%k%f "
+  esac
 }
 
-[ -z "$z_CDNUM" ] || z_CDNUM=0
+# -----------------------------------------------------------------------------
+# We dont need to reinitialize some things.
+# start GUARD {
+# -----------------------------------------------------------------------------
+if [ -z "$i_NOINIT" ]
+then
 
-cdnum() {
-    case $z_CDNUM in
-        0) print '' ;;
-        *) print $z_CDNUM ;;
-    esac
-}
-
-PS1="%{[0;$(mycolor)%}$(cdnum)$(myprompt)%{[0m%}"
-
+# -----------------------------------------------------------------------------
+# title
+# -----------------------------------------------------------------------------
 title() {
-    print $TFUNC;
+    print $i_TITLE;
 }
 
-# for title
 case $TERM in
-    xterm*) precmd () {print -Pn "\e]0;%m [$(title)] : %~\a"} ;;
+  xterm*) precmd () {print -Pn "\e]0;%m [$(title)] : %~\a"} ;;
 esac
+
+# -----------------------------------------------------------------------------
+# Special handling for tmux. We dont need it in zshenv. So it is here.
 
 [ -n "$TMUX" ] && export TERM=screen-256color
-[ -z "$NOINIT" ] || source ~/.zsh/custom
+# -----------------------------------------------------------------------------
+
+stty intr '^C'
+unalias -m '*'
+stty erase 
+
+# -----------------------------------------------------------------------------
+# Avoid the nasty unable to write history file on sudo syndrome.
+# -----------------------------------------------------------------------------
+case $USER in
+  *root*) HISTFILE=/tmp/.zsh_history_${USER}_${HOST} ;;
+esac
+
+# any arch specific
+# -----------------------------------------------------------------------------
+[ -e ~/.zsh/$ARCH.zshrc ] && . ~/.zsh/$ARCH.zshrc
+
+# -----------------------------------------------------------------------------
+# Any local changes. (I like the zsh oneline for)
+# -----------------------------------------------------------------------------
+for i in ~/.zsh/zshrc.*; . ${i}
+
 source ~/.zsh/opt
 source ~/.zsh/fn
+
+# -----------------------------------------------------------------------------
+# end GUARD }
+fi
+# -----------------------------------------------------------------------------
 
