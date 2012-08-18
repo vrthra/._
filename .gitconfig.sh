@@ -1,13 +1,15 @@
 #!/bin/sh
+echo -n "Enter name: "
+read name
 echo -n "Enter email: "
 read email
 echo -n "Enter pass: "
 read pass
-cat <<EOF > .gitconfig
+cat <<'EOF' | sed -e "s/%name%/$name/g" -e "s/%email%/$email/g" -e "s/%pass%/$pass/g" > .gitconfig
 [user]
-	email = $email
-	name = rahul
-	password = $pass
+	email = %email%
+	name = %name%
+	password = %pass%
 [credential]
 	helper = cache --timeout=360000
 
