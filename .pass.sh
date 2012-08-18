@@ -12,6 +12,6 @@ cat <<'EOF' | sed -e "s/%name%/$name/g"\
                   -e "s/%email%/$email/g" \
                   > ~/.pass
 git_name=%name%
-git_password=%password%
+git_password="%password%"
 git_email=%email%
 EOF
