@@ -116,3 +116,9 @@ bindkey '\eOD' backward-char
 # go into vi mode for commands
 #zle-line-init() { zle -K vicmd; }
 #zle -N zle-line-init
+
+# -----------------------------------------------------------------------------
+# ^[/ should not ask for tab expansion  
+# -----------------------------------------------------------------------------
+bindkey '\e/' vi-history-search-backward
+
