@@ -1,5 +1,7 @@
 ### r
 
+  R -q
+
 #### Simple Plotting
     
     > pdf('my.pdf')
@@ -37,6 +39,13 @@ to ensure that screen is refreshed.
     | s = c(1,2,3)
     | m <- 1:4
     | n <- 5:8
+    | assign('y', c(1.2, 3.4, 5.6)
+    | c(1.2, 3.4, 5.6) -> y
+
+- Last value evaluated
+   
+    | c(1,2,3)
+    | .Last.value
 
 - Matrices
 
@@ -73,6 +82,11 @@ to ensure that screen is refreshed.
     | attributes(s)
     | summary(s)
     | pairs(s)
+   
+    | fivenum(s)
+    | stem(s)
+
+- Attach makes the $vars available as vars
 
     | attach(s)
     | cor(dup_files, contributors)
@@ -82,8 +96,9 @@ to ensure that screen is refreshed.
 - List objects
 
     | ls()
+    | objectss()
     all objects assigned so far.
-    | rm(s)
+    | rm(s, x, y)
 
 - Plot histogram
 
@@ -96,6 +111,12 @@ to ensure that screen is refreshed.
     | x <- s$coverage_percent
     | y <- s$contributors
     | x[y>2 & y < 3]
+
+    | (x+1)[(!is.na(x)) & x>0] -> z
+    | y <- x[-(1:5)]
+
+    | x[is.na(x)] <- 0
+    | y[y < 0] <- -y[y < 0]
 
 - Installing (do as root)
 
@@ -112,3 +133,19 @@ to ensure that screen is refreshed.
     >  source("http://biostatmatt.com/R/scat.R")
     >  data(co2)
     >  scat(c(co2[1:75]), rows=10, cols=80)
+
+- Help
+
+    | ?solve
+    | ??solve
+    | help("solve")
+    | expample(solve)
+
+- Sink
+   
+Divert screen output to file.
+   
+    | sink("record.lis")
+    | sink()
+
+
