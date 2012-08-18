@@ -1,15 +1,12 @@
 #!/bin/sh
-echo -n "Enter name: "
-read name
-echo -n "Enter email: "
-read email
-echo -n "Enter pass: "
-read pass
-cat <<'EOF' | sed -e "s/%name%/$name/g" -e "s/%email%/$email/g" -e "s/%pass%/$pass/g" > .gitconfig
+# pass contains the machine specific values.
+. ~/.pass
+
+cat <<'EOF' | sed -e "s/%name%/$git_name/g" -e "s/%email%/$git_email/g" -e "s/%pass%/$git_password/g" > .gitconfig
 [user]
-	email = %email%
 	name = %name%
 	password = %pass%
+	email = %email%
 [credential]
 	helper = cache --timeout=360000
 
