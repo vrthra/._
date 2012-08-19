@@ -1,5 +1,15 @@
 *
 !.gitignore
+!tip/
+!.faq/
+!.home/
+!.zsh/
+!.vim/
 !.zshrc
 !.zshenv
-!.zsh
+!.vimrc
+!.tmux.conf
+!.ghci
+!.config/
+!.config/uzbl/
+!.config/uzbl/config
