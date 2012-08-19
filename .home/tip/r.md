@@ -3,13 +3,13 @@
   R -q
 
 #### Simple Plotting
-    
+
     > pdf('my.pdf')
     > x <- 1:20
     > y <- 3*x + 5
     > plot(x,y)
-  
-#### Data file 
+
+#### Data file
 
 No header for row names, and tab separated
 
@@ -30,7 +30,7 @@ Use
 
     > source('script.r')
 
-to ensure that screen is refreshed.   
+to ensure that screen is refreshed.
 
 #### Language
 
@@ -43,7 +43,7 @@ to ensure that screen is refreshed.
     | c(1.2, 3.4, 5.6) -> y
 
 - Last value evaluated
-   
+
     | c(1,2,3)
     | .Last.value
 
@@ -76,13 +76,13 @@ to ensure that screen is refreshed.
     | lines(x,y)
 
 - Summary
-    
+
     | s <- read.table('summary/all.data')
     | names(s)
     | attributes(s)
     | summary(s)
     | pairs(s)
-   
+
     | fivenum(s)
     | stem(s)
 
@@ -120,7 +120,7 @@ to ensure that screen is refreshed.
 
 - Installing (do as root)
 
-    # R 
+    # R
     > install.packages("Defaults")
 
 - ggplot2
@@ -142,10 +142,36 @@ to ensure that screen is refreshed.
     | expample(solve)
 
 - Sink
-   
+
 Divert screen output to file.
-   
+
     | sink("record.lis")
     | sink()
 
+#### Dataframes
 
+- find the attribute naes of min index
+
+    | s = read.table('data.rdata')
+    | which(s == min(s), arr.ind = T)
+    || arrayInd(which.min(s$total), dim(s))
+    > rnames = rownames(s)[inds[,1]]
+    > cnames = colnames(s)[inds[,2]]
+
+- Adding new column
+
+    | s$base <- ifelse(s$aresult=="single", 1, 0)
+    | s$percent <- s$cov / s$total * 100
+
+- Getting rows
+
+    |  which(s == max(s$percent), arr.ind=T)
+                              row col
+    arguments                  63   3
+    commad-pattern-with-guice  77   3
+    | s[63,]
+    | s[77,]
+    | s['coverage']
+    | s[1,]['coverage']
+
+    | s[order(s$percent, decreasing=TRUE)[1:min(5, length(s$percent))],]
