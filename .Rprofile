@@ -6,13 +6,13 @@ options(defaultPackages = c(old, "Defaults"))
 
 options(editor="vim")
 options(prompt="r| ")
-options(tab.width = 2) 
+options(tab.width = 2)
 options(width = 130)
 options(graphics.record=TRUE)
 options(htmlhelp=FALSE)
 options(max.print=2000)
 options(show.signif.stars=FALSE)
-Sys.setenv(R_HISTFILE=file.path("~", ".Rhistory"))
+#Sys.setenv(R_HISTFILE=file.path("~", ".Rhistory"))
 Sys.setenv(R_HISTSIZE='100000')
 options("pdfviewer"="evince")
 
@@ -29,5 +29,9 @@ options("pdfviewer"="evince")
         }
 }
 
-
 library(colorout) # Colorize R output in terminal
+library(plyr)
+# ensure that scat is available.
+source("http://biostatmatt.com/R/scat.R")
+library(txtplot)
+

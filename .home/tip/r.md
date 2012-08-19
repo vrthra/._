@@ -175,3 +175,50 @@ Divert screen output to file.
     | s[1,]['coverage']
 
     | s[order(s$percent, decreasing=TRUE)[1:min(5, length(s$percent))],]
+
+- create a data frame
+
+    | statef <- letters[1:10]
+    | incomes <- 1:10
+    | infomef <- 1:10
+    | x <- data.frame(home=statef, loot=incomes, shot=incomef)
+    | x$home
+    | names(x) <- letters[1:3]
+    | rownames(x) <- letters[1:10]
+
+- dataframe from a matrix
+    | tmp <- data.frame(matrix(rnorm(30), 10, 3, dimnames=list(letters[1:10], c("company", "person", "salary"))))
+
+- dataframe with no row labels
+
+    # house.data
+    > Price    Floor     Area   Rooms     Age  Cent.heat
+    > 52.00    111.0      830     5       6.2      no
+    > 54.75    128.0      710     5       7.5      no
+    | p  <- read.table("houses.data", header=TRUE)
+
+- from matrix
+
+    | s <- matrix(letters[1:18],ncol=3,byrow=TRUE)
+    | rownames(s) <- letters[1:6]
+    | colnames(s) <- letters[1:3]
+    | p <- as.data.frame(s)
+    | p['f',]
+    | p$a
+
+- number of rows
+
+    | nrow(s)
+    | length(cov$bin[cov$bin <10 & cov$bin >= 0])
+
+- ploting
+
+    | txtplot(cov$percent)
+    | txtdensity(cov$percent)
+    | cov$bin <- 10*round(cov$percent/10,digits=0)
+    | txtbarchart(factor(cov$bin))
+
+- write
+
+    | write.table(file="most_cov",rownames(best_cov), quote=F, row.names=F, col.names=F)
+
