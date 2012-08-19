@@ -1,0 +1,103 @@
+setopt EXTENDED_GLOB
+setopt extendedglob
+setopt MAGIC_EQUAL_SUBST
+setopt NO_sh_file_expansion
+#setopt correct
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt autopushd
+setopt pushdignoredups
+setopt printexitvalue
+setopt complete_in_word
+setopt SH_WORD_SPLIT
+
+
+#setopt sharehistory --annoying
+
+makeopts=(clobber all publish installation compile run-server run-client BUILD_VARIANT=DEBUG BUILD_VARIANT=OPTIMIZED compile-admin-cli assemble-admin-cli publish-admin-cli)
+compctl -k makeopts gmake make
+
+compctl -g '(*|.*)~*.(class|o|png|db)' vim vi gvim
+compctl -g '*.java' javac
+compctl -g '*.pdf' xpdf
+
+jdbopts=(-attach)
+compctl -k jdbopts jdb
+
+## - ignore CVS directories
+#compctl -g '(*|.*)~*CVS(/)' cd
+compctl -g '(*|.*)~*CVS' cd
+
+hosts=(agneyam vayavyam varunam bhoumam vaishnavam destiny1 adithya souram shivam)
+apps=(proxy41 webserver70 proxy_expt)
+
+compctl -k hosts telnet ftp rlogin rsh rcp
+compctl -k apps changeapp
+
+set -o vi
+bindkey -v
+bindkey '^Z' accept-and-hold
+bindkey "^A" beginning-of-line
+bindkey "^E" end-of-line
+#accept-and-infer-next-history
+#bindkey '"' vi-set-buffer
+bindkey '^R' push-line
+bindkey '^X' execute-named-cmd
+bindkey '^K' vi-kill-line
+#setopt emacs
+#^D - show completion
+
+compctl -g "/tmp/screens/S-${USER}/*(p:t)" screen
+compctl -g "*(-/D)" + -g "*.class(.:r)" java
+#kill-line -> ^U
+compctl -v getln getopts read unset vared
+compctl -v -S '=' -q declare export integer local readonly typeset
+compctl -u -x 'w[1,-]p[3,-1]' -l sh - 'w[1,-]' -u - 'p[2,-1]' -l sh -- su
+
+if [[ "$ZSH_VERSION_TYPE" == 'new' ]] 
+then
+#-----------zsh completion [new style]
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+## No CVS in cd
+##zstyle ':completion:*:(all-|)files' ignored-patterns '(|*/)CVS'
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'
+## and no lost+found
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#lost+found'
+#
+## pids 
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:*:*:*:processes' menu yes select
+zstyle ':completion:*:*:*:*:processes' force-list always
+zstyle ':completion:*:*:*:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
+#zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=$color[cyan]=$color[red]"
+zstyle ':completion:*:processes' command 'ps -au$USER'
+
+fi
+# Incremental search is elite!
+#bindkey -M vicmd "/" history-incremental-search-backward
+#bindkey -M vicmd "?" history-incremental-search-forward
+
+# Search based on what you typed in already
+bindkey -M vicmd "//" history-beginning-search-backward
+bindkey -M vicmd "??" history-beginning-search-forward
+
+bindkey -M vicmd "q" push-line
+bindkey -M vicmd 'u' undo
+
+bindkey '\e[A' up-line-or-history
+bindkey '\e[B' down-line-or-history
+
+bindkey '\eOA' up-line-or-history
+bindkey '\eOB' down-line-or-history
+
+bindkey '\e[C' forward-char
+bindkey '\e[D' backward-char
+
+bindkey '\eOC' forward-char
+bindkey '\eOD' backward-char
+
+# go into vi mode for commands
+#zle-line-init() { zle -K vicmd; }
+#zle -N zle-line-init
+bindkey '\e/' vi-history-search-backward

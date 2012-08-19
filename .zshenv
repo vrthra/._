@@ -53,7 +53,7 @@ PATH=$H_PATH:$PATH
 # -----------------------------------------------------------------------------
 # Any local changes. (I like the zsh oneline for)
 # -----------------------------------------------------------------------------
-for i in ~/.zsh/zshenv.*; . ${i}
+[ -n "$(setopt nullglob; echo ~/.zsh/zshenv.*)" ] && for i in ~/.zsh/zshenv.*; . ${i} 
 
 # -----------------------------------------------------------------------------
 # turnoff all_export so that no further options are exported.

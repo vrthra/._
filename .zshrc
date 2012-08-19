@@ -5,16 +5,15 @@
 # `echotc Co` gets you the supported colors in a terminal.
 # -----------------------------------------------------------------------------
 
-[ -z "$i_CDSTACK" ] || i_CDSTACK=0
-[ -z "$i_fcolor" ] || i_fcolor=blue
+[ -z "$i_CDSTACK" ] && i_CDSTACK=0
+[ -z "$i_fcolor" ] && i_fcolor=blue
 
-i_prompt() {
-  case "$UID-$i_CDSTACK" in
-    0-*) PS1="# "
-    *-0) PS1="%K{black}%F{i_fcolor}|%k%f "
-    *-*) PS1="$i_CDSTACK%K{black}%F{i_fcolor}|%k%f "
-  esac
-}
+case "$UID-$i_CDSTACK" in
+  0-*) PS1="# ";;
+  *-0) PS1="%K{black}%F{$i_fcolor}|%k%f ";;
+  *-*) PS1="$i_CDSTACK%K{black}%F{$i_fcolor}|%k%f ";;
+esac
+export PS1=$PS1
 
 # -----------------------------------------------------------------------------
 # We dont need to reinitialize some things.
@@ -58,10 +57,10 @@ esac
 # -----------------------------------------------------------------------------
 # Any local changes. (I like the zsh oneline for)
 # -----------------------------------------------------------------------------
-for i in ~/.zsh/zshrc.*; . ${i}
+[ -n "$(setopt nullglob; echo ~/.zsh/zshrc.*)" ] && for i in ~/.zsh/zshrc.*; . ${i} 
 
-source ~/.zsh/opt
-source ~/.zsh/fn
+source ~/.zsh/options
+source ~/.zsh/myfunctions
 
 # -----------------------------------------------------------------------------
 # end GUARD }
