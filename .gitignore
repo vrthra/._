@@ -13,3 +13,8 @@
 !.config/
 !.config/uzbl/
 !.config/uzbl/config
+!.ssh/config
+!.xmobarrc
+!.dmenu
+!.rdebugrc
+
