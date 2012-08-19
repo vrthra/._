@@ -57,7 +57,7 @@ esac
 # -----------------------------------------------------------------------------
 # Any local changes. (I like the zsh oneline for)
 # -----------------------------------------------------------------------------
-[ -n "$(setopt nullglob; echo ~/.zsh/zshrc.*)" ] && for i in ~/.zsh/zshrc.*; . ${i} 
+[ -n "$(setopt nullglob; echo ~/.zsh/zshrc.*)" ] && for i in ~/.zsh/zshrc.*; . ${i}
 
 source ~/.zsh/options
 source ~/.zsh/myfunctions
