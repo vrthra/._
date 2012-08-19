@@ -9,7 +9,7 @@
 !.zshenv
 !.vimrc
 !.tmux.conf
-!.ghci
+!.ghci.sh
 !.config/
 !.config/uzbl/
 !.config/uzbl/config
