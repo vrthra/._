@@ -140,3 +140,29 @@ if version >= 702
 endif
 "----------------------------
 
+set ignorecase
+set smartcase
+
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+
+" Colourized column if we want to ensure we dont go beyond 80 char limit
+"set colorcolumn=80
+
+set wrap
+set textwidth=79
+set formatoptions=qrn1
+nnoremap <leader>q gqip
+nnoremap <leader>v V`]
+
+" for when we want to use ctags.
+"set tags=./tags;/
+"tags+=tags;$HOME 
+
+
+"call pathogen#infect()
+
+nnoremap <leader>d O require 'ruby-debug'; debugger
+
