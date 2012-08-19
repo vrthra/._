@@ -12,3 +12,10 @@ e.g
     curl http://betterthangrep.com/ack-standalone > ~.home/bin/ack && chmod 0755 !:-0
     curl http://betterthangrep.com/ack-standalone > ~.home/bin/ack && chmod 0755 !:-3
 
+#### History
+
+To avoid history in a sessino
+
+    | fc -p
+    .. commands
+    | fc -P
