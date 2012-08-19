@@ -4,7 +4,7 @@
 # i.e. when you open a shell on your computer.  specifically, .zshrc will
 # not be executed in `ssh mymachine ls` but .zshenv will be
 #
-# on `ssh 'ls'`, -> .zshenv 
+# on `ssh 'ls'`, -> .zshenv
 # on `zsh`, -> .zshenv, .zshrc
 # on `tmux new`, -> .zshenv, .zshrc, .zlogin
 # on `screen`, -> .zshenv, .zshrc
@@ -40,11 +40,16 @@ TERMINFO=~/.terminfo
 i_H=$HOME/.home
 i_BIN=$i_H/bin
 i_LIB=$i_H/lib
-i_PATH=$i_BIN:$i_BIN/$ARCH
 # -----------------------------------------------------------------------------
 # PATH, careful - if home is nfs mounted, it would be a long wait.
 # -----------------------------------------------------------------------------
-PATH=$H_PATH:$PATH
+i_PATH=$i_BIN:$i_BIN/$ARCH
+i_UPATH=/bin:/sbin:/usr/bin:/usr/sbin:/opt/bin:/opt/sbin:/usr/local/bin:/usr/local/sbin
+PATH=$i_PATH:$i_UPATH:$PATH
+# -----------------------------------------------------------------------------
+# Just so R does not crib.
+# -----------------------------------------------------------------------------
+R_HISTFILE=~/.Rhistory
 # -----------------------------------------------------------------------------
 # any arch specific
 # -----------------------------------------------------------------------------
@@ -53,7 +58,7 @@ PATH=$H_PATH:$PATH
 # -----------------------------------------------------------------------------
 # Any local changes. (I like the zsh oneline for)
 # -----------------------------------------------------------------------------
-[ -n "$(setopt nullglob; echo ~/.zsh/zshenv.*)" ] && for i in ~/.zsh/zshenv.*; . ${i} 
+[ -n "$(setopt nullglob; echo ~/.zsh/zshenv.*)" ] && for i in ~/.zsh/zshenv.*; . ${i}
 
 # -----------------------------------------------------------------------------
 # turnoff all_export so that no further options are exported.
