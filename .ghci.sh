@@ -1,4 +1,4 @@
-cat <<EOF
+cat <<EOF > ~/.ghci
 :set  prompt "| "
 let loop = do { l <- getLine; if l == "\^D" then return () else do appendFile "Main.hs" (l ++ "\n"); loop }
 :def paste (\_ -> loop >> return ":load Main.hs")
