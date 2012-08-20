@@ -187,6 +187,7 @@ Divert screen output to file.
     | rownames(x) <- letters[1:10]
 
 - dataframe from a matrix
+
     | tmp <- data.frame(matrix(rnorm(30), 10, 3, dimnames=list(letters[1:10], c("company", "person", "salary"))))
 
 - dataframe with no row labels
@@ -221,4 +222,8 @@ Divert screen output to file.
 - write
 
     | write.table(file="most_cov",rownames(best_cov), quote=F, row.names=F, col.names=F)
+
+- Use an https url
+
+   | s <- read.table(pipe('curl -L https://raw.github.com/vrthra/clone-unit-coverage/master/rdata/filtered.data'))
 
