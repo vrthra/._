@@ -1,9 +1,13 @@
 ### Terminfo
 
-- for xterm-color on solaris 
+- for xterm-color on solaris
 
     wget http://www.catb.org/~esr/terminfo/termtypes.ti.gz -O - | gzip -dc > termtypes.ti;
     tic -o ~/ termtypes.ti
+
+- can also do
+
+    | infocmp screen-256color > /tmp/screen-256color.ti
 
 - for screen-256color
 
