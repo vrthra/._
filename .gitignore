@@ -3,8 +3,13 @@
 !tip/
 !.faq/
 !.home/
+!.home/bin/
 !.zsh/
 !.vim/
+!.irssi/
+!.irssi/scripts/
+!.irssi/scripts/autorun/
+!.vim/after/
 !.zshrc
 !.zshenv
 !.vimrc
