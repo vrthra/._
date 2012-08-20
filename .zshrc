@@ -65,6 +65,7 @@ esac
 [ -n "$(setopt nullglob; echo ~/.zsh/zshrc.*)" ] && for i in ~/.zsh/zshrc.*; . ${i}
 
 source ~/.zsh/options
+source ~/.zsh/options.complete
 source ~/.zsh/myfunctions
 
 # -----------------------------------------------------------------------------
