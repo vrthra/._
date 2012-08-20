@@ -159,9 +159,14 @@ invert sequence to get incoming.
 
     | git log --graph --oneline --all
     | git log --decorate
+    | git log --pretty=oneline -1
     | git config --global log.decorate full
 
 ### git patches
 
     | git format-patch -<n>
     | cat patch | git apply
+    | git apply --stat patch
+    | git apply --check patch
+    | git am < patch
+
