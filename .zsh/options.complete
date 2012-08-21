@@ -1,13 +1,27 @@
 
+#------------------------------------------------------------------------------
+# -k arrays
+# -g glob strings (quoted) - use *(/) instead of */ for dirs
+# -K use function
+#     function whoson { reply=(`users`); }
+#     compctl -K whoson talk
+# -H history
+# -P insert prefix -s
+#
+# -W file prefix for -c -f -g -/
+#
+#------------------------------------------------------------------------------
+
 makeopts=(clobber all publish installation compile run-server run-client BUILD_VARIANT=DEBUG BUILD_VARIANT=OPTIMIZED compile-admin-cli assemble-admin-cli publish-admin-cli)
 compctl -k makeopts gmake make
 
-puppetopts=(resource zone zfs zpool package apply -e)
-compctl -k puppetopts puppet
+compctl -k "(resource zone zfs zpool package apply -e)" puppet
 
 compctl -g '(*|.*)~*.(class|o|png|db)' vim vi gvim
 compctl -g '*.java' javac
+compctl -g '*.rb' ruby
 compctl -g '*.pdf' xpdf
+compctl -k '(1.8.7 1.9/3)' withrvm
 
 jdbopts=(-attach)
 compctl -k jdbopts jdb
