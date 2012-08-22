@@ -17,6 +17,12 @@ compctl -k makeopts gmake make
 
 compctl -k "(resource zone zfs zpool package apply -e)" puppet
 
+compctl -k "(--abort --continue --skip)" git rebase
+compctl -k "(--amend)" git commit
+
+p=(puppet resource apply zone zfs zpool package)
+compctl -k p envpuppet
+
 compctl -g '(*|.*)~*.(class|o|png|db)' vim vi gvim
 compctl -g '*.java' javac
 compctl -g '*.rb' ruby

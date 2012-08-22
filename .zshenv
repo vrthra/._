@@ -44,7 +44,7 @@ i_LIB=$i_H/lib
 # PATH, careful - if home is nfs mounted, it would be a long wait.
 # -----------------------------------------------------------------------------
 i_PATH=$i_BIN:$i_BIN/$ARCH
-i_UPATH=/bin:/sbin:/usr/bin:/usr/sbin:/opt/bin:/opt/sbin:/usr/local/bin:/usr/local/sbin
+i_UPATH=/bin:/sbin:/usr/bin:/usr/sbin:/opt/bin:/opt/sbin:/usr/local/bin:/usr/local/sbin:/opt/csw/bin:/usr/sfw/bin:/usr/gnu/bin
 PATH=$i_PATH:$i_UPATH:$PATH
 # -----------------------------------------------------------------------------
 # Just so R does not crib.
