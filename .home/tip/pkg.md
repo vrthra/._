@@ -1,0 +1,23 @@
+### Solaris pkg depot
+
+#### Start depotd
+
+     /usr/lib/pkg.depotd -d /export/pkg -p 80 --set-property publisher.prefix=puppet
+
+
+#### Pkg send
+
+    - install pkg at /var/pkg/fakeroot
+    - Use a new shell where the PKG_TRANS_ID is stored
+    | sh
+    | . <(pkg -s http://localhost send open puppet@3.0.0)
+    | pkgsend -s http://localhost import /var/pkg/fakeroot
+    - pkgsend add set name={pkg.summary, pkg.description, description, packager} value="..."
+    | pkgsend close
+
+#### Install it
+
+    # set-publisher -g http://localhost puppet
+    # pkg publisher
+    # pkg install puppet
+
