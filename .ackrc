@@ -1,4 +1,6 @@
 --color
 --color-filename=yellow
 --color-match=green
- --color-lineno=red
+--color-lineno=red
+--after-context=3
+--before-context=3
