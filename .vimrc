@@ -165,4 +165,7 @@ nnoremap <leader>v V`]
 "call pathogen#infect()
 
 nnoremap <leader>d O require 'ruby-debug'; debugger
-
+" Sync with the system clipboard.
+set clipboard=unnamedplus
+" sync with cut buffer
+" set clipboard=unnamed
