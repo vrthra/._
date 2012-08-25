@@ -1,0 +1,6 @@
+To turn off the stupid motd in ubuntu, do
+
+edit /etc/pam.d/{login,sshd}, g/session optional pam_motd.so/d
+
+as an added meassure, chmod -x /etc/update-motd.d/*
+
