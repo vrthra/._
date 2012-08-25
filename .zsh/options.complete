@@ -1,64 +1,24 @@
+# newstyle completion
+autoload -U compinit && compinit
 
 #------------------------------------------------------------------------------
-# -k arrays
-# -g glob strings (quoted) - use *(/) instead of */ for dirs
-# -K use function
-#     function whoson { reply=(`users`); }
-#     compctl -K whoson talk
-# -H history
-# -P insert prefix -s
-#
-# -W file prefix for -c -f -g -/
-#
+# New style verbose matches.
 #------------------------------------------------------------------------------
-
-makeopts=(clobber all publish installation compile run-server run-client BUILD_VARIANT=DEBUG BUILD_VARIANT=OPTIMIZED compile-admin-cli assemble-admin-cli publish-admin-cli)
-compctl -k makeopts gmake make
-
-compctl -k "(resource zone zfs zpool package apply -e)" puppet
-
-compctl -k "(--abort --continue --skip)" git rebase
-compctl -k "(--amend)" git commit
-
-p=(puppet resource apply zone zfs zpool package)
-compctl -k p envpuppet
-
-compctl -g '(*|.*)~*.(class|o|png|db)' vim vi gvim
-compctl -g '*.java' javac
-compctl -g '*.rb' ruby
-compctl -g '*.pdf' xpdf
-compctl -k '(1.8.7 1.9/3)' withrvm
-
-jdbopts=(-attach)
-compctl -k jdbopts jdb
-
-## - ignore CVS directories
-compctl -g '(*|.*)~*CVS' cd
-compctl -g '(*|.*)~*.git' cd
-
-hosts=(pe-solaris11-vm pe-solaris10-vm pe-debian6-vm sles-builder sol10-buidler deb-builder)
-compctl -k hosts ssh telnet ftp rlogin rsh scp rsync
-
-compctl -g "/tmp/screens/S-${USER}/*(p:t)" screen
-compctl -g "*(-/D)" + -g "*.class(.:r)" java
-
-compctl -v getln getopts read unset vared
-compctl -v -S '=' -q declare export integer local readonly typeset
-compctl -u -x 'w[1,-]p[3,-1]' -l sh - 'w[1,-]' -u - 'p[2,-1]' -l sh -- su
-
-if [[ "$ZSH_VERSION_TYPE" == 'new' ]]
-then
-  #-----------zsh completion [new style]
-  zstyle ':completion:*' use-cache on
-  zstyle ':completion:*' cache-path ~/.zsh/cache
-  zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'         ## No CVS in cd
-  zstyle ':completion:*:cd:*' ignored-patterns '(*/)#lost+found'  ## and no lost+found
-  #
-  ## pids
-  zstyle ':completion:*:*:kill:*' menu yes select
-  zstyle ':completion:*:*:*:*:processes' menu yes select
-  zstyle ':completion:*:*:*:*:processes' force-list always
-  zstyle ':completion:*:*:*:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
-  #zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=$color[cyan]=$color[red]"
-  zstyle ':completion:*:processes' command 'ps -au$USER'
-fi
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*' group-name "
+#------------------------------------------------------------------------------
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#CVS'         ## No CVS in cd
+zstyle ':completion:*:cd:*' ignored-patterns '(*/)#lost+found'  ## and no lost+found
+#
+## pids
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:*:*:*:processes' menu yes select
+zstyle ':completion:*:*:*:*:processes' force-list always
+zstyle ':completion:*:*:*:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
+#zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=$color[cyan]=$color[red]"
+zstyle ':completion:*:processes' command 'ps -au$USER'
