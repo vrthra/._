@@ -13,7 +13,7 @@ see http://www.oracle.com/technetwork/articles/servers-storage-admin/o11-097-cre
 
     - Use a new shell where the PKG_TRANS_ID is stored
     | sh
-    | . <(pkg -s http://localhost send open puppet@3.0.0)
+    | . <(pkgsend -s http://localhost open puppet@3.0.0)
     | pkgsend -s http://localhost import /var/pkg/fakeroot
     - pkgsend add set name={pkg.summary, pkg.description, description, packager} value="..."
     | pkgsend close
