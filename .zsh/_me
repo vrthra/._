@@ -1,0 +1,15 @@
+#compdef me
+
+typeset -A opt_args
+
+local context state line
+
+_arguments \
+  "(-a -b -c)-x[help x]" \
+  "(-a -b -c)-y[help y]" \
+  "(-a -b -c)-z[help z]" \
+  "(-x -y -z)-a[help a]" \
+  "(-x -y -z)-b[help b]" \
+  "(-x -y -z)-c[help c]" && return 0
+
+return 1
