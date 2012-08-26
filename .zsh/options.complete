@@ -5,12 +5,24 @@ autoload -U compinit && compinit
 
 #------------------------------------------------------------------------------
 # New style verbose matches.
+# zstyle "context-pattern" style value
+# zstyle ':completion:*:complete:ls:*:*' verbose no
 #------------------------------------------------------------------------------
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
+# zstyle ':completion:*:descriptions' format "- %d -"
+# zstyle ':completion:*:corrections' format "- %d - (errors %e})"
+# zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+# zstyle ':completion:*:manuals' separate-sections true
+# zstyle ':completion:*:manuals.(^1*)' insert-sections true
+# zstyle ':completion:*' menu select
+# zstyle ':completion:*' rehash yes
+# zstyle -e ':completion:*:approximate:*' max-errors \
+#           'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) )'
+
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
-#zstyle ':completion:*' group-name "
+zstyle ':completion:*' group-name ' '
 #------------------------------------------------------------------------------
 # Show completion menu when the number options is atleast 2
 zstyle ':completion:*' menu select=2
@@ -28,6 +40,11 @@ zstyle ':completion:*:*:*:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
 #zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=$color[cyan]=$color[red]"
 zstyle ':completion:*:processes' command 'ps -au$USER'
 
+# This would get completed on commands that use url
+zstyle ':completion:*:urls' urls ~/.urls
+zstyle ':completion:*:remote' remote ~/.urls
+
+
 #------------------------------------------------------------------------------
 # ssh auto
 #------------------------------------------------------------------------------
@@ -44,5 +61,11 @@ r() {
   unfunction $f:t 2> /dev/null
   autoload -U $f:t
 }
+# or autoload -Uz hello
 # see https://github.com/thrig/zsh-compdef
 #------------------------------------------------------------------------------
+# Use ^O to accept the current selection
+zmodload zsh/complist
+bindkey -M menuselect '' accept-and-infer-next-history
+#------------------------------------------------------------------------------
+
