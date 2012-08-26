@@ -1,5 +1,7 @@
 # newstyle completion
+fpath=(~/.zsh $fpath)
 autoload -U compinit && compinit
+#autoload -U ~/.zsh/*(:t)
 
 #------------------------------------------------------------------------------
 # New style verbose matches.
@@ -8,7 +10,10 @@ zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*' group-name "
+#zstyle ':completion:*' group-name "
+#------------------------------------------------------------------------------
+# Show completion menu when the number options is atleast 2
+zstyle ':completion:*' menu select=2
 #------------------------------------------------------------------------------
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
@@ -22,3 +27,22 @@ zstyle ':completion:*:*:*:*:processes' force-list always
 zstyle ':completion:*:*:*:*:processes' list-colors "=(#b) #([0-9]#)*=36=31"
 #zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=$color[cyan]=$color[red]"
 zstyle ':completion:*:processes' command 'ps -au$USER'
+
+#------------------------------------------------------------------------------
+# ssh auto
+#------------------------------------------------------------------------------
+#local _myhosts
+#_myhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
+#zstyle ':completion:*' hosts $_myhosts
+
+#------------------------------------------------------------------------------
+# Debug help. Unfunction every thing and autoload everything in .zfun
+#------------------------------------------------------------------------------
+r() {
+  local f
+  f=(~/.zsh/*(.))
+  unfunction $f:t 2> /dev/null
+  autoload -U $f:t
+}
+# see https://github.com/thrig/zsh-compdef
+#------------------------------------------------------------------------------
