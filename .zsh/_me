@@ -9,7 +9,13 @@ _arguments \
   "(-a -b -c)-y[help y]" \
   "(-a -b -c)-z[help z]" \
   "(-x -y -z)-a[help a]" \
-  "(-x -y -z)-b[help b]" \
+  "(-x -y -z)-b[help b]:my list:->mylst" \
   "(-x -y -z)-c[help c]" && return 0
 
+case $state in
+  mylst)
+    compadd "$@" lst1 lst2 lst3
+    ;;
+  *) _files ;;
+esac
 return 1
