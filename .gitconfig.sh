@@ -23,6 +23,7 @@ cat <<'EOF' | sed -e "s/%name%/$git_name/g" -e "s/%email%/$git_email/g" -e "s/%p
   xi = !git log ..i/`git mybranch`
   ix = !git log i/`git mybranch`..
   st = !git status -sb | sed -e '/??/d'
+  check = diff --check
 
 [color]
   diff = auto
