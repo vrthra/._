@@ -1,0 +1,10 @@
+### Rsync tip
+
+To copy mydir to host:/mydir
+
+    rsync -avz mydir/ host:~/mydir/
+
+To create mydirx under host:/mydir
+
+    rsync -avz mydifx host:~/mydir/
+
