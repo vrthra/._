@@ -31,6 +31,10 @@
     ? z
     ? print :r
     ? visual .
+    ? |<msgnum> less
+    ? r <msgnum>     (reply)
+    ? s <num> file
+    ? s 100 +projects
 
 
 
