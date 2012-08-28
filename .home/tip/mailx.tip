@@ -1,0 +1,37 @@
+### Mailx
+
+- send mail
+
+    mailx -A <mailxacct> -s "<subject>" -c <cc@me> -a <attachment> <recipient@example.com>
+    echo mymail | mailx -A <mailxacct> -s "<subject>" <recipient@example.com>
+
+- read mail
+-- :n - all new
+-- :o - all old
+-- :u - unread
+-- :r - read
+-- :f - flagged
+-- :a - answered
+-- :t - draft
+-- :k - killed
+-- :j - junk
+-- . current
+-- ; previous
+-- , parent in thread
+-- - next previous undeleted message
+-- + next undeleted
+-- ^ first
+-- $ last
+-- * all messages
+-- ' all messages included in message list for previous command
+-- /string all messages that contain string in subject
+-- add@ress all messages from add@ress
+
+    ? h :r
+    ? z
+    ? print :r
+    ? visual .
+
+
+
+http://heirloom.sourceforge.net/mailx/mailx.1.html#14
