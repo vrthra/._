@@ -19,3 +19,7 @@ To avoid history in a sessino
     | fc -p
     .. commands
     | fc -P
+
+#### Completion
+
+    |  cat $^fpath/_urls(N)

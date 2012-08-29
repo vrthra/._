@@ -1,7 +1,6 @@
 # newstyle completion
 fpath=(~/.zsh $fpath)
 autoload -U compinit && compinit
-#autoload -U ~/.zsh/*(:t)
 
 #------------------------------------------------------------------------------
 # New style verbose matches.
@@ -15,13 +14,12 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 # zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 # zstyle ':completion:*:manuals' separate-sections true
 # zstyle ':completion:*:manuals.(^1*)' insert-sections true
-# zstyle ':completion:*' menu select
 # zstyle ':completion:*' rehash yes
 # zstyle -e ':completion:*:approximate:*' max-errors \
 #           'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) )'
 
 zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*:warnings' format 'Tried : %d'
 zstyle ':completion:*' group-name ' '
 #------------------------------------------------------------------------------
 # Show completion menu when the number options is atleast 2
@@ -66,8 +64,6 @@ zstyle ':completion:*:remote' remote ~/.urls
 #zstyle ':completion:*:ssh:*' group-order \
 # hosts-domain hosts-host users hosts-ipaddr
 
-zstyle ':completion:*:(ssh|scp|ftp):*' hosts $hosts
-zstyle ':completion:*:(ssh|scp|ftp):*' users $users
 #------------------------------------------------------------------------------
 # completions for some progs. not in default completion system
 zstyle ':completion:*:*:mpg123:*' file-patterns '*.(mp3|MP3):mp3\ files *(-/):directories'
@@ -86,7 +82,57 @@ zstyle ':completion:*:*:xdvi:*' file-sort time
 #local _myhosts
 #_myhosts=( ${${${${(f)"$(<$HOME/.ssh/known_hosts)"}:#[0-9]*}%%\ *}%%,*} )
 #zstyle ':completion:*' hosts $_myhosts
+groups=( "${(@)${(@f)$(</etc/group)}%%:*}" )
+users=( "${(@)${(@f)$(</etc/passwd)}%%:*}" )
+ports=( "${(@)${(@)${(@f)$(</etc/services)}:#\#*}%%[   ]*}" )
 
+# zstyle ':completion:*:mutt:*' users $muttusers
+# zstyle ':completion:*:mail:*' users $mailusers
+
+zstyle ':completion:*' users $users
+zstyle ':completion:*' hosts $hosts $sshhosts
+zstyle ':completion:*' groups $groups
+
+zstyle ':completion:*:(ssh|scp|ftp):*' hosts $hosts
+zstyle ':completion:*:(ssh|scp|ftp):*' users $users
+
+
+#zstyle ':completion:*' ports $ports
+#------------------------------------------------------------------------------
+# Assume first part of path to be exact and avoid partial globs.
+zstyle ':completion:*' accept-exact '*(N)'
+#------------------------------------------------------------------------------
+# (user,host) pairs
+
+# All my accounts:
+#my_accounts=(
+#    joe:
+#    {joe,root}:mymachine.com
+#    jbloggs:myothermachine.com
+#)
+
+# Other people's accounts:
+#other_accounts=(
+#    bob:
+#    {fred,root}:hismachine.com
+#    vera:hermachine.com
+#)
+
+#zstyle '*:my-accounts' users-hosts $my_accounts
+#zstyle '*:other-accounts' users-hosts $other_accounts
+
+# (host, port, user) triples for telnet
+
+#  telnet_hosts_ports_users=(
+#    host1::user1
+#    host2::user2
+#    mail-server:{smtp,pop3}:
+#    news-server:nntp:
+#    proxy-server:8000:
+#  )
+# }}}
+# zstyle ':completion:*' users-hosts koan@vervloesem.eu kvervloe@discovery.example.org
+#zstyle ':completion:*' users-hosts koan@vervloesem.eu kvervloe@discovery.example.org
 #------------------------------------------------------------------------------
 # Debug help. Unfunction every thing and autoload everything in .zfun
 #------------------------------------------------------------------------------
@@ -112,3 +158,17 @@ expand-or-complete-with-dots() {
 }
 zle -N expand-or-complete-with-dots
 bindkey "	" expand-or-complete-with-dots
+
+# zstyle -L
+zstyle-list-patterns () {
+  local tmp
+  zstyle -g tmp
+  print -rl -- "${(@o)tmp}"
+}
+
+#------------------------------------------------------------------------------
+# compdef
+#------------------------------------------------------------------------------
+# Use _users function (standard defined) for completing mysu
+# compdef _users mysu
+# _pids _groups _hosts
