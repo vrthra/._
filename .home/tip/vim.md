@@ -4,28 +4,28 @@
 
     g; g,
 
-- last insert modeA
-A
-    giA
-A
-- Traverse jumpsA
-A
-   ^O , ^IA
-A
-- yank (append) all lines containing text to AA
-A
-    :g/rgba/y AA
-A
-- Track a settingA
-A
-    :verbose set cindent?A
-A
-- reselect last visual selectionA
-A
+- last insert mode
+
+    gi
+
+- Traverse jumps
+
+   ^O , ^I
+
+- yank (append) all lines containing text to A
+
+    :g/rgba/y A
+
+- Track a setting
+
+    :verbose set cindent?
+
+- reselect last visual selection
+
     gv
 
 - commenting
-   
+
    ^v  (down arrow: select first row)
    I #
 
@@ -36,3 +36,7 @@ A
 - append
   ^v (down arrow)
   $ A <x>
+
+- goto file:number
+
+  gF
