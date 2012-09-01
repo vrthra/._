@@ -125,7 +125,8 @@ _puppet() {
 }
 
 _clone_research() {
-  (cd ~/bak/clone-junit/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="$i_LABEL clones" i_fcolor=green zsh)
+  cmd=$1
+  (cd ~/bak/clone-junit/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="$i_LABEL clones" i_fcolor=green ${cmd-zsh})
 }
 
 hgdiff() {
