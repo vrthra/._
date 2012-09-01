@@ -23,7 +23,8 @@ onid() {
 }
 
 .with() {
-  env i_NOINIT=1 i_LABEL="$1 $i_LABEL" i_TITLE=$1 i_fcolor=$i_fcolor zsh
+  name=$1
+  env i_NOINIT=1 i_LABEL="$name${name:+ }$i_LABEL" i_TITLE=$1 i_fcolor=$i_fcolor zsh
 }
 
 +ld () {
@@ -121,12 +122,11 @@ _ws() {
 
 _puppet() {
     (cd ~/src/puppet &&
-      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=red i_LABEL="$i_LABEL puppet" zsh)
+      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=red i_LABEL="$i_LABEL${i_LABEL:+ }puppet" zsh)
 }
 
 _clone_research() {
-  cmd=$1
-  (cd ~/bak/clone-junit/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="$i_LABEL clones" i_fcolor=green ${cmd-zsh})
+  (cd ~/bak/clone-junit/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="$i_LABEL${i_LABEL:+ }clones" i_fcolor=green ${cmd:-zsh})
 }
 
 hgdiff() {

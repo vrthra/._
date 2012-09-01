@@ -1,3 +1,14 @@
+# -----------------------------------------------------------------------------
+# Fancy colors
+# red 31 green 32 yellow 33 blue 34 magenta 35 cyan 36 white 37 black 30
+# '%K{black}%F{red}|%k%f'
+# `echotc Co` gets you the supported colors in a terminal.
+# -----------------------------------------------------------------------------
+
+set ${i_fcolor:=blue}
+set ${i_CDSTACK:=0}
+
+
 if [ -z "$i_NOINIT" ]
 then
 
@@ -7,16 +18,6 @@ then
 # -----------------------------------------------------------------------------
 
 ssh-add 2> /dev/null
-
-# -----------------------------------------------------------------------------
-# Fancy colors
-# red 31 green 32 yellow 33 blue 34 magenta 35 cyan 36 white 37 black 30
-# '%K{black}%F{red}|%k%f'
-# `echotc Co` gets you the supported colors in a terminal.
-# -----------------------------------------------------------------------------
-
-i_fcolor=blue
-i_CDSTACK=0
 
 # -----------------------------------------------------------------------------
 fi
