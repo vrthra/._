@@ -66,5 +66,5 @@ fi
 
 source ~/.zsh/options
 source ~/.zsh/options.complete
-source ~/.zsh/myfunctions
+source ~/.zsh/fn
 
