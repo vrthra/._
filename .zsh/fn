@@ -143,6 +143,6 @@ track() {
   pstree -p -u -s -a $$
 }
 
-_stop() {
+_detach() {
   kill -s STOP $$
 }
