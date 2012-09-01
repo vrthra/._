@@ -14,17 +14,14 @@
 # -----------------------------------------------------------------------------
 setopt all_export
 
+if [ -z "$i_NOINIT" ]
+then
 # -----------------------------------------------------------------------------
 # we need this if we are working on an NFS homedirectory system with multiple OS
 # -----------------------------------------------------------------------------
 ARCH=`uname -s`_`uname -p`
+fi
 
-# -----------------------------------------------------------------------------
-# History
-# -----------------------------------------------------------------------------
-HISTFILE=~/.zsh/.history.`hostname`
-SAVEHIST=1000
-HISTSIZE=1000
 # -----------------------------------------------------------
 # We set our editor to avoid unplesentness.
 EDITOR=vim
@@ -61,9 +58,36 @@ JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386
 [ -e ~/.zsh/$ARCH.zshenv ] && . ~/.zsh/$ARCH.zshenv
 
 # -----------------------------------------------------------------------------
-# Any local changes. (I like the zsh oneline for)
+if [ -z "$i_NOINIT" ]
+then
+# -----------------------------------------------------------------------------
+# Any local changes. (we dont want to overwrite carefully set env on jumps)
 # -----------------------------------------------------------------------------
 [ -n "$(setopt nullglob; echo ~/.zsh/zshenv.*)" ] && for i in ~/.zsh/zshenv.*; . ${i}
+
+# -----------------------------------------------------------------------------
+# History
+# -----------------------------------------------------------------------------
+SAVEHIST=1000
+HISTSIZE=1000
+
+# -----------------------------------------------------------------------------
+# Avoid the nasty unable to write history file on sudo syndrome.
+# HISTFILE=~/.zsh/.history.`hostname` if you have nfs homedir
+# -----------------------------------------------------------------------------
+case $USER in
+  *root*) HISTFILE=/tmp/.zsh_history_${USER}_${HOST} ;;
+  *) HISTFILE=~/.zsh/.history
+esac
+
+# -----------------------------------------------------------------------------
+fi
+
+# -----------------------------------------------------------------------------
+# Special handling for tmux.
+
+[ -n "$TMUX" ] && TERM=screen-256color
+# -----------------------------------------------------------------------------
 
 # -----------------------------------------------------------------------------
 # turnoff all_export so that no further options are exported.
