@@ -1,3 +1,4 @@
+"---------------------------------------
 " Saner window width and wrapping.
 set tabstop=2
 set shiftwidth=2
@@ -6,23 +7,23 @@ set expandtab
 set wrap linebreak
 set modeline
 "textwidth=0
-
+"---------------------------------------
 " Use arrow keys to move through soft wrapped text
 :map <Up> gk
 :map <Down> gj
-
+"---------------------------------------
 " Get rid of ridiculous paren highlight
 let loaded_matchparen = 1
+"---------------------------------------
 set keywordprg=look
-
 " Use Ctrl k to look up word under cursor
 :map <C-k> <Esc>:! yes \  \| head -100;  dict <cword>\|more <CR>
 
+"---------------------------------------
 if has("autocmd")
 filetype indent on
 endif
 filetype plugin on
-
 "---------------------------------------
 " Restore cursor to file position in previous editing session.
 "http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
@@ -37,6 +38,13 @@ augroup resCur
   autocmd!
   autocmd BufWinEnter * call ResCur()
 augroup END
+
+"---------------------------------------
+" http://vim.wikia.com/wiki/Make_views_automatic
+" Restores the cursor to the last editing point
+" `0 with viminfo
+"au BufWritePost,BufLeave,WinLeave ?* mkview
+"au BufWinEnter ?* silent loadview
 "---------------------------------------
 
 let mapleader = ","
@@ -159,7 +167,7 @@ nnoremap <leader>v V`]
 
 " for when we want to use ctags.
 "set tags=./tags;/
-"tags+=tags;$HOME 
+"tags+=tags;$HOME
 
 
 "call pathogen#infect()
@@ -169,3 +177,6 @@ nnoremap <leader>d O require 'ruby-debug'; debugger
 set clipboard=unnamedplus
 " sync with cut buffer
 " set clipboard=unnamed
+
+
+
