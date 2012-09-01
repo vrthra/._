@@ -1,9 +1,3 @@
-alias dbx2=/usr/dist/share/sunstudio_sparc,v10.0/SUNWspro/bin/dbx
-
-agneyam() {
- ssh rahul@128.193.37.111 $*
-}
-
 eecs() {
    machine=$1
    shift
@@ -21,7 +15,7 @@ onid() {
 }
 
 + () {
-    (cd $1 && env CDNUM=`expr $CDNUM + 1` DIRS="$DIRS `pwd`" NOINIT=1 HISTFILE= $zsh)
+    (cd $1 && env i_CDSTACK=`expr $i_CDSTACK + 1` DIRS="$DIRS `pwd`" i_NOINIT=1 HISTFILE= zsh)
 }
 
 +ld () {
@@ -35,7 +29,6 @@ onid() {
 }
 
 +jars () {
-    
     for i in *.jar;
     do
         JARS="$PWD/$i:$JARS"
@@ -50,14 +43,14 @@ homejars () {
 }
 
 simpleprompts(){
-    export PS1="|"
-    export PS2="|"
-    export PS3="."
+    export PS1="| "
+    export PS2="| "
+    export PS3=". "
     export RPS1=""
 }
 
 me() {
-    echo "bluFox"
+    print "bluFox"
 }
 
 vtterm() {
@@ -67,7 +60,7 @@ vtterm() {
 
 findcscope() {
     CWD=`pwd`
-    while test ! -f "$CWD/cscope.out" ; do 
+    while test ! -f "$CWD/cscope.out" ; do
         CWD=`dirname $CWD`
         #echo "checking in $CWD"
     done
@@ -79,12 +72,12 @@ findcscope() {
 
 updatecscope() {
     CWD=`pwd`
-    while test ! -f "$CWD/cscope.files" ; do 
+    while test ! -f "$CWD/cscope.files" ; do
         CWD=`dirname $CWD`
         echo "checking in $CWD"
     done
     if test -f "$CWD/cscope.files" ; then
-        (cd $CWD; 
+        (cd $CWD;
             find $CWD -name "*.$1" > cscope.files
             cscope -b -i $CWD/cscope.files
             #ctags -L $CWD/cscope.files
@@ -105,67 +98,8 @@ version() {
     cp $file "$file-$bak"
 }
 
-checkout_apache() {
-    svn checkout http://svn.apache.org/repos/asf/httpd/httpd/trunk httpd
-    svn checkout http://svn.apache.org/repos/asf/apr/apr-util/trunk/ httpd/srclib/apr-util
-    svn checkout http://svn.apache.org/repos/asf/apr/apr/trunk/ httpd/srclib/apr
-}
-
-conf_apache() {
-    pwd=`pwd`
-    dir=`dirname $pwd`/install
-    httpd=`dirname $pwd`/httpd
-    case $ARCH in
-        SunOS_sparc)
-        export CC=/usr/dist/share/sunstudio_sparc,v12.0/SUNWspro/bin/cc
-        ;;
-        SunOS_i386)
-        export CC=/opt/SUNWspro/bin/cc
-        ;;
-        *)
-        export CC=gcc
-        ;;
-    esac
-
-    $httpd/configure \
-        --with-included-apr \
-        --enable-so \
-        --enable-maintainer-mode \
-        --enable-proxy=shared \
-        --enable-proxy-ftp=shared \
-        --enable-proxy-connect=shared \
-        --enable-proxy-http=shared \
-        --enable-cache=shared --enable-disk-cache=shared $@ \
-        --prefix $dir
-}
-
-create_apache() {
-    if [[ $# > 0 ]]
-    then
-        apachenow=$1
-    fi
-    # for the fuckup with libtool. we need to link /bin/echo to /usr/local/bin/echo.
-    mkdir $apachenow &&
-    (cd $apachenow && echo `pwd` && checkout_apache &&
-        (cd httpd && ./buildconf) && \
-        bdir=`pwd`/build && echo "build_dir = $bdir" && \
-        mkdir $bdir && \
-        (cd $bdir && conf_apache && gmake && gmake install)
-    )
-}
-
-exportapache() {
-    export apacheroot=/export/rahul/apache
-    export apachedir=$1
-    export apacheserver=$apacheroot/$apachedir/httpd
-    export apacheproxy=$apacheserver/modules/proxy
-    export apacherun=$apacheroot/$apachedir/install
-    export apachebin=$apacherun/bin
-    export apachenow=$apacheroot/apache.`date '+%d.%b'`
-}
-
 _remote() {
-    env PATH=$PATH:$REMOTE_PATH NOINIT=1 HISTFILE= $zsh
+    env PATH=$PATH:$REMOTE_PATH i_NOINIT=1 HISTFILE= zsh
 }
 
 _ws() {
@@ -174,33 +108,7 @@ _ws() {
     #case `pwd` in *uc2*) echo "Warning .. entering WS in UC2 folder" ;; esac
     env PATH=/bin:/usr/bin:/export/wstools/bin:/usr/sfw/bin:/usr/sbin:/usr/ccs/bin:/opt/SUNWspro/bin:/export/home/bin:/export1/home/rahul/bin \
     LD_LIBRARY_PATH= EDITOR=vi TERM=xterm \
-    PS1_COLOR="32m" DIRS="$DIRS `pwd`" NOINIT=1 TFUNC=ws $zsh
-}
-_uc2() {
-    expr `pwd` : ".*uc2" > /dev/null || echo "Warning .. entering UC2 in WS folder"
-    env PATH=/bin:/usr/bin:/export/wstools/bin:/usr/sfw/bin:/usr/sbin:/usr/ccs/bin:/opt/SUNWspro/bin:/export/home/bin:/export1/home/rahul/bin \
-    LD_LIBRARY_PATH= EDITOR=vi TERM=xterm \
-    PS1_COLOR="35m" DIRS="$DIRS `pwd`" NOINIT=1 BUILD_UC2=1 TFUNC=uc2 $zsh
-}
-
-
-_sfw() {
-    env PATH=/opt/teamware/bin:/opt/onbld/bin:/ws/onnv-tools/onbld/bin:/ws/onnv-tools/teamware/bin:/bin:/usr/bin::/usr/gnu/bin:/usr/sfw/bin:/usr/sbin:/usr/ccs/bin \
-        TEAMWARE=/ws/onnv-tools/teamware \
-        BRINGOVER=/ws/onnv-tools/teamware/bin/bringover \
-        BLDENV=/ws/onnv-tools/onbld/bin/bldenv \
-        EDITOR=vi \
-        TERM=xterm \
-        LD_LIBRARY_PATH= \
-        vim='/bin/vim --noplugin -n -u /usr/share/vim/vim71/vimrc_example.vim -i /tmp/viminfo' \
-        PS1_COLOR="33m" DIRS="$DIRS `pwd`" NOINIT=1 TFUNC=sfw $zsh
-}
-
-#exportapache apache.13.Feb
-
-dbghttpd() {
-    export P=`ps -eaf | grep httpd | grep -v grep | awk '{print $2}' | sort -n | tail -1`
-    dbx - $P
+    PS1_COLOR="32m" DIRS="$DIRS `pwd`" i_NOINIT=1 TFUNC=ws zsh
 }
 
 hgdiff() {
@@ -216,12 +124,6 @@ rpath() {
         readelf -d $1
         ;;
     esac
-}
-
-withpvm() {
-    export PATH=/export/pvm/pvm3/bin/X86SOL2:
-    export PVM_ROOT=/export/pvm/pvm3
-    export PVM_RSH=/bin/ssh
 }
 
 
