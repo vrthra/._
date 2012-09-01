@@ -18,6 +18,14 @@ onid() {
     (cd $1 && env -u HISTFILE i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 zsh)
 }
 
+.as() {
+  env i_NOINIT=1 i_LABEL=$1 i_TITLE=$1 i_fcolor=$2 zsh
+}
+
+.with() {
+  env i_NOINIT=1 i_LABEL="$1 $i_LABEL" i_TITLE=$1 i_fcolor=$i_fcolor zsh
+}
+
 +ld () {
     curpath=$(pwd)
     export LD_LIBRARY_PATH=$curpath:$LD_LIBRARY_PATH
