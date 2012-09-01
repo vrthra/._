@@ -142,3 +142,7 @@ _init_home() {
 track() {
   pstree -p -u -s -a $$
 }
+
+_stop() {
+  kill -s STOP $$
+}
