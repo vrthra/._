@@ -6,6 +6,8 @@ autoload -U compinit && compinit
 # New style verbose matches.
 # zstyle "context-pattern" style value
 # zstyle ':completion:*:complete:ls:*:*' verbose no
+#
+# %B bold %b  %S standout %s %U underline %u
 #------------------------------------------------------------------------------
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
@@ -20,7 +22,7 @@ zstyle ':completion:*:descriptions' format '%B%d%b'
 
 zstyle ':completion:*:messages' format '%d'
 zstyle ':completion:*:warnings' format 'Tried : %d'
-zstyle ':completion:*' group-name ' '
+zstyle ':completion:*' group-name ''
 #------------------------------------------------------------------------------
 # Show completion menu when the number options is atleast 2
 zstyle ':completion:*' menu select=2

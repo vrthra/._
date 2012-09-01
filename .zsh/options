@@ -76,6 +76,7 @@ bindkey "^E" end-of-line
 bindkey '^R' push-line
 bindkey '^X' execute-named-cmd
 bindkey '^K' vi-kill-line
+bindkey '^F' _correct_filename
 #^D - show completion
 
 # Incremental search
