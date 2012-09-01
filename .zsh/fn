@@ -15,7 +15,7 @@ onid() {
 }
 
 + () {
-    (cd $1 && env i_CDSTACK=`expr $i_CDSTACK + 1` DIRS="$DIRS `pwd`" i_NOINIT=1 HISTFILE= zsh)
+    (cd $1 && env -u HISTFILE i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 zsh)
 }
 
 +ld () {
@@ -99,7 +99,7 @@ version() {
 }
 
 _remote() {
-    env PATH=$PATH:$REMOTE_PATH i_NOINIT=1 HISTFILE= zsh
+    env -u HISTFILE PATH=$PATH:$REMOTE_PATH i_NOINIT=1 zsh
 }
 
 _ws() {
@@ -108,7 +108,16 @@ _ws() {
     #case `pwd` in *uc2*) echo "Warning .. entering WS in UC2 folder" ;; esac
     env PATH=/bin:/usr/bin:/export/wstools/bin:/usr/sfw/bin:/usr/sbin:/usr/ccs/bin:/opt/SUNWspro/bin:/export/home/bin:/export1/home/rahul/bin \
     LD_LIBRARY_PATH= EDITOR=vi TERM=xterm \
-    PS1_COLOR="32m" DIRS="$DIRS `pwd`" i_NOINIT=1 TFUNC=ws zsh
+    i_fcolor=red DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=ws zsh
+}
+
+_puppet() {
+    (cd ~/src/puppet &&
+      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=red i_LABEL="$i_LABEL puppet" zsh)
+}
+
+_clone_research() {
+  (cd bak/clone-junit/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_fcolor=green zsh)
 }
 
 hgdiff() {
@@ -126,4 +135,7 @@ rpath() {
     esac
 }
 
+_init_home() {
+  git clone https://github.com/vrthra/._.git ~/
+}
 
