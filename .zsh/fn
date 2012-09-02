@@ -111,21 +111,14 @@ _remote() {
     env -u HISTFILE PATH=$PATH:$REMOTE_PATH i_NOINIT=1 zsh
 }
 
-_ws() {
-    # ensure we are not in uc2
-    expr `pwd` : ".*uc2" > /dev/null && echo "Warning .. entering UC2 in WS folder"
-    #case `pwd` in *uc2*) echo "Warning .. entering WS in UC2 folder" ;; esac
-    env PATH=/bin:/usr/bin:/export/wstools/bin:/usr/sfw/bin:/usr/sbin:/usr/ccs/bin:/opt/SUNWspro/bin:/export/home/bin:/export1/home/rahul/bin \
-    LD_LIBRARY_PATH= EDITOR=vi TERM=xterm \
-    i_fcolor=red DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=ws zsh
-}
-
 _puppet() {
+  cmd=$1
     (cd ~/src/puppet &&
-      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=red i_LABEL="$i_LABEL${i_LABEL:+ }puppet" zsh)
+      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=red i_LABEL="$i_LABEL${i_LABEL:+ }puppet" ${cmd:-zsh})
 }
 
 _clone_research() {
+  cmd=$1
   (cd ~/bak/clone-junit/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="$i_LABEL${i_LABEL:+ }clones" i_fcolor=green ${cmd:-zsh})
 }
 
@@ -152,6 +145,7 @@ track() {
   pstree -p -u -s -a $$
 }
 
-_detach() {
+.detach() {
   kill -s STOP $$
 }
+alias .detach .stop
