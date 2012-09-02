@@ -68,4 +68,4 @@ fi
 source ~/.zsh/options
 source ~/.zsh/options.complete
 source ~/.zsh/fn
-
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

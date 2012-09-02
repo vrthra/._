@@ -97,9 +97,13 @@ zstyle ':completion:*' groups $groups
 
 zstyle ':completion:*:(ssh|scp|ftp):*' hosts $hosts
 zstyle ':completion:*:(ssh|scp|ftp):*' users $users
-
-
 #zstyle ':completion:*' ports $ports
+
+#------------------------------------------------------------------------------
+# get man pages
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:man:*'      menu yes select
 #------------------------------------------------------------------------------
 # Assume first part of path to be exact and avoid partial globs.
 zstyle ':completion:*' accept-exact '*(N)'
