@@ -1,3 +1,29 @@
+"-------------------------------
+" Bundles
+"-------------------------------
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+"-------------------------------
+" My bundles
+"-------------------------------
+Bundle 'syntastic'
+Bundle 'surround.vim'
+Bundle 'repeat.vim'
+Bundle 'blue'
+
+"{
+"Bundle 'substitute.vim'
+"}
+
+Bundle 'matchit.zip'
+Bundle 'https://github.com/ervandew/screen'
+"-------------------------------
+filetype plugin indent on
+
 "---------------------------------------
 " Saner window width and wrapping.
 set tabstop=2
@@ -19,11 +45,6 @@ set keywordprg=look
 " Use Ctrl k to look up word under cursor
 :map <C-k> <Esc>:! yes \  \| head -100;  dict <cword>\|more <CR>
 
-"---------------------------------------
-if has("autocmd")
-filetype indent on
-endif
-filetype plugin on
 "---------------------------------------
 " Restore cursor to file position in previous editing session.
 "http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
@@ -100,6 +121,7 @@ set noswapfile
 setlocal include=^import\\s*\\(qualified\\)\\?\\s*
 setlocal includeexpr=substitute(v:fname,'\\.','/','g').'.'
 setlocal suffixesadd=hs,lhs,hsc
+
 "---------------------------------------
 "Search and replace word under cursor.
 nnoremap ;; :%s/\<<C-r><C-w>\>//gc<left><left><left>
@@ -170,13 +192,10 @@ nnoremap <leader>v V`]
 "tags+=tags;$HOME
 
 
-"call pathogen#infect()
-
 nnoremap <leader>d O require 'ruby-debug'; debugger
 " Sync with the system clipboard.
 set clipboard=unnamedplus
 " sync with cut buffer
 " set clipboard=unnamed
-
 
 
