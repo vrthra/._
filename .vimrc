@@ -14,6 +14,9 @@ Bundle 'syntastic'
 Bundle 'surround.vim'
 Bundle 'repeat.vim'
 Bundle 'blue'
+Bundle 'indent-motion'
+Bundle 'localvimrc'
+Bundle 'YankRing'
 
 "{
 "Bundle 'substitute.vim'
