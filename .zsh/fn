@@ -114,8 +114,19 @@ _remote() {
 _puppet() {
   cmd=$1
     (cd ~/src/puppet &&
-      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=red i_LABEL="$i_LABEL${i_LABEL:+ }puppet" ${cmd:-zsh})
+      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="$i_LABEL${i_LABEL:+ }puppet" ${cmd:-zsh})
 }
+_acceptance() {
+  cmd=$1
+  alias run_accepttests="./systest.rb -c ci/ci-solaris11.cfg --debug --type git -p origin/3.x -f origin/2.x -t acceptance-tests/tests"
+  (cd ~/acceptance/puppet/puppet-acceptance &&
+      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=acceptance i_fcolor=red i_LABEL="$i_LABEL${i_LABEL:+ }accept" ${cmd:-zsh} )
+}
+
+decolorize() {
+  sed -e "s/\x1b\[.\{1,5\}m//g"
+}
+
 
 _clone_research() {
   cmd=$1
