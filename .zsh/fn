@@ -114,7 +114,7 @@ _remote() {
 _puppet() {
   cmd=$1
     (cd ~/src/puppet &&
-      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="$i_LABEL${i_LABEL:+ }puppet" ${cmd:-zsh})
+      ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="$i_LABEL${i_LABEL:+ }puppet" ${cmd:-zsh})
 }
 _acceptance() {
   cmd=$1
