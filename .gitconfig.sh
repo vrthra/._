@@ -2,7 +2,7 @@
 # pass contains the machine specific values.
 . ~/.pass
 
-cat <<'EOF' | sed -e "s/%name%/$git_name/g" -e "s/%email%/$git_email/g" -e "s/%pass%/$git_password/g" > .gitconfig
+cat <<'EOF' | sed -e "s/%name%/$git_name/g" -e "s/%email%/$git_email/g" -e "s/%pass%/$git_password/g" > ~/.gitconfig
 [user]
 	name = %name%
 	password = %pass%
