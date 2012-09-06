@@ -17,6 +17,8 @@ Bundle 'blue'
 Bundle 'indent-motion'
 Bundle 'localvimrc'
 Bundle 'YankRing'
+Bundle 'fugitive.vim'
+Bundle 'ack.vim'
 
 "{
 "Bundle 'substitute.vim'
