@@ -10,7 +10,7 @@ Bundle 'gmarik/vundle'
 "-------------------------------
 " My bundles
 "-------------------------------
-Bundle 'syntastic'
+"Bundle 'syntastic'
 Bundle 'surround.vim'
 Bundle 'repeat.vim'
 Bundle 'blue'
