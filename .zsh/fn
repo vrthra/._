@@ -127,6 +127,13 @@ decolorize() {
   sed -e "s/\x1b\[.\{1,5\}m//g"
 }
 
+_rootenv() {
+  sudo -E env -u HISTFILE PS1='# ' zsh
+}
+_root() {
+  sudo -E env -u HISTFILE PS1='# ' zsh
+}
+
 
 _clone_research() {
   cmd=$1
