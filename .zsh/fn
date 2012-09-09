@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 eecs() {
    machine=$1
    shift
@@ -19,12 +20,13 @@ onid() {
 }
 
 .as() {
-  env i_NOINIT=1 i_LABEL=$1 i_TITLE=$1 i_fcolor=$2 zsh
+  env i_NOINIT=1 i_LABEL="print $1" i_TITLE=$1 i_fcolor=$2 zsh
 }
 
 .with() {
   name=$1
-  env i_NOINIT=1 i_LABEL="$name${name:+ }$i_LABEL" i_TITLE=$1 i_fcolor=$i_fcolor zsh
+  last=$($i_LABEL)
+  env i_NOINIT=1 i_LABEL="print $name${name:+ }$last" i_TITLE=$1 i_fcolor=$i_fcolor zsh
 }
 
 +ld () {
@@ -113,14 +115,16 @@ _remote() {
 
 _puppet() {
   cmd=$1
-    (cd ~/src/puppet &&
-      ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="$i_LABEL${i_LABEL:+ }puppet" ${cmd:-zsh})
+  last=$($i_LABEL)
+  (cd ~/src/puppet &&
+      ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="print $last puppet" ${cmd:-zsh})
 }
 _acceptance() {
   cmd=$1
+  last=$($i_LABEL)
   alias run_accepttests="./systest.rb -c ci/ci-solaris11.cfg --debug --type git -p origin/3.x -f origin/2.x -t acceptance-tests/tests"
   (cd ~/acceptance/puppet/puppet-acceptance &&
-      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=acceptance i_fcolor=red i_LABEL="$i_LABEL${i_LABEL:+ }accept" ${cmd:-zsh} )
+      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=acceptance i_fcolor=red i_LABEL="$print $last accept" ${cmd:-zsh} )
 }
 
 decolorize() {
@@ -137,7 +141,8 @@ _root() {
 
 _clone_research() {
   cmd=$1
-  (cd ~/bak/clone-junit/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="$i_LABEL${i_LABEL:+ }clones" i_fcolor=green ${cmd:-zsh})
+  last=$($i_LABEL)
+  (cd ~/bak/java-clones/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="print $last clones" i_fcolor=green ${cmd:-zsh})
 }
 
 hgdiff() {
