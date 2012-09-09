@@ -63,6 +63,10 @@ unset flowcontrol
 # rather annoying feature.
 unsetopt sharehistory
 #------------------------------------------------------------------------------
+# eval prompt each time use PRMOMPT="$(fn)"
+setopt promptsubst
+
+#------------------------------------------------------------------------------
 # VI Options.
 #------------------------------------------------------------------------------
 set -o vi
