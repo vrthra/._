@@ -117,14 +117,14 @@ _puppet() {
   cmd=$1
   last=$($i_LABEL)
   (cd ~/src/puppet &&
-      ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="print $last puppet" ${cmd:-zsh})
+    ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="git this" ${cmd:-zsh})
 }
 _acceptance() {
   cmd=$1
   last=$($i_LABEL)
   alias run_accepttests="./systest.rb -c ci/ci-solaris11.cfg --debug --type git -p origin/3.x -f origin/2.x -t acceptance-tests/tests"
   (cd ~/acceptance/puppet/puppet-acceptance &&
-      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=acceptance i_fcolor=red i_LABEL="$print $last accept" ${cmd:-zsh} )
+      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=acceptance i_fcolor=cyan i_LABEL="git this" ${cmd:-zsh} )
 }
 
 decolorize() {
