@@ -117,14 +117,20 @@ _puppet() {
   cmd=$1
   last=$($i_LABEL)
   (cd ~/src/puppet &&
-    ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="git this" ${cmd:-zsh})
+    ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="_git_prompt" ${cmd:-zsh})
+}
+
+_git_prompt() {
+  branch=$(git this)
+  repo=$(git remote -v |grep '^i.*push' | sed -e 's/.*\///g' -e 's/.git.*//g')
+  print $repo/$branch $1;
 }
 _acceptance() {
   cmd=$1
   last=$($i_LABEL)
   alias run_accepttests="./systest.rb -c ci/ci-solaris11.cfg --debug --type git -p origin/3.x -f origin/2.x -t acceptance-tests/tests"
   (cd ~/acceptance/puppet/puppet-acceptance &&
-      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=acceptance i_fcolor=cyan i_LABEL="git this" ${cmd:-zsh} )
+      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=acceptance i_fcolor=cyan i_LABEL="_git_prompt" ${cmd:-zsh} )
 }
 
 decolorize() {
@@ -142,7 +148,7 @@ _root() {
 _clone_research() {
   cmd=$1
   last=$($i_LABEL)
-  (cd ~/bak/java-clones/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="print $last clones" i_fcolor=green ${cmd:-zsh})
+  (cd ~/bak/java-clones/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="clones" i_fcolor=green ${cmd:-zsh})
 }
 
 hgdiff() {
