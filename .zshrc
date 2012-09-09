@@ -7,6 +7,7 @@
 
 set ${i_fcolor:=blue}
 set ${i_CDSTACK:=0}
+set ${i_LABEL:=:}
 
 
 if [ -z "$i_NOINIT" ]
@@ -22,7 +23,7 @@ ssh-add 2> /dev/null
 # -----------------------------------------------------------------------------
 fi
 
-PROMPT='%(!.%F{red}.%F{$i_fcolor})|%k%f '
+PROMPT='$($i_LABEL)%(!.%F{red}.%F{$i_fcolor})|%k%f '
 
 # -----------------------------------------------------------------------------
 # We dont need to reinitialize some things.
