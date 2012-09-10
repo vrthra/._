@@ -38,7 +38,7 @@ PROMPT='$($i_LABEL)%(!.%F{red}.%F{$i_fcolor})|%k%f '
 # title
 # -----------------------------------------------------------------------------
 case $TERM in
-  xterm*) precmd () {print -Pn "\e]0;%m [${i_TITLE}] : %~\a"} ;;
+  xterm*) precmd () {print -Pn "\e]0;%m [$(${i_TITLE})] : %~\a"} ;;
 esac
 
 if [ -z "$i_NOINIT" ]
@@ -61,7 +61,7 @@ fi
 [ -n "$(setopt nullglob; echo ~/.zsh/zshrc.*)" ] && for i in ~/.zsh/zshrc.*; . ${i}
 # -----------------------------------------------------------------------------
 # do not use find . -name \*.me
-alias find='noglob /usr/bin/find'
+#alias find='noglob /usr/bin/find'
 # -----------------------------------------------------------------------------
 
 source ~/.zsh/options

@@ -20,13 +20,13 @@ onid() {
 }
 
 .as() {
-  env i_NOINIT=1 i_LABEL="print $1" i_TITLE=$1 i_fcolor=$2 zsh
+  env i_NOINIT=1 i_LABEL="print $1" i_TITLE="print $1" i_fcolor=$2 zsh
 }
 
 .with() {
   local name=$1
   local last=$($i_LABEL)
-  env i_NOINIT=1 i_LABEL="print $name${name:+ }$last" i_TITLE=$1 i_fcolor=$i_fcolor zsh
+  env i_NOINIT=1 i_LABEL="print $name${name:+ }$last" i_TITLE="print $1" i_fcolor=$i_fcolor zsh
 }
 
 +ld () {
@@ -107,9 +107,8 @@ _remote() {
 
 _puppet() {
   local cmd=$1
-  local last=$($i_LABEL)
   (cd ~/src/puppet &&
-    ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=green i_LABEL="_git_prompt" ${cmd:-zsh})
+    ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE="_git_prompt" i_fcolor=green i_LABEL="" ${cmd:-zsh})
 }
 
 _git_prompt() {
@@ -119,10 +118,9 @@ _git_prompt() {
 }
 _acceptance() {
   local cmd=$1
-  local last=$($i_LABEL)
   alias run_accepttests="./systest.rb -c ci/ci-solaris11.cfg --debug --type git -p origin/3.x -f origin/2.x -t acceptance-tests/tests"
   (cd ~/acceptance/puppet/puppet-acceptance &&
-      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=acceptance i_fcolor=cyan i_LABEL="_git_prompt" ${cmd:-zsh} )
+      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE="_git_prompt" i_fcolor=cyan i_LABEL="" ${cmd:-zsh} )
 }
 
 decolorize() {
