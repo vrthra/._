@@ -169,3 +169,7 @@ track() {
 }
 alias .detach .stop
 
+.ptree() {
+  local p=$1
+  pstree -a -h -s -p ${p:-$$}
+}
