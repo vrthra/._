@@ -1,0 +1,6 @@
+svccfg -s system/identity:node listprop config
+svccfg -s system/identity:node setprop config/nodename=xx
+svccfg -s system/identity:node setprop config/loopback=xx
+
+svcadm refresh system/identity:node
+svcadm restart system/identity:node
