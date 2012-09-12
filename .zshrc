@@ -39,6 +39,7 @@ PROMPT='$($i_LABEL)%(!.%F{red}.%F{$i_fcolor})|%k%f '
 # -----------------------------------------------------------------------------
 case $TERM in
   xterm*) precmd () {print -Pn "\e]0;%m [$(${i_TITLE})] : %~\a"} ;;
+  screen*) precmd () {print -Pn "\e]0;%m [$(${i_TITLE})] : %~\a"} ;;
 esac
 
 if [ -z "$i_NOINIT" ]
