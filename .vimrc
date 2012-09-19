@@ -11,14 +11,15 @@ Bundle 'gmarik/vundle'
 " My bundles
 "-------------------------------
 "Bundle 'syntastic'
-Bundle 'surround.vim'
-Bundle 'repeat.vim'
+Bundle 'vim-scripts/surround.vim'
+Bundle 'vim-scripts/repeat.vim'
 Bundle 'blue'
-Bundle 'indent-motion'
-Bundle 'localvimrc'
-Bundle 'YankRing'
-Bundle 'fugitive.vim'
-Bundle 'ack.vim'
+Bundle 'vim-scripts/indent-motion'
+Bundle 'vim-scripts/localvimrc'
+Bundle 'vim-scripts/YankRing.vim'
+Bundle 'vim-scripts/fugitive.vim'
+Bundle 'vim-scripts/ack.vim'
+Bundle 'vim-scripts/gnupg.vim'
 
 "{
 "Bundle 'substitute.vim'
