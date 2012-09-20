@@ -1,0 +1,3 @@
+/etc/ssh/sshd_config PermitRootLogin = yes
+/etc/default/login #CONSOLE =/dev/login
+rolemod -K type=normal root

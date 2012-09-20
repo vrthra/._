@@ -7,6 +7,7 @@
 
 set ${i_fcolor:=blue}
 set ${i_CDSTACK:=0}
+set ${i_LABEL:=:}
 
 
 if [ -z "$i_NOINIT" ]
@@ -22,12 +23,7 @@ ssh-add 2> /dev/null
 # -----------------------------------------------------------------------------
 fi
 
-case "$UID-$i_LABEL" in
-  0-*) PS1="# ";;
-  *-) PS1="%K{black}%F{$i_fcolor}|%k%f ";;
-  *-*) PS1="$i_LABEL%K{black}%F{$i_fcolor}|%k%f ";;
-esac
-export PS1=$PS1
+PROMPT='$($i_LABEL)%(!.%F{red}.%F{$i_fcolor})|%k%f '
 
 # -----------------------------------------------------------------------------
 # We dont need to reinitialize some things.
@@ -42,7 +38,8 @@ export PS1=$PS1
 # title
 # -----------------------------------------------------------------------------
 case $TERM in
-  xterm*) precmd () {print -Pn "\e]0;%m [${i_TITLE}] : %~\a"} ;;
+  xterm*) precmd () {print -Pn "\e]0;%m [$(${i_TITLE})] : %~\a"} ;;
+  screen*) precmd () {print -Pn "\e]0;%m [$(${i_TITLE})] : %~\a"} ;;
 esac
 
 if [ -z "$i_NOINIT" ]
@@ -65,10 +62,15 @@ fi
 [ -n "$(setopt nullglob; echo ~/.zsh/zshrc.*)" ] && for i in ~/.zsh/zshrc.*; . ${i}
 # -----------------------------------------------------------------------------
 # do not use find . -name \*.me
-alias find='noglob /usr/bin/find'
+#alias find='noglob /usr/bin/find'
 # -----------------------------------------------------------------------------
 
 source ~/.zsh/options
-source ~/.zsh/options.complete
+
+# dont do compinit if we are root.
+case $UID in
+    0) ;;
+    *) source ~/.zsh/options.complete ;;
+esac
 source ~/.zsh/fn
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

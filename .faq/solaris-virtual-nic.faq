@@ -1,0 +1,21 @@
+http://richardgood.wordpress.com/2011/11/14/how-to-create-a-zone-in-solaris-11/
+To create the virtual NICs:
+
+Create 1 vnic for each zone you want to run:
+| dladm create-vnic -l e1000g0 vnic1
+
+| dladm show-vnic
+
+| zonecfg -z zone1
+ create
+ set zonepath=/export/zone1
+ set ip-type=exclusive
+ set autoboot=true
+ add net
+ set physical=vnic1
+ end
+ verfiy
+ commit
+ exit
+
+| zoneadm -z zone1 install

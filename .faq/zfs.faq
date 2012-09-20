@@ -1,3 +1,11 @@
 zpool create space c0t1d0s7
 zfs create space/mail
 zfs set mountpoint=/var/mail space/mail
+
+
+home dir
+
+zfs list
+zfs create rpool/export/home/rahul
+zfs set mountpoint=/home/rahul rpool/export/home/rahul
+ls /home/rahul/

@@ -1,140 +1,159 @@
+#!/usr/bin/zsh
 eecs() {
-   machine=$1
-   shift
-   ssh gopinath@$machine.eecs.oregonstate.edu $*
+  local machine=$1
+  shift
+  ssh gopinath@$machine.eecs.oregonstate.edu $*
 }
 
 engr() {
-   machine=$1
-   shift
-   ssh -X -t gopinath@$machine.engr.oregonstate.edu $*
+  local machine=$1
+  shift
+  ssh -X -t gopinath@$machine.engr.oregonstate.edu $*
 }
 
 onid() {
-       ssh -t gopinatr@shell.onid.oregonstate.edu $*
+  ssh -t gopinatr@shell.onid.oregonstate.edu $*
 }
 
 + () {
-    (cd $1 && env -u HISTFILE i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 zsh)
+  (cd $1 && env -u HISTFILE i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 zsh)
 }
 
 .as() {
-  env i_NOINIT=1 i_LABEL=$1 i_TITLE=$1 i_fcolor=$2 zsh
+  env i_NOINIT=1 i_LABEL="print $1" i_TITLE="print $1" i_fcolor=$2 zsh
 }
 
 .with() {
-  name=$1
-  env i_NOINIT=1 i_LABEL="$name${name:+ }$i_LABEL" i_TITLE=$1 i_fcolor=$i_fcolor zsh
+  local name=$1
+  local last=$($i_LABEL)
+  env i_NOINIT=1 i_LABEL="print $name${name:+ }$last" i_TITLE="print $1" i_fcolor=$i_fcolor zsh
 }
 
 +ld () {
-    curpath=$(pwd)
-    export LD_LIBRARY_PATH=$curpath:$LD_LIBRARY_PATH
+  export LD_LIBRARY_PATH=$(pwd):$LD_LIBRARY_PATH
 }
 
 +path () {
-    curpath=$(pwd)
-    export PATH=$curpath:$PATH
+  export PATH=$(pwd):$PATH
 }
 
 +jars () {
-    for i in *.jar;
-    do
-        JARS="$PWD/$i:$JARS"
-    done
+  for i in *.jar; JARS="$PWD/$i:$JARS"
 }
 
 homejars () {
-    for i in ~/.home/jars/*.jar;
-    do
-        CLASSPATH="$i:$CLASSPATH"
-    done
+  for i in ~/.home/jars/*.jar; CLASSPATH="$i:$CLASSPATH"
 }
 
 simpleprompts(){
-    export PS1="| "
-    export PS2="| "
-    export PS3=". "
-    export RPS1=""
+  export PS1="| "
+  export PS2="| "
+  export PS3=". "
+  export RPS1=""
 }
 
 me() {
-    print "bluFox"
+  print "bluFox"
 }
 
 vtterm() {
-    export OTERM=$TERM
-    export TERM=vt100
+  export OTERM=$TERM
+  export TERM=vt100
 }
 
 findcscope() {
-    CWD=`pwd`
-    while test ! -f "$CWD/cscope.out" ; do
-        CWD=`dirname $CWD`
-        #echo "checking in $CWD"
-    done
-    if test -f "$CWD/cscope.out" ; then
-        export CSCOPE_DB="$CWD/cscope.out"
-        echo "$CWD/cscope.out"
-    fi
+  local CWD=`pwd`
+  while test ! -f "$CWD/cscope.out" ; do
+    CWD=`dirname $CWD`
+    #echo "checking in $CWD"
+  done
+  if test -f "$CWD/cscope.out" ; then
+    export CSCOPE_DB="$CWD/cscope.out"
+    echo "$CWD/cscope.out"
+  fi
 }
 
 updatecscope() {
-    CWD=`pwd`
-    while test ! -f "$CWD/cscope.files" ; do
-        CWD=`dirname $CWD`
-        echo "checking in $CWD"
-    done
-    if test -f "$CWD/cscope.files" ; then
-        (cd $CWD;
-            find $CWD -name "*.$1" > cscope.files
-            cscope -b -i $CWD/cscope.files
-            #ctags -L $CWD/cscope.files
-        )
-        export CSCOPE_DB="$CWD/cscope.out"
-        echo "$CWD/cscope.out"
+  local CWD=`pwd`
+  while test ! -f "$CWD/cscope.files" ; do
+    CWD=`dirname $CWD`
+    echo "checking in $CWD"
+  done
+  if test -f "$CWD/cscope.files" ; then
+    (cd $CWD;
+      find $CWD -name "*.$1" > cscope.files
+      cscope -b -i $CWD/cscope.files
+      #ctags -L $CWD/cscope.files
+    )
+    export CSCOPE_DB="$CWD/cscope.out"
+    echo "$CWD/cscope.out"
     fi
 }
 
 
 datenow() {
-    date '+%d-%b'
+  date '+%d-%b'
 }
 
 version() {
-    file=$1
-    bak=`date '+%d-%b:%H-%M-%S'`
-    cp $file "$file-$bak"
+  local file=$1
+  local bak=`date '+%d-%b:%H-%M-%S'`
+  cp $file "$file-$bak"
 }
 
 _remote() {
-    env -u HISTFILE PATH=$PATH:$REMOTE_PATH i_NOINIT=1 zsh
+  env -u HISTFILE PATH=$PATH:$REMOTE_PATH i_NOINIT=1 zsh
 }
 
 _puppet() {
-  cmd=$1
-    (cd ~/src/puppet &&
-      env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE=puppet i_fcolor=red i_LABEL="$i_LABEL${i_LABEL:+ }puppet" ${cmd:-zsh})
+  local cmd=$1
+  (cd ~/src/puppet &&
+    ./ext/envpuppet env HISTFILE=~/.zsh/puppet.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE="_git_prompt" i_fcolor=green i_LABEL="" ${cmd:-zsh})
 }
 
+_git_prompt() {
+  local branch=$(git this)
+  local repo=$(git remote -v |grep '^i.*push' | sed -e 's/.*\///g' -e 's/.git.*//g')
+  print $repo/$branch $1;
+}
+_acceptance() {
+  local cmd=$1
+  alias run_accepttests="./systest.rb -c ci/ci-solaris11.cfg --debug --type git -p origin/3.x -f origin/2.x -t acceptance-tests/tests"
+  (cd ~/acceptance/puppet/puppet-acceptance &&
+      env HISTFILE=~/.zsh/acceptance.history i_CDSTACK=$((i_CDSTACK + 1)) DIRS="$DIRS $PWD" i_NOINIT=1 i_TITLE="_git_prompt" i_fcolor=cyan i_LABEL="" ${cmd:-zsh} )
+}
+
+decolorize() {
+  sed -e "s/\x1b\[.\{1,5\}m//g"
+}
+
+_rootenv() {
+  sudo -E env -u HISTFILE PS1='# ' zsh
+}
+_root() {
+  sudo -E env -u HISTFILE PS1='# ' zsh
+}
+
+
 _clone_research() {
-  cmd=$1
-  (cd ~/bak/clone-junit/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE=clones i_LABEL="$i_LABEL${i_LABEL:+ }clones" i_fcolor=green ${cmd:-zsh})
+  local cmd=$1
+  local last=$($i_LABEL)
+  (cd ~/bak/java-clones/ && env i_NOINIT=1 HISTFILE=~/.zsh/clone.history i_TITLE='print clones' i_LABEL="print clones" i_fcolor=green ${cmd:-zsh})
 }
 
 hgdiff() {
-    hg diff | sed -e 's/^\(diff.*\)$/\x1b\x5b1;31;40m\1\x1b\x5b0;37;40m/g'
+  hg diff | sed -e 's/^\(diff.*\)$/\x1b\x5b1;31;40m\1\x1b\x5b0;37;40m/g'
 }
 
 rpath() {
-    case $ARCH in
-        SunOS*)
-        dump -Lv $1
-        ;;
-        *)
-        readelf -d $1
-        ;;
-    esac
+  case $ARCH in
+    SunOS*)
+    dump -Lv $1
+    ;;
+    *)
+    readelf -d $1
+    ;;
+  esac
 }
 
 _init_home() {
@@ -149,3 +168,8 @@ track() {
   kill -s STOP $$
 }
 alias .detach .stop
+
+.ptree() {
+  local p=$1
+  pstree -a -h -s -p ${p:-$$}
+}

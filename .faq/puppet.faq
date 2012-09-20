@@ -1,3 +1,125 @@
+prepare:
+
+m| puppet master --mkusers
+a| puppet agent --mkusers
+
+m| puppet master --no-daemonize
+a| puppet agent --server pe-solaris11-vm
+
+m| puppet ca list
+m| puppet ca --sign agent.net
+
+m| cat > etc/puppet/fileserver.conf
+[files]
+  path /var/puppet/files
+  allow *
+
+m| echo myntp.conf > /var/puppet/files/etc/ntp.conf
+
+m|/etc/puppet/manifests/site.pp
+import 'services/*'
+node myhost, myhost2 {
+  include ntpclient
+}
+
+node default {
+}
+
+m|etc/puppet/manifests/services/ntpclient.pp
+class ntpclient {
+  $ntp_port = 123
+  notice("starting our ntp server at $ntp_port")
+  package {
+    ntp : ensure => installed
+  }
+  file {
+    'ntp.conf':
+       # use facter
+       path => $operatingsystem? {
+          solaris => '/etc/default/ntp.conf',
+          default => '/etc/ntp.conf',
+          # content => template('my/template.erb')
+       }
+       source => 'puppet://puppetmaster.com/files/etc/ntp.conf',
+       # notify => Service[ntpd]
+  }
+  service {
+    ntpd:
+      ensure => true,
+      enable => true,
+      subscribe => [ File['ntp.conf'], Package[ntp]]
+  }
+}
+====================================
+
+class tomcat {
+
+  $tomcat_port = 735
+  $tomcat_password = 'badwolf'
+
+  notice("Establishing http://$hostname:$tomcat_port/")
+
+  Package { # defaults
+    ensure => installed,
+  }
+
+  package { 'tomcat6':
+  }
+
+  package { 'tomcat6-user':
+    require => Package['tomcat6'],
+  }
+
+  package { 'tomcat6-admin':
+    require => Package['tomcat6'],
+  }
+
+  file { "/etc/tomcat6/tomcat-users.xml":
+    owner => 'root',
+    require => Package['tomcat6'],
+    notify => Service['tomcat6'],
+    content => template('tomcat/tomcat-users.xml.erb')
+  }
+
+  file { '/etc/tomcat6/server.xml':
+     owner => 'root',
+     require => Package['tomcat6'],
+     notify => Service['tomcat6'],
+     content => template('tomcat/server.xml.erb'),
+  }
+
+  service { 'tomcat6':
+    ensure => running,
+    require => Package['tomcat6'],
+  }
+}
+
+define tomcat::deployment($path) {
+
+  include tomcat
+  notice("Establishing http://$hostname:${tomcat::tomcat_port}/$name/")
+
+  file { "/var/lib/tomcat6/webapps/${name}.war":
+    owner => 'root',
+    source => $path,
+  }
+}
+
+#site.pp
+# http://www.tomcatexpert.com/blog/2010/04/29/deploying-tomcat-applications-puppet
+node default {
+
+   tomcat::deployment { "SimpleServlet":
+      path => '/srv/puppet-tomcat-demo/java_src/SimpleServlet.war'
+   }
+
+   # repeat as desired for different servlets ...
+
+}
+
+
+
+
 clean any untracked.
 git clean -xfd .
 
@@ -5,16 +127,11 @@ make a new branch with current changes.
 git checkout -b maint/rake_improvements
 
 
-irc-puppet:
-#puppetlabs sbalteppup
-
-wifi: puppetmaster reductive
-
 bugs
 https://projects.puppetlabs.com/projects/commercial-release-eng/issues/new
 
 https://www.intacct.com/ia/acct/login.phtml?.company=PuppetLabs&.login=rgopinath
-user: rgopinath pass: Aishwarya1!
+user: rgopinath
 
 
 
@@ -40,7 +157,7 @@ building
 
 cd <pkgname>-version/
 dh_make --createorig (=> .tar)
-dpkg-buildpackage 
+dpkg-buildpackage
 
 
 #RPM stuff
@@ -65,9 +182,9 @@ development/enterprise-dist
   git submodule sync
   packaging/
     git checkout --track origin/2.5.x
-    rake sync 
+    rake sync
     rake PKG=rubygem-rack sles:rpm
-    
+
 
 
 /enterprise-dist/packaging/deb
@@ -83,7 +200,7 @@ git checkout --track origin/debian
 
 Tarballs
 neptune.puppetlabs.lan
-/opt/enterprise/2.5/ci-ready  
+/opt/enterprise/2.5/ci-ready
 
 build procedure for pe-community-debina
 #--------------------------------------

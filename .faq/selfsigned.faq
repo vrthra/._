@@ -1,0 +1,9 @@
+# selfsigned
+keytool -genkey -keyalg RSA -alias selfsigned -keystore keystore.jks -storepass password -validity 360 -keysize 2048
+# public
+keytool -exportcert  -keystore keystore.jks -storepass password -alias selfsigned -file certificate.der
+keytool -export -rfc -keystore keystore.jks -storepass password -alias selfsigned -file mycert.pem
+# private
+keytool -importkeystore -srcstoretype JKS -srckeystore keystore.jks -deststoretype PKCS12 -destkeystore mykey.der
+openssl pkcs12 -in mykey.der -nodes -out privatekey.pem
+

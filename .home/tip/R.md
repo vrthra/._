@@ -176,6 +176,24 @@ Divert screen output to file.
 
     | s[order(s$percent, decreasing=TRUE)[1:min(5, length(s$percent))],]
 
+- Sorting
+
+    | cov[order(cov$percentage),]
+    | cov[with(cov, order(-percentage, total)), ]
+
+    | dd <- data.frame(b = factor(c("Hi", "Med", "Hi", "Low"), 
+          levels = c("Low", "Med", "Hi"), ordered = TRUE),
+          x = c("A", "D", "A", "C"), y = c(8, 3, 9, 9),
+          z = c(1, 1, 1, 2))
+    | library(taRifx)
+    | sort(dd, f= ~ -z + b )
+
+    | library(plyr)
+    | arrange(dd,desc(z),b)
+
+    | library(doBy)
+    | dd <- orderBy(~-z+b, data=dd)
+
 - create a data frame
 
     | statef <- letters[1:10]
