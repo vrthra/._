@@ -19,21 +19,18 @@
 #    echo ./*(#q^/)       : all except dirs
 #     echo ./*(#qx)(#q^/) : all executable not dir
 #------------------------------------------------------------------------------
-setopt EXTENDED_GLOB
 setopt extendedglob
 #------------------------------------------------------------------------------
 # echo animal==cat -> animal=/bin/cat
-setopt MAGIC_EQUAL_SUBST
 setopt magicequalsubst
 #------------------------------------------------------------------------------
 setopt NO_sh_file_expansion
 #setopt correct
 #------------------------------------------------------------------------------
 # perform cd if specified directly without 'cd' and dir exists
-setopt AUTO_CD
+setopt autocd
 #------------------------------------------------------------------------------
 # make cd push old dir to dirstack
-setopt AUTO_PUSHD
 setopt autopushd
 #------------------------------------------------------------------------------
 setopt pushdignoredups
@@ -44,27 +41,31 @@ setopt printexitvalue
 # dont move to the end of word on completion
 setopt complete_in_word
 #------------------------------------------------------------------------------
-setopt SH_WORD_SPLIT
+setopt shwordsplit
 #------------------------------------------------------------------------------
 # allow for i in *; echo $i
 # also select, if , function
-setopt SHORT_LOOPS
+setopt shortloops
 
 #------------------------------------------------------------------------------
 # rc shell like command execution. e.g PATH=.home/bin, file=.home/bin/sunos/me
 # sunos/me is executed
-setopt PATH_DIRS
+setopt pathdirs
 #------------------------------------------------------------------------------
-setopt HIST_VERIFY # ask user before execution
-setopt HIST_IGNORE_DUPS
-setopt HIST_IGNORE_SPACE  # ignore commands with space in front.
-setopt HIST_NO_STORE # ignore fc commands in history
+setopt histverify # ask user before execution
+setopt histignoredups
+setopt histignorespace  # ignore commands with space in front.
+setopt histnostore # ignore fc commands in history
 #------------------------------------------------------------------------------
 # disable ^Q, ^S
-unset FLOW_CONTROL
+unset flowcontrol
 #------------------------------------------------------------------------------
 # rather annoying feature.
 unsetopt sharehistory
+#------------------------------------------------------------------------------
+# eval prompt each time use PRMOMPT="$(fn)"
+setopt promptsubst
+
 #------------------------------------------------------------------------------
 # VI Options.
 #------------------------------------------------------------------------------
@@ -104,3 +105,7 @@ bindkey '\eOD' backward-char
 # go into vi mode for commands
 # avoids the annoing delay on /
 bindkey '\e/' vi-history-search-backward
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
