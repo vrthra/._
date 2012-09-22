@@ -13,7 +13,7 @@ Bundle 'gmarik/vundle'
 "Bundle 'syntastic'
 Bundle 'vim-scripts/surround.vim'
 Bundle 'vim-scripts/repeat.vim'
-Bundle 'blue'
+Bundle 'vrthra/blue'
 Bundle 'vim-scripts/indent-motion'
 Bundle 'vim-scripts/localvimrc'
 "Bundle 'vim-scripts/YankRing.vim'
@@ -106,7 +106,7 @@ nnoremap <silent> <C-p> :bp<CR>
 " Use .lvimrc in each dirs. Prompt before loading?
 let g:localvimrc_ask= 'no'
 "---------------------------------------
-colorscheme blufox
+colorscheme blue
 "colorscheme wombat
 "colorscheme desert
 "---------------------------------------
