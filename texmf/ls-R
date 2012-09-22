@@ -1,0 +1,19 @@
+% ls-R -- filename database for kpathsea; do not change this line.
+./:
+.:
+bibtex
+ls-R
+tex
+
+./bibtex:
+bst
+
+./bibtex/bst:
+splncs03.bst
+
+
+./tex:
+latex
+
+./tex/latex:
+llncs.cls
