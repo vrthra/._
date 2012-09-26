@@ -35,7 +35,7 @@ app.py:
 Procfile:
   web: python app.py
 
-| forman start
+| foreman start
 
 | git init
 | git add .
@@ -44,3 +44,30 @@ Procfile:
 | git push heroku master
 | heroku ps:scale web=1
 | heroku ps
+
+ DB
+--------
+
+| heroku addons:add heroku-postgresql
+-> attached as HEROKU_POSTGRESQL_BLACK_URL
+| heroku addons:docs heroku-postgresql
+| heroku pg:wait
+
+| heroku pg:info HEROKU_POSTGRESQL_BLACK_URL
+
+| heroku pg:credentials BLACK
+"dbname=dfmb27v6taftp4 host=ec2-54-243-227-4.compute-1.amazonaws.com port=5432 user=qpeerkpggzxvql password=zIt2I9x46l2CTOq4rDELqewyXE sslmode=require"
+|  heroku pg:psql
+| heroku pg:promote BLACK
+
+
+| heroku run python
+>>> from app import db
+>>> db.create_all()
+>>> user = User('John Doe', 'john.doe@example.com')
+>>> db.session.add(user)
+>>> db.session.commit()
+>>>
+>>> users = User.query.all()
+>>> db.session.delete(users[1])
+>>> db.session.commit()
