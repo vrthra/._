@@ -1,5 +1,5 @@
 servers = (
-  { 
+  {
     address = "chat.freenode.org";
     chatnet = "Freenode";
     port = "6667";
@@ -24,8 +24,7 @@ chatnets = {
 };
 
 channels = (
-  { name = "#puppet-dev"; chatnet = "freenode"; autojoin = "yes"; },
-  { name = "#puppet"; chatnet = "freenode"; autojoin = "yes"; }
+  { name = "#haskell"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {
