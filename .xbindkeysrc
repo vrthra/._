@@ -3,3 +3,6 @@
 
 "sh -c 'xclip -selection clipboard -o | xvkbd -xsendevent -file - 2>/dev/null'"
   mod4+v
+
+"xclip -selection clipboard -o | xsel -i"
+  mod4+p
