@@ -1,0 +1,5 @@
+"xclip -selection primary -o | xclip -selection clipboard -i"
+  mod4+c
+
+"sh -c 'xclip -selection clipboard -o | xvkbd -xsendevent -file - 2>/dev/null'"
+  mod4+v
