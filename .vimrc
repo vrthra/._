@@ -20,6 +20,7 @@ Bundle 'vim-scripts/localvimrc'
 Bundle 'vim-scripts/fugitive.vim'
 Bundle 'vim-scripts/ack.vim'
 Bundle 'vim-scripts/gnupg.vim'
+Bundle 'vim-scripts/VimClojure'
 
 "{
 "Bundle 'substitute.vim'

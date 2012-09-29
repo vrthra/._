@@ -17,16 +17,16 @@
 # (These comments are automatically inserted.)
 
 # Over-rides your full name from Unix password file. Required for PC-Alpine.
-personal-name=
+personal-name=Rahul Gopinath
 
 # Sets domain part of From: and local addresses in outgoing mail.
 user-domain=onid.orst.edu
 
 # List of SMTP servers for sending mail. If blank: Unix Alpine uses sendmail.
-smtp-server=
+smtp-server=mail.oregonstate.edu
 
 # NNTP server for posting news. Also sets news-collections for news reading.
-nntp-server=
+nntp-server=freenews.netfront.net
 
 # Path of (local or remote) INBOX, e.g. ={mail.somewhere.edu}inbox
 # Normal Unix default is the local INBOX (usually /usr/spool/mail/$USER).
