@@ -8,3 +8,11 @@ ssh-keygen -t rsa -C "me@mexico" -f  ~/.ssh/id_rsa_heroku
 ssh-add -D (clears all the keys)
 ssh-add ~/.ssh/id_rsa_heroku
 heroku keys:add ~/.ssh/id_rsa_heroku.pub
+
+
+# DNS
+heroku domains:add vrtra.net
+heroku domains:add www.vrtra.net
+
+heroku addons:add zerigo_dns:basic
+
