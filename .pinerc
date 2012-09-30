@@ -23,10 +23,12 @@ personal-name=Rahul Gopinath
 user-domain=onid.orst.edu
 
 # List of SMTP servers for sending mail. If blank: Unix Alpine uses sendmail.
-smtp-server=mail.oregonstate.edu
+smtp-server=mail.oregonstate.edu/user=gopinatr
 
 # NNTP server for posting news. Also sets news-collections for news reading.
-nntp-server=freenews.netfront.net
+#nntp-server=freenews.netfront.net
+nntp-server=free.teranews.com/user=blufox@teranews.com
+
 
 # Path of (local or remote) INBOX, e.g. ={mail.somewhere.edu}inbox
 # Normal Unix default is the local INBOX (usually /usr/spool/mail/$USER).
@@ -411,7 +413,9 @@ news-collections=
 # List of file or path names for personal addressbook(s).
 # Default: ~/.addressbook (Unix) or \PINE\ADDRBOOK (PC)
 # Syntax: optnl-label path-name
-address-book=
+address-book=.addressbook,
+	Rem {imap.onid.oregonstate.edu/tls}remote_addrbook,
+	Rem {imap.onid.oregonstate.edu/tls}remote_addrbook
 
 # List of file or path names for global/shared addressbook(s).
 # Default: none
@@ -637,7 +641,7 @@ last-time-prune-questioned=112.9
 last-version-used=6.02
 
 # Set by Alpine; contains data for caching remote address books.
-remote-abook-metafile=
+remote-abook-metafile=.ab21247
 
 # Which category default print command is in
 personal-print-category=
