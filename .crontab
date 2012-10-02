@@ -1,0 +1,4 @@
+# use crontab ~/.crontab to assign
+# m   h   dom mon dow   command
+*/15  *   *   *   *     /opt/user/bin/mail-gmail.rb > $HOME/.gmail.log
+*/15  *   *   *   *     /opt/user/bin/mail-gopinatr.rb > $HOME/.gopinatr.log
