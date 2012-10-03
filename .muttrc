@@ -5,6 +5,7 @@ source ~/.mutt/.mbox
 source ~/.mutt/.smtp
 source ~/.mutt/.hooks
 source ~/.mutt/.autoview
+source ~/.mutt/.info
 
 # caches.
 
