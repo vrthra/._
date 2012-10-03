@@ -1,0 +1,34 @@
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# Specify default filename when saving messages
+#
+#   save-hook [!]<pattern> <mailbox>
+#
+# <mailbox> is provided as default when saving messages from <pattern>
+
+save-hook '~s Cs381-su11' +cs381
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# Multiple spool mailboxes
+#
+#   mbox-hook [!]<pattern> <mbox-mailbox>
+#
+# Read mail in <pattern> is moved to <mbox-mailbox> when <pattern> is
+# closed.
+
+# mbox-hook '~s Cs381-su11' +cs381
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# Change settings based upon message recipient
+#
+#   send-hook [!]<pattern> <command>
+#
+# <command> is executed when sending mail to an address matching <pattern>
+
+#send-hook mutt- 'set signature=~/.signature; '
+
+folder-hook .*          'set sort=threads'
+folder-hook .*          'set strict_threads'
+

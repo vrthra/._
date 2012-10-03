@@ -1,0 +1,50 @@
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# Key bindings
+#
+#   maps:
+#       alias       alias menu
+#       attach      attachment menu
+#       browser     directory browser
+#       compose     compose menu
+#       index       message index
+#       pgp     pgp menu
+#       postpone    postponed message recall menu
+#       generic     generic keymap for all of the above
+#       editor      line editor
+#       pager       text viewer
+#
+
+# b toggles sidebar visibility
+macro index b ':toggle sidebar_visible^M'
+macro pager b ':toggle sidebar_visible^M'
+
+#macro index \cv |urlview\n
+bind index \cv collapse-thread
+bind index \cV collapse-all
+
+bind pager i exit
+bind pager \Cb bounce-message
+bind index \Cb bounce-message
+
+bind index \CP sidebar-prev
+bind index \CN sidebar-next
+bind index \CO sidebar-open
+bind pager \CP sidebar-prev
+bind pager \CN sidebar-next
+bind pager \CO sidebar-open
+
+
+bind index <F12> sidebar-next
+bind index <delete> sidebar-next
+bind pager <delete> sidebar-next
+bind index <insert> sidebar-prev
+#bind generic <insert> previous-mbox
+bind pager <insert> sidebar-prev
+bind index > sidebar-open
+bind pager > sidebar-open
+#bind generic > open-mbox
+
+bind pager G bottom
+macro index   ~ "!elinks /usr/local/doc/mutt/html/manual.html\n" "Show Mutt documentation"
+macro pager   ~ "!elinks /usr/local/doc/mutt/html/manual.html\n" "Show Mutt documentation"

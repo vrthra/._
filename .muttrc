@@ -1,0 +1,118 @@
+source ~/.mutt/.mail_aliases
+source ~/.mutt/.bindings
+source ~/.mutt/.color
+source ~/.mutt/.mbox
+source ~/.mutt/.smtp
+source ~/.mutt/.hooks
+source ~/.mutt/.autoview
+
+# caches.
+
+set header_cache="~/.mutt/msg_cache"
+set message_cachedir="~/.mutt/msg_cache"
+set signature="~/.mutt/.signature"    # file which contains my signature
+set certificate_file=~/.mutt/certificates
+
+# avoid pesky arrows
+set ascii_chars=yes
+
+# query the ldap.
+set query_command="~/.mutt/ldapsearch.pl '%s'"
+
+bind editor "\t" complete-query
+
+
+set alias_file="~/.mutt/.mail_aliases"
+set mailcap_path="~/.mutt/.mailcap"
+set dotlock_program="/usr/bin/mutt_dotlock" 
+
+set abort_unmodified=no # automatically abort replies if I don't change the message
+set allow_8bit=yes
+
+# dont ask me again!
+set attribution="[%n:]"  # how to attribute replies
+set autoedit            # go to the editor right away when composing
+set auto_tag=yes            # always operate on tagged messages
+set beep_new            # beep when new mail arrives
+set check_new=yes
+set collapse_unread=no     # don't collapse threads with unread messages
+set noconfirmappend     # don't ask me if i want to append to mailboxes
+set confirmcreate       # prompt when creating new files
+set move=no             # don't ask about moving messages, just do it
+set copy=yes            # always save a copy of outgoing messages
+set delete=yes          # purge deleted messages without asking
+set edit_headers=no     # don't let me edit the message header when composing
+set editor="vim"     # editor to use when composing messages
+set fast_reply=yes          # skip initial prompts when replying or forwarding
+set fcc_attach=yes       # keep attachments in copies of sent messages?
+set followup_to=yes     # set follow-up header for lists
+##set force_name=no       # fcc by recipient, create if mailbox doesn't exist
+set forward_decode=yes  # weed and MIME decode forwaded messages
+set forward_format="[> %s]"   # subject to use when forwarding messages
+set forward_quote=no        # quote the header and body of forward msgs
+set hdrs=yes            # include `my_hdr' lines in outgoing messages
+set header=no           # include message header when replying
+set help=yes            # show the help lines
+set history=2000          # number of lines of history to remember
+set honor_followup_to=yes   # honour Followup-To headers for group replies
+set include=yes         # alwas include messages when replying
+set indent_string="| "      # how to quote replied text
+##set mark_old=no         # i don't care about whether a message is old
+set markers=no      # mark wrapped lines in pager?
+set menu_scroll=yes     # implicit next-page/prev-page
+set mime_forward=no     # use message/rfc822 type to forward messages
+set pager_index_lines=10        # how many index lines to show in the pager
+set postponed="=drafts"  # mailbox to store postponed messages in
+set post_indent_string='---~*~---'
+set quote_regexp="^[ \t]*[>#}|]*[ \t]*[>#}|]+"    # how to catch quoted text
+set read_inc=10         # show progress when reading a mailbox
+set recall=ask-yes          # prompt to recall postponed messages
+set record="=sent-mail"        # default location to save outgoing mail
+set reply_to=yes            # always use reply-to if present
+set reply_self=no
+set reply_regexp="^(re:[ \t]*)+"# how to identify replies in the subject:
+set resolve=yes         # move to the next message when an action is performed
+set reverse_alias=yes   # attempt to look up my names for people
+set reverse_name=yes    # use my address as it appears in the message
+                        # i am replying to
+set save_empty=yes       # remove files when no messages are left
+set save_name=no        # save outgoing messages by recipient
+set score=yes
+set shell="/bin/zsh"       # program to use for shell escapes
+set sig_dashes=no # insert --\n before my signature
+set sig_on_top=no      #
+set smart_wrap=yes      # wrap long lines at a word boundary
+set tilde=yes           # virtual lines to pad blank lines in the pager
+set tmpdir=~/.tmp        # where to store temp files
+set to_chars=" +TCFL"# default values
+set use_from=yes        # always generate the `From:' header field
+set user_agent=yes      # indicate mutt version in outgoing header
+set pgp_verify_sig=no  # don't automatically verify message signatures
+set visual="/usr/bin/vim"   # editor invoked by ~v in the builtin editor
+set pipe_decode=yes
+set weed=yes            # default, weed headers on reply, forward
+set wrap_search=yes     # searches wrap around end of mbox
+set write_inc=25        # show progress while writing mailboxes
+set imap_keepalive=10
+
+set sidebar_width=20      # The 20 is subjective, that's just what I like
+set sidebar_visible=yes
+
+set hdr_format="%Z %4C %[%y%m%d] %-18.18F [%4c] %?y?[%y] ?%s%| "
+#set $ssl_verify_host=no
+
+
+macro pager \ca <pipe-entry>'urlview'<enter> 'Follow links with urlview'
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#
+# Header fields I don't normally want to see
+#
+ignore *        # ignore all lines by default
+
+# I do want to see these fields, though!
+unignore    From: from: subject to cc mail-followup-to date x-mailer x-url
+
+set mail_check=600
+set timeout=30
+set mark_old=no #I dont care if a message is old
+
