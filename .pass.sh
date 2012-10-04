@@ -1,17 +1,31 @@
-#!/bin/sh
+#!/bin/bash
 
-echo -n "Git:Name:"
-read git_name
-echo -n "Git:Password:"
-read git_password
-echo -n "Git:Email:"
-read git_email
+readx() {
+  local v var val
+  var=$2
+  val=$(eval echo \$$var)
+  echo -n "$1($val):"
+  read v
+  case x$v in
+    x) ;;
+    *) eval "$var='$v'";;
+  esac
+}
 
-cat <<'EOF' | sed -e "s/%name%/$name/g"\
-                  -e "s/%password%/$password/g" \
-                  -e "s/%email%/$email/g" \
-                  > ~/.pass
-git_name=%git_name%
-git_password="%git_password%"
-git_email=%git_email%
+[ -e ~/.pass ] && . ~/.pass || :
+
+echo > ~/.pass.tmp
+
+readx "Git:Name" git_name
+readx "Git:Password" git_password
+readx "Git:Email" git_email
+
+cat <<EOF >> ~/.pass.tmp
+# git:
+  git_name="$git_name"
+  git_password="$git_password"
+  git_email="$git_email"
+
 EOF
+
+cat ~/.pass.tmp > ~/.pass
