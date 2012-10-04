@@ -1,5 +1,7 @@
 To begin
+http://www.unix.com/man-page/All/0/mailx/
 mailx -a gmail
+? ac onid
 ? f *
   1 -
   2 -
@@ -11,6 +13,10 @@ Cc: <ret>
 
 # list all subject with puppet
 ? f /puppet
+
+? f ((from sl@) (subject rep))
+? f (or (from sl@) (subject rep))
+
 
 # check mail
 inc
