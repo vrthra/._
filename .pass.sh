@@ -23,5 +23,12 @@ readx "Password" git_password
 readx "Email" git_email
 echo
 
+echo "# gmail-mailx:" | tee -a ~/.pass.tmp
+readx "Name" mailx_name
+readx "Password" mailx_password
+readx "Email" mailx_email
+echo
+
 cat ~/.pass.tmp > ~/.pass
 ~/.gitconfig.sh
+~/.mailrc.sh
