@@ -1,3 +1,36 @@
+To begin
+mailx -a gmail
+? f *
+  1 -
+  2 -
+? r 1
+Cc: <ret>
+~h    - now prompts you to enter..
+~e
+~. ends the message.
+
+# list all subject with puppet
+? f /puppet
+
+# check mail
+inc
+
+# compose
+m
+
+# delete un
+d,u
+
+==========================
+IMPORTANT
+==========================
+headers are pretty much useless. Use "f" command to search.
+
+
+# get headers
+| 1-14 "grep From"
+
+
 cat ubuntu-files | mailx -s "ubuntu-files" my.mail@my.address
 mailx -A sun -H -f '+sun'
 
@@ -70,3 +103,11 @@ for each address, and the addresses without real names from the respective heade
 (sentsince date)
     All messages that were sent since the specified date.
 ()  The same criterion as for the previous search. This specification cannot be used as part of another criterion. If the previous command line contained more than one independent criterion, the last of those criteria is used. 
+
+
+Attachment and body
+echo "mail body" > tempfile
+uuencode try.sh try.sh >> tempfile
+mailx -s "Hi - This is mail subject" user@domain.com < tempfile
+
+mailx bar@foo.com -s "HTML Hello" -a "Content-Type: text/html" < body.htm
