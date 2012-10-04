@@ -1,8 +1,8 @@
 . ~/.pass
 
 #set record=+Sent
-cat <<'EOF' | sed -e "s/%name%/$name_9/g" -e "s/%email%/$email_9/g" -e "s/%pass%/$password_9/g" > .mailrc
-account 9mail {
+cat <<'EOF' | sed -e "s/%name%/$mailx_name/g" -e "s/%email%/$mailx_email/g" -e "s/%pass%/$mailx_password/g" > .mailrc
+account gmail {
   set folder=imaps://%email%@imap.gmail.com
   set password-%email%@imap.gmail.com="%pass%"
   set record=+[Gmail]/Sent\ Mail
