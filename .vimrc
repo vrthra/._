@@ -149,6 +149,7 @@ map <F5> :setlocal spell! spelllang=en_us<CR>
 "autocmd InsertEnter * setlocal spell
 "autocmd InsertLeave * setlocal nospell
 "---------------------------------------
+
 syntax on
 
 " http://yanpritzker.com/2012/04/17/how-to-change-vim-syntax-colors-that-are-annoying-you/
@@ -183,7 +184,14 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
+"---------------------------------------
+" Get rid of color highlight
 nnoremap <leader><space> :noh<cr>
+
+"---------------------------------------
+" get a new line with out the silly #
+nnoremap <leader><CR> A<CR><Esc>0d$
+"---------------------------------------
 
 " Colourized column if we want to ensure we dont go beyond 80 char limit
 "set colorcolumn=80
