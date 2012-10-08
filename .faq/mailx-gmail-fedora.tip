@@ -1,0 +1,7 @@
+set nss-config-dir=~/.mailx/
+
+cd ~/.mailx;
+certutil -L -d . > a
+# process a
+cat a| while read a; do certutil -M -n "$a" -t CTu,Cu,Cu -d . ; done
+certutil -L -d .
