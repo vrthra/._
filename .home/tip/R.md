@@ -306,3 +306,37 @@ Divert screen output to file.
     | cov[-(1..3),]
     | cov[(1:2),c('coverage.p', 'coverage.total_lines')]
 
+
+- Bind two columns together when some data is missing
+
+  | df3 <- cbind(s, cov[rownames(s),])
+
+
+- Delete rows
+  df3[-(1:3),]
+
+  rownames(g)[1:2]->remove
+  g[!rownames(g) %in% remove, ]
+
+  `%notin%` <- function(x,y) !(x %in% y)
+  g[rownames(g) %notin% remove ,]
+
+- Rename
+  d <- data.frame(alpha=1:3, beta=4:6, gamma=7:9)
+  names(d)[names(d)=="beta"] <- "two"
+  names(d)[3] <- "three"
+
+- Select rows based on another frame
+  df1 <- data.frame(A=sample(1:10, 10), B=sample(1:10, 10))
+  df2 <- data.frame(C=1:5)
+
+  selectedRows <- (df1$A %in% df2$C | df1$B %in% df2$C)
+
+  dfReduced <- df1[selectedRows,]
+
+- Create a new column from a new table.
+  cov$contrib_count <-  contrib[rownames(cov),]
+
+- Matlab
+    | library(R.matlab)
+    | writeMat('~/normdata.mat', normdata=normdata)
