@@ -243,5 +243,66 @@ Divert screen output to file.
 
 - Use an https url
 
-   | s <- read.table(pipe('curl -L https://raw.github.com/vrthra/clone-unit-coverage/master/rdata/filtered.data'))
+    | s <- read.table(pipe('curl -L https://raw.github.com/vrthra/clone-unit-coverage/master/rdata/filtered.data'))
+
+
+- Get a summary of D.S
+
+    | str(s)
+    | head(s)
+    | tail(s)
+    | ? cmd
+    | dim(s)
+    | nrow(s)
+    | ncol(s)
+    | names(s)
+    | rownames(s)
+    | class(s)
+    | class(s[cov$coverage.p,])
+    | class(cov[,"coverage.p"])
+    | class(s[1,'testng'])
+
+- Rows and columns
+
+    First column
+    | cov[,1]
+    First row
+    | cov[1,]
+    | cov[1,1]
+
+- A simple summary statistic with factors
+
+    | table(norm[,"coverage.bin"])
+    10  20  30  40  50  60  70  80  90 100
+    24  15  22  11  12  12  11  19  13   4
+    | median(norm[,"coverage.p"])
+    [1] 38.91851
+    | mean(norm[,"coverage.p"])
+    | range(norm[,"coverage.p"])
+
+- Can assign classes while reading
+
+    | tbl <- read.table('cov', colClasses = c('character', 'integer', 'factor', 'numeric'))
+
+- Can read exel
+
+    | library("RODBC")
+    | cnct <- odbcConnectExcel("my.xls")
+    | sqlQuery(cnct, 'select * from "MyTable\\$"')
+
+- Save current
+
+    | save(cov,file="myfile.rda")
+    | load("myfile.rda")
+
+- indexing
+
+    All columns from 1..3
+    | cov[1:3]
+    All columns except 1..2
+    | cov[-(1:2)]
+    All rows from 1..3
+    | cov[1..3,]
+    | cov[-(1..3),]
+    | cov[(1:2),c('coverage.p', 'coverage.total_lines')]
 

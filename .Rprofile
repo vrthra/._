@@ -32,6 +32,6 @@ options("pdfviewer"="evince")
 library(colorout) # Colorize R output in terminal
 library(plyr)
 # ensure that scat is available.
-source("http://biostatmatt.com/R/scat.R")
+#source("http://biostatmatt.com/R/scat.R")
 library(txtplot)
 
