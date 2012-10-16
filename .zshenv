@@ -81,12 +81,12 @@ case $USER in
   *) HISTFILE=~/.zsh/.history
 esac
 
+fi
 # -----------------------------------------------------------------------------
-# Any local changes. (we dont want to overwrite carefully set env on jumps)
+# Any local changes.
 # -----------------------------------------------------------------------------
 [ -n "$(setopt nullglob; echo ~/.zsh/zshenv.*)" ] && for i in ~/.zsh/zshenv.*; . ${i}
 # -----------------------------------------------------------------------------
-fi
 
 # -----------------------------------------------------------------------------
 # Special handling for tmux.

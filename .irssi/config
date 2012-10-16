@@ -144,7 +144,7 @@ statusbar = {
   };
 };
 settings = {
-  core = { real_name = "rahul"; user_name = "vrtra"; nick = "vrtra"; };
+  core = { real_name = "rahul"; user_name = "rahul"; nick = "rahul"; };
   "fe-text" = { actlist_sort = "refnum"; };
   "fe-common/core" = { theme = "mursu"; };
   "perl/core/scripts" = { nicklist_height = "10"; nicklist_width = "20"; };

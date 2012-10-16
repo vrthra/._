@@ -213,4 +213,4 @@ set clipboard=unnamedplus
 " sync with cut buffer
 " set clipboard=unnamed
 
-
+nnoremap <silent> <C-i> :r!cat<CR>

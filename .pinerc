@@ -27,7 +27,7 @@ smtp-server=mail.oregonstate.edu/user=gopinatr
 
 # NNTP server for posting news. Also sets news-collections for news reading.
 #nntp-server=freenews.netfront.net
-nntp-server=free.teranews.com/user=blufox@teranews.com
+#nntp-server=free.teranews.com/user=blufox@teranews.com
 
 
 # Path of (local or remote) INBOX, e.g. ={mail.somewhere.edu}inbox
