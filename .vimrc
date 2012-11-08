@@ -213,4 +213,7 @@ set clipboard=unnamedplus
 " sync with cut buffer
 " set clipboard=unnamed
 
-nnoremap <silent> <C-i> :r!cat<CR>
+nnoremap <silent> <C-i> :r!cat;echo<CR>
+"set ww=<,>,[,]
+" remove the annoying backspace wrapping.
+se backspace=indent,start
