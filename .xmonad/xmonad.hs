@@ -17,16 +17,23 @@ import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.XSelection
 import XMonad.Hooks.ManageDocks
 
+import XMonad.Layout.WorkspaceDir
+
 import XMonad.Layout.Tabbed
 import XMonad.Layout.Grid
 import XMonad.Layout.Spiral
 import XMonad.Layout.Dishes
 import XMonad.Layout.Circle
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.StackTile
+import XMonad.Layout.ResizableTile
 
-
+import XMonad.Prompt
+import XMonad.Prompt.XMonad
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.UpdatePointer
 import XMonad.Actions.CycleWS
+import XMonad.Actions.Commands
 
 import System.IO
 import System.Process
@@ -99,7 +106,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, xK_v), spawn $ "~/.home/bin/xpaste")
 
 
-    -- close focused window 
+    -- close focused window
     , ((modMask, xK_Escape), kill)
 
      -- Rotate through the available layout algorithms
@@ -153,6 +160,13 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Restart xmonad
     -- , ((modMask              , xK_q     ), restart "xmonad" True)
+
+    , ((modMask .|. shiftMask, xK_a), sendMessage MirrorShrink)
+    , ((modMask .|. shiftMask, xK_z), sendMessage MirrorExpand)
+
+    , ((modMask              , xK_oslash), xmonadPromptC [("cd", changeDir defaultXPConfig)] defaultXPConfig)
+    , ((modMask              , xK_slash),  xmonadPromptC [("cd", changeDir defaultXPConfig)] defaultXPConfig)
+    , ((modMask              , xK_backslash), xmonadPromptC [("cd", changeDir defaultXPConfig)] defaultXPConfig)
 
     , ((modMask              , xK_Left  ),  prevWS)
     , ((modMask              , xK_Right ),  nextWS)
@@ -209,8 +223,16 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = tiled ||| Mirror tiled ||| Full ||| simpleTabbed ||| Grid ||| spiral (6/7) ||| Dishes 2 (1/6) ||| Circle
+myLayout = w resizeTall ||| w tiled ||| w mtiled ||| w Full ||| w simpleTabbed ||| w Grid |||
+           w (spiral (6/7)) ||| w (Dishes 2 (1/6)) ||| w Circle |||
+           w threeColSide ||| w threeColMid ||| w stack
   where
+     w = workspaceDir "~"
+     mtiled = Mirror tiled
+     resizeTall = ResizableTall 1 (3/100) (1/2) []
+     stack      = StackTile 1 (3/100) (1/2)
+     threeColSide = ThreeCol 1 (3/100) (1/2)
+     threeColMid  =ThreeColMid 1 (3/100) (1/2)
      -- default tiling algorithm partitions the screen into two panes
      tiled   = Tall nmaster delta ratio
 
