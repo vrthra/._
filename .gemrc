@@ -1,1 +1,5 @@
 gem:  --user --no-ri --no-rdoc
+gemhome: /scratch/install/gems
+gempath:
+ - /scratch/install/lib
+ - /scratch/install/lib/rubygems

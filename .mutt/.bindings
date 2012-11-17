@@ -14,6 +14,8 @@
 #       editor      line editor
 #       pager       text viewer
 #
+#  ~y tag
+#  \cx tg
 
 # b toggles sidebar visibility
 macro index b ':toggle sidebar_visible^M'
@@ -44,6 +46,8 @@ bind pager <insert> sidebar-prev
 bind index > sidebar-open
 bind pager > sidebar-open
 #bind generic > open-mbox
+bind pager \cx edit-label
+bind index \cx edit-label
 
 bind pager G bottom
 macro index   ~ "!elinks /usr/local/doc/mutt/html/manual.html\n" "Show Mutt documentation"

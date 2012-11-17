@@ -23,6 +23,10 @@ onid() {
   env i_NOINIT=1 i_LABEL="print $1" i_TITLE="print $1" i_fcolor=$2 zsh
 }
 
+.to() {
+  (cd $1 && env -u HISTFILE i_CDSTACK=$((i_CDSTACK + 1)) HISTFILE=~/.zsh/$2.history DIRS="$DIRS $PWD" i_LABEL="print $2" i_fcolor="red" i_NOINIT=1 zsh)
+}
+
 .with() {
   local name=$1
   local last=$($i_LABEL)
@@ -167,3 +171,9 @@ alias .detach .stop
   local p=$1
   pstree -a -h -s -p ${p:-$$}
 }
+
+httpsrv() {
+  port="${1:-3000}"
+  ruby -r webrick -e "s = WEBrick::HTTPServer.new(:Port => $port, :DocumentRoot => Dir.pwd); trap('INT') { s.shutdown }; s.start"
+}
+

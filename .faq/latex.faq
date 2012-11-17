@@ -1,3 +1,6 @@
+ -interaction=nonstopmode
+
+
 rubber
 
 #! /bin/bash

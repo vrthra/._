@@ -1,4 +1,5 @@
 firefox
+xt
 google-chrome
 evince
 nvidia-settings
@@ -7,3 +8,5 @@ ohd
 lcd
 pcmanfm
 uzbl-tabbed
+thunderbird
+qt

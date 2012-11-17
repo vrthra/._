@@ -5,6 +5,6 @@ auto_view application/msword
 auto_view application/x-msword
 auto_view application/x-gunzip
 auto_view application/x-gzip
-#auto_view text/html
+auto_view text/html
 auto_view text/x-vcard
-
+#auto_view text/html message/* application/pdf

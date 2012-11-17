@@ -21,6 +21,7 @@ Bundle 'vim-scripts/fugitive.vim'
 Bundle 'vim-scripts/ack.vim'
 Bundle 'vim-scripts/gnupg.vim'
 Bundle 'vim-scripts/VimClojure'
+Bundle 'vim-pandoc/vim-pandoc'
 
 "{
 "Bundle 'substitute.vim'
@@ -213,7 +214,18 @@ set clipboard=unnamedplus
 " sync with cut buffer
 " set clipboard=unnamed
 
-nnoremap <silent> <C-i> :r!cat;echo<CR>
+nnoremap <silent> <C-i> <esc>:r!cat;echo<CR>
 "set ww=<,>,[,]
 " remove the annoying backspace wrapping.
 se backspace=indent,start
+
+" disable comment autocomplete
+"au FileType * setl fo-=cro
+set fo-=c fo-=o fo-=r
+set matchpairs=[:],{:},<:>,(:)
+
+setlocal commentstring=<!--%s-->
+setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
+
+"set scrolloff=1000
+nmap <space> zz

@@ -1,4 +1,4 @@
-source ~/.mutt/.mail_aliases
+#source ~/.mutt/.mail_aliases
 source ~/.mutt/.bindings
 source ~/.mutt/.color
 source ~/.mutt/.mbox
@@ -23,9 +23,9 @@ set query_command="~/.mutt/ldapsearch.pl '%s'"
 bind editor "\t" complete-query
 
 
-set alias_file="~/.mutt/.mail_aliases"
+#set alias_file="~/.mutt/.mail_aliases"
 set mailcap_path="~/.mutt/.mailcap"
-set dotlock_program="/usr/bin/mutt_dotlock" 
+#set dotlock_program="/usr/bin/mutt_dotlock" 
 
 set abort_unmodified=no # automatically abort replies if I don't change the message
 set allow_8bit=yes
@@ -111,7 +111,7 @@ macro pager \ca <pipe-entry>'urlview'<enter> 'Follow links with urlview'
 ignore *        # ignore all lines by default
 
 # I do want to see these fields, though!
-unignore    From: from: subject to cc mail-followup-to date x-mailer x-url
+unignore    From: from: subject to cc mail-followup-to date x-mailer x-url x-label
 
 set mail_check=600
 set timeout=30

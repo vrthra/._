@@ -5,14 +5,13 @@ Config { font = "-*-fixed-*-*-*-*-14-*-*-*-*-*-*-*"
                , lowerOnStart = True
                , commands = [
                           Run StdinReader
-                        , Run Com "/bin/cat" ["~/.gmail.log"] "gmail" 300
                         , Run Com "~/.home/bin/battery.sh" [] "battery" 300
                         , Run Com "/bin/cat" ["~/.gopinatr.log"] "mail" 300
                         , Run Date "%a %b %_d %Y %l:%M:%S" "date" 10
                             ]
                , sepChar = "%"
                , alignSep = "}{"
-               , template = "%StdinReader% }{<fc=blue>%mail%</fc> <fc=red>(%gmail%)</fc> <fc=white>%date%</fc> @{<fc=yellow>%battery%</fc>}"
+               , template = "%StdinReader% }{<fc=blue>%mail%</fc> <fc=white>%date%</fc> @{<fc=yellow>%battery%</fc>}"
                }
 
 

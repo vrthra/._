@@ -1,3 +1,9 @@
+- My accounts
+./drawterm -a 9srv.net -c 9srv.net -u <rname>
+(in gmail pwd)
+./drawterm -a rootne.in -c rootne.in -u <rname>
+(commond pwd)
+
 # ^T^Tr -- shutdown - doesn't work
 
 ------------------------------
