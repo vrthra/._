@@ -1,0 +1,2 @@
+#!/bin/sh
+tabbed -d xterm -into
