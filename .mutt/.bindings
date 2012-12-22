@@ -35,6 +35,8 @@ bind index \CO sidebar-open
 bind pager \CP sidebar-prev
 bind pager \CN sidebar-next
 bind pager \CO sidebar-open
+bind pager \cx edit-label
+bind index \cx edit-label
 
 
 bind index <F12> sidebar-next
